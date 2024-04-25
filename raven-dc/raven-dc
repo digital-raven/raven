@@ -1,0 +1,97 @@
+#!/usr/bin/bash
+# This is the official helper script for launching the Raven Development Container
+
+SCRIPTDIR="$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd -P)"
+PROGNAME=$(basename $0)
+REPODIR=$(realpath $SCRIPTDIR/../../)
+reponame=$(basename $REPODIR)
+
+function usage
+{
+    echo "\
+usage: $PROGNAME [option].. -- cmd [cmd-options]
+
+Launch the raven-development-container into its default shell or
+have it execute a custom command.
+
+Options:
+
+  These should be all a normal user needs.
+
+  --verbose     Print each command.
+  --version     Print the version of this installer and exit.
+  -h, --help    Print this help message and exit.
+
+Custom Commands:
+
+You may provide a custom command to launch by typing it after a '--'
+
+For example, to use this script to install the raven pattern...
+
+    ./$PROGNAME -- /$reponame/tools/raven-installer/raven-installer --pattern ./patterns/raven
+"
+}
+
+ARGS=$(getopt -o h -l pattern:,target:,cmd:,verbose,version,help -- "$@")
+if [ "$?" != "0" ]
+then
+    exit 1
+fi
+
+eval set -- "$ARGS"
+
+# Process opts mixed with positional args
+while true ; do
+    case "$1" in
+        --pattern|--target|--cmd)
+            eval ${1#--}=$2
+            shift 2
+            ;;
+        --verbose)
+            eval ${1#--}="true"
+            shift
+            ;;
+        --version)
+            echo "0.0.0"
+            exit 0
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+# Args now has only positionals. $1, $2 ... etc.
+
+# Main
+if [ -n "$verbose" ]
+then
+    set -ex
+fi
+
+docker pull index.docker.io/library/archlinux:latest
+
+if [ -n "$@" ]
+then
+    CMD="$@"
+fi
+
+docker run \
+    --env PS1="raven-dc(\#)[\d \T:\w]\\$ " \
+    --interactive \
+    --privileged \
+    --rm \
+    --tty \
+    --volume "$REPODIR:/$reponame" \
+    "raven-dc:latest" $CMD
+
+exit $ret
