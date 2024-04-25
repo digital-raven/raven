@@ -1,0 +1,49 @@
+#!/usr/bin/bash
+
+# get the absolute path of the script
+SCRIPT_PATH=$(readlink -f "$0")
+SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+
+cd $SCRIPT_DIR
+
+# Install yay. Can't be done as root.
+if [ $1 == init ]
+then
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si --noconfirm
+    cd ..
+    rm -rf yay
+fi
+
+# Update this repo
+git fetch origin
+git checkout master
+git merge origin/master
+
+yay -Syu
+yay -S $(cat aur_packages)
+
+# Stop there if not doing first time-initialization
+if [ $1 != init ]
+then
+    exit 0
+fi
+
+# First time initialzation
+# bash
+cp resources/bashrc ~/.bashrc
+cp resources/inputrc ~/.inputrc
+
+# fish
+cp -r resources/fish ~/.config/fish
+
+# zsh
+wget -O $HOME/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc    
+
+# vim. Run :PlugInstall on first run. Then test openai key with :AI Hello!
+cp resources/vimrc ~/.vimrc
+
+# NordVPN.
+groupadd -r nordvpn
+gpasswd -a master nordvpn
