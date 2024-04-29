@@ -47,6 +47,8 @@ RUN wget -O /home/master/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zsh
 
 # vim config
 RUN yay -Syu --noconfirm vim-plug
-COPY ./resources/vimrc /home/master/.vimrc
+COPY ../raven-minimal/resources/vimrc /home/master/.vimrc
+RUN chown master /home/master/.vimrc
+RUN chmod 644 /home/master/.vimrc
 
 CMD /usr/bin/zsh
