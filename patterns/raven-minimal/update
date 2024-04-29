@@ -47,3 +47,7 @@ cp resources/vimrc ~/.vimrc
 # NordVPN.
 groupadd -r nordvpn
 gpasswd -a master nordvpn
+
+# Docker
+groupadd -r docker
+gpasswd -a master docker

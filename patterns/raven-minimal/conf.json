@@ -47,7 +47,8 @@
         "wget",
         "rsync",
         "dosfstools",
-        "parted"
+        "parted",
+        "docker"
     ],
     "parallel downloads": 0,
     "profile_config": {
