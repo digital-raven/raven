@@ -91,7 +91,6 @@ docker run \
     --privileged \
     --rm \
     --tty \
-    --volume "$REPODIR:/$reponame" \
     "raven-dc:latest" $CMD
 
 exit $ret
