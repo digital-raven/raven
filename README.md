@@ -1,9 +1,15 @@
 # Raven
 
+This project is a work in progress. The statements made about current
+functionality are goals of the project, and anything and everything is
+expected to change until a release has been made.
+
+Project structure will continue more regularly after that point.
+
 The Raven repository contains a collection of conversation ending operating
 systems for a competant and demanding user.
 
-![logo.png](./logo.png)
+<img src="logo.png" width="256" height="256">
  
 Raven is a respectful and competant operating system. Raven is offered
 as a product with uncompromising value with respect to your time and money.
@@ -12,7 +18,7 @@ The operating systems provided are designed to instantly turn any computer
 into a reasonbly configured machine for the intended use.
 
 ## Usage
-Start with raven-minimal. This will familiarize you with the basic
+Start with raven-terminal. This will familiarize you with the basic
 functionality present on all raven patterns. From there you may install
 a more fully equipped varient, or perhaps another operating system
 entirely?

@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+
+# get the absolute path of the script
+SCRIPT_PATH=$(readlink -f "$0")
+SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+
+cd $SCRIPT_DIR
+
+if [ "$1" == init ]
+then
+    ../raven-terminal/update init
+else
+    ../raven-terminal/update
+fi
+
+yay -Syu
+
+cp resources/steam_dev.cfg ~/.steam/steam/

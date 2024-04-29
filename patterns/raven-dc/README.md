@@ -18,10 +18,10 @@ The following lists the main tools provided by the raven-dc and the manual
 steps you need to change them.
 
 ## Shells
-The raven-dc provides pretty good preset configurations for bash, fish,
+The raven-dc provides pretty good preset configurations for bash,
 and zsh. They add some pretty good creature comforts to the command line.
 bash is the default shell, but you may change it after your first login
-with `chsh -s /usr/bin/zsh` or `chsh -s /usr/bin/fish`
+with `chsh -s /usr/bin/zsh`
 
 These configs have things you care about.
 - Unlimited command history.
@@ -43,5 +43,5 @@ Run `vim -c PlugInstall` the first time you run vim in the container.
 Run `:PlugUpdate` from vim to update the plugins when you wish.
 
 This also installs the vim-ai plugin, so if you type in `:AI hello`,
-then you will see a response if your OPENAI_API_KEY environment
+then you will see a response if your OPENAI\_API\_KEY environment
 variable is set. There's an easy to see point in 
