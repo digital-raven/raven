@@ -6,8 +6,7 @@ SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 
 cd $SCRIPT_DIR
 
-# Stop there if not doing first time-initialization
-if [ $1 == init ]
+if [ "$1" == init ]
 then
     ../raven-minimal/update init
 else
