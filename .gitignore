@@ -1,2 +1,2 @@
-raven-arch.iso
-target
+*.log
+*.swp
