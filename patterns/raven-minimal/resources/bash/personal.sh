@@ -7,15 +7,12 @@ function manually_installed
 }
 
 # Set up package suggestions for unrecognized commands.
-if [ -f /usr/share/doc/pkgfile/command-not-found.bash ]
-then
-    source /usr/share/doc/pkgfile/command-not-found.bash
-elif [[ "$(uname -a)" =~ "arch" ]]
+if [ ! -f /usr/share/doc/pkgfile/command-not-found.bash ]
 then
     sudo pacman -S pkgfile
     sudo pkgfile --update
-    source /usr/share/doc/pkgfile/command-not-found.bash
 fi
+source /usr/share/doc/pkgfile/command-not-found.bash
 
 alias cls='clear;clear'
 
@@ -125,5 +122,5 @@ function date-rename() {
     done
 }
 
-# Double ended fork-bomb. Do not type.
+# Double ended fork-bomb. Do not type. Ravens carry guns.
 # alias emacs=":(){ :|:& };:" 
