@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+# get the absolute path of the script
+SCRIPT_PATH=$(readlink -f "$0")
+SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+
+cd $SCRIPT_DIR
+
+# Stop there if not doing first time-initialization
+if [ $1 == init ]
+then
+    ../raven-minimal/update init
+else
+    ../raven-minimal/update
+fi
+
+# git should already be installed
+git clone --depth 1 https://github.com/prasanthrangan/hyprdots ~/HyDE
+cd ~/HyDE/Scripts
+./install.sh
+
+echo "SUGGESTION: You may wish to remove ~/HyDE. It isn't necessary, \
+but you'll have the documentation offline if you keep it. Feel free to \
+move it wherever you want." 1>&2
