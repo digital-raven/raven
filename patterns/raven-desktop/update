@@ -6,18 +6,23 @@ SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 
 cd $SCRIPT_DIR
 
+if [ ! -d ./HyDE ]
+then
+    git clone --depth 1 https://github.com/prasanthrangan/hyprdots ./HyDE
+fi
+
 if [ "$1" == init ]
 then
     ../raven-minimal/update init
+
+    # Use HyDE for desktop environment
+    cd ./HyDE/Scripts
+    ./install.sh
 else
     ../raven-minimal/update
 fi
 
-# git should already be installed
-git clone --depth 1 https://github.com/prasanthrangan/hyprdots ~/HyDE
-cd ~/HyDE/Scripts
-./install.sh
-
-echo "SUGGESTION: You may wish to remove ~/HyDE. It isn't necessary, \
-but you'll have the documentation offline if you keep it. Feel free to \
-move it wherever you want." 1>&2
+# Update HyDE
+cd $SCRIPT_DIR
+cd ./HyDE/Scripts
+./install.sh -r
