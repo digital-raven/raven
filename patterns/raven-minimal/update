@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/bash -e
 
 # get the absolute path of the script
 SCRIPT_PATH=$(readlink -f "$0")
@@ -7,7 +7,7 @@ SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 cd $SCRIPT_DIR
 
 # Install yay. Can't be done as root.
-if [ $1 == init ]
+if [ "$1" == init ]
 then
     git clone https://aur.archlinux.org/yay.git
     cd yay
@@ -25,7 +25,7 @@ yay -Syu
 yay -S $(cat aur_packages)
 
 # Stop there if not doing first time-initialization
-if [ $1 != init ]
+if [ "$1" != init ]
 then
     exit 0
 fi
