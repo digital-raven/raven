@@ -26,6 +26,7 @@
     "offline": false,
     "packages": [
         "fzf",
+        "bash-completion",
         "curl",
         "fish",
         "unrar",
