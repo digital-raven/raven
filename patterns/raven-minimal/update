@@ -32,8 +32,8 @@ fi
 
 # First time initialzation
 # bash
-cp resources/bashrc ~/.bashrc
-cp resources/inputrc ~/.inputrc
+cp resources/bash/bashrc ~/.bashrc
+cp resources/bash/inputrc ~/.inputrc
 
 # fish
 cp -r resources/fish ~/.config/fish
