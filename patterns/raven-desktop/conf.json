@@ -48,6 +48,8 @@
         "rsync",
         "dosfstools",
         "parted",
+        "parallel",
+        "fontconfig",
         "docker"
     ],
     "parallel downloads": 0,
