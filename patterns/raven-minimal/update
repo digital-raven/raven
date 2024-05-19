@@ -45,9 +45,9 @@ wget -O $HOME/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
 cp resources/vimrc ~/.vimrc
 
 # NordVPN.
-groupadd -r nordvpn
-gpasswd -a master nordvpn
+sudo groupadd -r nordvpn
+sudo gpasswd -a master nordvpn
 
 # Docker
-groupadd -r docker
-gpasswd -a master docker
+sudo groupadd -r docker
+sudo gpasswd -a master docker
