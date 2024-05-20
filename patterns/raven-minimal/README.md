@@ -65,3 +65,12 @@ any additional packages added to raven-minimal's default list.
 This list is viewable in [conf json](./conf.json)
 
 You can also just run `yay -Syu` if you don't want raven's updates.
+
+## Wifi
+Connect to a wireless network using nmcli to first list the available
+networks and then connect to the one you want.
+
+```
+nmcli device wifi list
+nmcli device wifi connect <your-SSID> password <your-password>
+```
