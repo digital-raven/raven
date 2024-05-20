@@ -14,3 +14,5 @@ else
 fi
 
 yay -Syu
+
+cp resources/steam_dev.cfg ~/.steam/steam/
