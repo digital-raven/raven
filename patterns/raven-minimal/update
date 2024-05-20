@@ -48,9 +48,6 @@ fi
 cp resources/bash/bashrc ~/.bashrc
 cp resources/bash/inputrc ~/.inputrc
 
-# fish
-cp -r resources/fish ~/.config/fish
-
 # zsh
 wget -O ~/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
 

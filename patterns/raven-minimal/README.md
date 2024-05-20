@@ -50,11 +50,10 @@ Upon completion, raven-minimal is now properly installed.
 raven-minimal is just a useful cli experience. The default shell
 is bash, and the default user is master, for you are one.
 
-It has useful configurations for bash, zsh, and fish. Each supports
+It has useful configurations for bash and zsh. Each supports
 - Good tab auto-complete.
 - Package suggestion for missing binaries.
 - Good syntax highlighting.
-- Unlimited comamnd history.
 
 ## Updating raven-minimal
 Run the update script in this directory with no arguments.
