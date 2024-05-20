@@ -8,7 +8,7 @@ cd $SCRIPT_DIR
 
 # Update this repo
 git fetch origin
-git checkout origin/master
+git merge origin/master
 
 # Install yay. Can't be done as root.
 if [ ! -x /usr/bin/yay ]
@@ -21,14 +21,10 @@ then
 fi
 
 # Docker. Groups require restart.
-if [[ $(groups) !~ docker ]]
+if [[ ! $(groups) =~ docker ]]
 then
     sudo groupadd -r docker
     sudo gpasswd -a master docker
-    yay -S docker
-else
-    # nordvpn requires docker
-    yay -S $(cat aur_packages)
 fi
 
 # NordVPN groups. Will apply on restart
@@ -37,6 +33,9 @@ then
     sudo groupadd -r nordvpn
     sudo gpasswd -a master nordvpn
 fi
+
+yay -Syu
+yay -S $(cat aur_packages)
 
 # Stop there if not doing first time-initialization
 if [ "$1" != init ]
