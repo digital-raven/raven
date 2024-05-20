@@ -28,6 +28,7 @@
         "fzf",
         "bash-completion",
         "curl",
+        "reflector",
         "fish",
         "unrar",
         "less",
