@@ -53,3 +53,5 @@ wget -O ~/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
 
 # vim. Run :PlugInstall on first run. Then test openai key with :AI Hello!
 cp resources/vimrc ~/.vimrc
+
+cp resources/gnupg-agent.conf ~/.gnupg
