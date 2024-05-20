@@ -30,6 +30,7 @@
         "curl",
         "fish",
         "unrar",
+        "less",
         "net-tools",
         "smartmontools",
         "vim",
