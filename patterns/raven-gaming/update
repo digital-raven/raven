@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+
+# get the absolute path of the script
+SCRIPT_PATH=$(readlink -f "$0")
+SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+
+cd $SCRIPT_DIR
+
+if [ "$1" == init ]
+then
+    ../raven-minimal/update init
+else
+    ../raven-minimal/update
+fi
+
+yay -S $(cat aur_packages)
+yay -Syu
