@@ -52,6 +52,7 @@
         "dosfstools",
         "parted",
         "steam",
+        "wl-clipboard",
         "docker"
     ],
     "parallel downloads": 0,
