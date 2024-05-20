@@ -6,8 +6,12 @@ SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 
 cd $SCRIPT_DIR
 
+# Update this repo
+git fetch origin
+git checkout origin/master
+
 # Install yay. Can't be done as root.
-if [ "$1" == init ]
+if [ ! -x /usr/bin/yay ]
 then
     git clone https://aur.archlinux.org/yay.git
     cd yay
@@ -16,13 +20,23 @@ then
     rm -rf yay
 fi
 
-# Update this repo
-git fetch origin
-git checkout master
-git merge origin/master
+# Docker. Groups require restart.
+if [[ $(groups) !~ docker ]]
+then
+    sudo groupadd -r docker
+    sudo gpasswd -a master docker
+    yay -S docker
+else
+    # nordvpn requires docker
+    yay -S $(cat aur_packages)
+fi
 
-yay -Syu
-yay -S $(cat aur_packages)
+# NordVPN groups. Will apply on restart
+if [[ ! $(groups) =~ nordvpn ]]
+then
+    sudo groupadd -r nordvpn
+    sudo gpasswd -a master nordvpn
+fi
 
 # Stop there if not doing first time-initialization
 if [ "$1" != init ]
@@ -43,11 +57,3 @@ wget -O ~/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
 
 # vim. Run :PlugInstall on first run. Then test openai key with :AI Hello!
 cp resources/vimrc ~/.vimrc
-
-# NordVPN.
-sudo groupadd -r nordvpn
-sudo gpasswd -a master nordvpn
-
-# Docker
-sudo groupadd -r docker
-sudo gpasswd -a master docker
