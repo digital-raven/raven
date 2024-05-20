@@ -15,7 +15,7 @@ if [ "$1" == init ]
 then
     ../raven-minimal/update init
 
-    # Use HyDE for desktop environment
+    # Install HyDE
     cd ./HyDE/Scripts
     ./install.sh
 else
