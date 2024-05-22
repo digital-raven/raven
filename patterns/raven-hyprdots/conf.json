@@ -39,6 +39,7 @@
         "inxi",
         "less",
         "lynx",
+        "man-db",
         "net-tools",
         "parallel",
         "parted",
