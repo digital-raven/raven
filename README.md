@@ -3,7 +3,7 @@
 The Raven repository contains a collection of conversation ending operating
 systems for a competant and demanding user.
 
-![logo.png](./logo.png)
+<img src="logo.png" width="256" height="256">
  
 Raven is a respectful and competant operating system. Raven is offered
 as a product with uncompromising value with respect to your time and money.
