@@ -8,9 +8,9 @@ cd $SCRIPT_DIR
 
 if [ "$1" == init ]
 then
-    ../raven-minimal/update init
+    ../raven-terminal/update init
 else
-    ../raven-minimal/update
+    ../raven-terminal/update
 fi
 
 yay -Syu
