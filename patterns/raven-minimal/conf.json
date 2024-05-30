@@ -35,6 +35,7 @@
         "eza",
         "fzf",
         "git",
+        "inotify-tools",
         "inxi",
         "less",
         "lynx",

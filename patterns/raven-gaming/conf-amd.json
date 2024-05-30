@@ -39,6 +39,7 @@
         "fzf",
         "git",
         "gwenview",
+        "inotify-tools",
         "inxi",
         "kolourpaint",
         "less",
