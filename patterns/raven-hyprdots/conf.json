@@ -36,6 +36,7 @@
         "fontconfig",
         "fzf",
         "git",
+        "inotify-tools",
         "inxi",
         "kolourpaint",
         "less",
