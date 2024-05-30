@@ -1,5 +1,11 @@
 # Raven
 
+This project is a work in progress. The statements made about current
+functionality are goals of the project, and anything and everything is
+expected to change until a release has been made.
+
+Project structure will continue more regularly after that point.
+
 The Raven repository contains a collection of conversation ending operating
 systems for a competant and demanding user.
 
