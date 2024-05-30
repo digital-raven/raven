@@ -112,3 +112,5 @@ for i in $HOME/raven/patterns/raven-terminal/resources/bash/*.sh
 do
     source $i
 done
+
+export OPENAI_API_KEY="YOUR_OPENAI_API_KEY_HERE"
