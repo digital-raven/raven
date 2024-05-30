@@ -8,7 +8,7 @@
     "config_version": "2.8.0",
     "debug": false,
     "disk_config": null,
-    "hostname": "raven-minimal",
+    "hostname": "raven-terminal",
     "kernels": [
         "linux"
     ],

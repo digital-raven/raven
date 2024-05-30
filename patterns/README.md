@@ -1,1 +1,1 @@
-Start with raven-minimal.
+Start with raven-terminal.

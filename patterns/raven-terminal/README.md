@@ -1,11 +1,11 @@
-# Raven-minimal
+# Raven-terminal
 
-The raven-minimal pattern is a subset of all other patterns. All
+The raven-terminal pattern is a subset of all other patterns. All
 raven patterns include the packages and functionalities
-seen in raven-minimal. All terminals across raven installations
+seen in raven-terminal. All terminals across raven installations
 behave the same.
 
-Installing raven-minimal first, while an additional step,
+Installing raven-terminal first, while an additional step,
 effectively streamlines the installation process of all
 other raven operating systems for the rest of your life.
 
@@ -25,10 +25,10 @@ drives and then boot from it. Then run these commands.
 ```
 pacman -Sy
 git checkout https://github.com/digital-raven/raven
-cd ./raven/patterns/raven-minimal
+cd ./raven/patterns/raven-terminal
 archinstall --config ./config.json --creds ./creds.json
 ```
-Install raven-minimal to the other flash drive. This installation works
+Install raven-terminal to the other flash drive. This installation works
 on any storage media but a large flash drive is the most generally useful.
 
 You will have to do your own disk partitioning. You may encrypt the
@@ -41,13 +41,13 @@ yes and run these commands.
 ```
 cd /home/master/
 git clone https://github.com/digital-raven/raven
-./raven/patterns/raven-minimal/update init
+./raven/patterns/raven-terminal/update init
 ```
 
-Upon completion, raven-minimal is now properly installed.
+Upon completion, raven-terminal is now properly installed.
 
 ## Usage
-raven-minimal is just a useful cli experience. The default shell
+raven-terminal is just a useful cli experience. The default shell
 is bash, and the default user is master, for you are one.
 
 It has useful configurations for bash and zsh. Each supports
@@ -55,13 +55,13 @@ It has useful configurations for bash and zsh. Each supports
 - Package suggestion for missing binaries.
 - Good syntax highlighting.
 
-## Updating raven-minimal
+## Updating raven-terminal
 Run the update script in this directory with no arguments.
 
-`~/raven/patterns/raven-minimal/update`
+`~/raven/patterns/raven-terminal/update`
 
 This will update the raven repo, run `yay -Syu` and install
-any additional packages added to raven-minimal's default list.
+any additional packages added to raven-terminal's default list.
 This list is viewable in [conf json](./conf.json)
 
 You can also just run `yay -Syu` if you don't want raven's updates.

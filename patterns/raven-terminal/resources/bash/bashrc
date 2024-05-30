@@ -108,7 +108,7 @@ if ! shopt -oq posix; then
 fi
 
 # Source the rest of the files
-for i in $HOME/raven/patterns/raven-minimal/resources/bash/*.sh
+for i in $HOME/raven/patterns/raven-terminal/resources/bash/*.sh
 do
     source $i
 done
