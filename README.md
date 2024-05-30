@@ -18,7 +18,7 @@ The operating systems provided are designed to instantly turn any computer
 into a reasonbly configured machine for the intended use.
 
 ## Usage
-Start with raven-minimal. This will familiarize you with the basic
+Start with raven-terminal. This will familiarize you with the basic
 functionality present on all raven patterns. From there you may install
 a more fully equipped varient, or perhaps another operating system
 entirely?
