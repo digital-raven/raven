@@ -24,7 +24,7 @@ drives and then boot from it. Then run these commands.
 
 ```
 pacman -Sy
-git checkout https://github.com/digital-raven/raven
+git clone https://github.com/digital-raven/raven
 cd ./raven/patterns/raven-terminal
 archinstall --config ./config.json --creds ./creds.json
 ```
