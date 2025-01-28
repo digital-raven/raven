@@ -9,7 +9,7 @@
 
   programs.git = {
     enable = true;
-    userName = "REPLACEME_userName";
-    userEmail = "REPLACEME_userEmail";
+    userName = "REPLACEME_gitUserName";
+    userEmail = "REPLACEME_gitUserEmail";
   };
 }
