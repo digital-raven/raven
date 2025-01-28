@@ -1,0 +1,3 @@
+Copy to ~/.config/discord/0.0.62/modules/discord_krisp/discord_krisp.node
+
+TODO: Integrate to raven. This fix makes discord not pick up background noise.

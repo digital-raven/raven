@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# This script checks for missed REPLACEME's
+
+SCRIPT_PATH=$(readlink -f "$0")
+SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+
+cd $SCRIPT_DIR
+
+echo "Checking for any missed REPLACEME's..." >&2
+echo
+
+grep -r REPLACEME_ | grep -v .swp
+if [ $? == 0 ]
+then
+    echo ""
+    echo "You missed REPLACEME's in the above files. Don't try to install yet." >&2
+else
+    echo "You've hit all REPLACEME's. If you did those right then you should be good to use raven!" >&2
+fi
