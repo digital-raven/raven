@@ -26,7 +26,7 @@
   ];
 
   # Bootloader.
-  # REPLACEME: Copy the lines that start with "boot." from /etc/nixos/configuration.nix
+  # REPLACEME_boot: Copy the lines that start with "boot." from /etc/nixos/configuration.nix
 
   # Networking
   networking.hostName = "REPLACEME_hostName";
@@ -49,17 +49,16 @@
 
   # Users
   # Configure system-wide user settings (groups, etc) here. add more users as needed.
-  # 
+  #
   users.users = {
-    REPLACEME_username = {
-      # Set an initial password for your user.
-      # Be sure to change it (using passwd) after rebooting!
-      initialPassword = "REPLACEME_password";
+    master = {
+      # Change this password (using passwd) after rebooting!
+      initialPassword = "masterpass";
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
         # Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
-      extraGroups = ["REPLACEME_username" "docker" "networkmanager" "wheel"];
+      extraGroups = ["master" "docker" "networkmanager" "wheel"];
     };
   };
 

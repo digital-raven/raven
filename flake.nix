@@ -35,7 +35,7 @@
   in {
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
-    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    packages = forAllSystems (system: import ./personal/pkgs nixpkgs.legacyPackages.${system});
 
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
@@ -95,7 +95,7 @@
     # home-manager --flake .#your-username@your-hostName'
     # ```
     homeConfigurations = {
-      "REPLACEME_userName@REPLACEME_hostName" = home-manager.lib.homeManagerConfiguration {
+      "master@REPLACEME_hostName" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
