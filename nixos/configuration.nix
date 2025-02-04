@@ -49,7 +49,7 @@
 
   # Users
   # Configure system-wide user settings (groups, etc) here. add more users as needed.
-  # 
+  #
   users.users = {
     master = {
       # Change this password (using passwd) after rebooting!
