@@ -63,6 +63,7 @@
     brave
     electrum
     evince
+    gimp
     kolourpaint
     libreoffice
     obs-studio
@@ -70,6 +71,7 @@
     syncthing
     vlc
     veracrypt
+    vokoscreen
   ];
 
   # Install firefox.

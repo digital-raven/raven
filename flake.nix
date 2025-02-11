@@ -76,6 +76,7 @@
           ./nixos/configuration.nix
           ./patterns/raven-gaming/configuration.nix
           ./patterns/raven-terminal/configuration.nix
+          ./patterns/raven-desktop/configuration.nix
         ];
       };
       raven-terminal = nixpkgs.lib.nixosSystem {
