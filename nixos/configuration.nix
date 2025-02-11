@@ -62,9 +62,6 @@
     };
   };
 
-  # Allow unfree packages. true / false
-  nixpkgs.config.allowUnfree = REPLACEME_allowUnfree;
-
   # Packages
   environment.systemPackages = with pkgs; [
     git
@@ -99,7 +96,8 @@
     # Configure your nixpkgs instance
     config = {
       # Disable if you don't want unfree packages
-      allowUnfree = true;
+      # Allow unfree packages. true / false
+      allowUnfree = REPLACEME_allowUnfree;
     };
   };
 
