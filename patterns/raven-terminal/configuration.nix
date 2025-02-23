@@ -81,6 +81,7 @@
     gnupg
     gparted
     home-manager
+    iotop
     lm_sensors
     lynx
     openssl
@@ -88,6 +89,7 @@
     man-pages-posix
     mullvad
     neofetch
+    pandoc # goes with texlive.combined.scheme-small for converting md to pdf
     parted
     pass
     python3
@@ -98,6 +100,8 @@
     rsync
     smartmontools
     srm
+    sysstat
+    texlive.combined.scheme-small
     unzip
     vim
     whois
