@@ -43,7 +43,7 @@
     rpcs3        # PS3
     vbam         # Gameboy advance
     clonehero    # Guitar Hero clone. Works with original controller with USB adapter.
-    dwarf-fortress
-    katawa-shoujo # Because I thought it was funny that it was here.
+    dwarf-fortress # 1000 gamer cred per minute
+    katawa-shoujo # Takes a while to build and install.
   ];
 }
