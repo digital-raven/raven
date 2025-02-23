@@ -65,6 +65,6 @@ to benefit the most from adopting Raven.
 - Update when / if you want.
 - Easy access to otherwise hard to get programs.
 - Long list of quality software and guides for common tasks.
-- On-system [user-guide][./docs/user-guide.md].
+- On-system [user-guide](./docs/user-guide.md).
 - Customizability with snapshots. If you make a change you don't like then
   you can easily reboot and load your old setup.
