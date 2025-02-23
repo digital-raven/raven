@@ -1,8 +1,6 @@
 # Raven
 
-The Raven project is two things.
-
-In short, it's an operating system. It's a product that you can apply to a
+In short, Raven is an operating system. It's a product that you can apply to a
 block of computing hardware and then use software applications on it.
 
 In long, what's the actual point of caring about an operating system?
@@ -59,50 +57,14 @@ environment on any new machine starting from only your github account and an
 internet connection.
 
 ## Why use Raven?
+Non-technical users who are tired of annoying desktop operating systems stand
+to benefit the most from adopting Raven.
 
 - Easy starting point to a configurable NixOS system.
 - Competant configurations for office, gaming, or software development.
 - Update when / if you want.
 - Easy access to otherwise hard to get programs.
 - Long list of quality software and guides for common tasks.
-- On-system [user-guide][./user-guide.md].
+- On-system [user-guide][./docs/user-guide.md].
 - Customizability with snapshots. If you make a change you don't like then
   you can easily reboot and load your old setup.
-
-## Installing
-It is my belief that non-technical users who are tired of annoying desktop
-operating systems stand to benefit the most from adopting Raven. Installing
-Raven is a bit involved, but only a bit.
-
-1. If you don't have one already, create a github account.
-2. Fork this repository to your own account.
-3. Download and install the NixOS ISO to a flashdrive.
-  - [Rufus](https://rufus.ie/en/) can create a bootable flash drive if you're on Windows.
-4. Reboot your computer from your flash drive and go through the NixOS installer.
-5. Download your forked repository from your github and run through the update
-   procedure below.
-
-## Updating
-
-Raven is simple to update once installed. There are only a few commands to
-remember. The 2 main ones are...
-
-- Rebuild your your system with any changes you've made, or perform a first-time installation.
-  `sudo nixos-rebuild switch --flake .#raven-gaming`
-
-- Update your home-manager
-  `home-manager switch --flake .#master@raven-gaming`
-
-If you wish to get updates for currently installed software, then run the
-following command and repeat the above 2.
-- `nix flake update`
-
-If you wish to get updates from the main Raven repository then you'll need to add its remote
-to your local copy. This is optional, as once you have your own fork you can easily be on
-your own.
-
-- `git remote add upstream https://github.com/digital-raven/raven.git`
-
-Then to get updates from the Raven repository...
-- `git fetch upstream`
-- `git merge upstream/master`
