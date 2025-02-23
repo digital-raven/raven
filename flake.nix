@@ -57,16 +57,16 @@
     # Install one with one of the following commands.
     #
     # ```
-    # nixos-rebuild --flake .#raven-desktop
+    # nixos-rebuild --flake .#raven-home
     # nixos-rebuild --flake .#raven-gaming
     # nixos-rebuild --flake .#raven-terminal
     # ```
     nixosConfigurations = {
-      raven-desktop = nixpkgs.lib.nixosSystem {
+      raven-home = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./nixos/configuration.nix
-          ./patterns/raven-desktop/configuration.nix
+          ./patterns/raven-home/configuration.nix
           ./patterns/raven-terminal/configuration.nix
         ];
       };
@@ -76,7 +76,7 @@
           ./nixos/configuration.nix
           ./patterns/raven-gaming/configuration.nix
           ./patterns/raven-terminal/configuration.nix
-          ./patterns/raven-desktop/configuration.nix
+          ./patterns/raven-home/configuration.nix
         ];
       };
       raven-terminal = nixpkgs.lib.nixosSystem {
