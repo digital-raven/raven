@@ -5,7 +5,7 @@ installed on top of an existing NixOS installation.
 Raven segregates its models by "patterns".
 - `raven-terminal`: Provides a common terminal experience. All other patterns
     base themselves on raven-terminal.
-- `raven-desktop`: For most people. Provides a graphical desktop environment and
+- `raven-home`: For most people. Provides a graphical desktop environment and
     office software, and drivers for printers.
 - `raven-gaming`: For gamers and computers with discrete graphics cards. Steam and
     the best emulators for various console systems are installed by default.
@@ -22,7 +22,7 @@ If you'd rather save money, then installing Raven is straightforward.
    - Or you can download the repository to your machine, create a private repo
      on GitHub and push a copy there. Create the private repo without any files.
 3. Download and install the NixOS ISO to a flashdrive.
-  - [Rufus](https://rufus.ie/en/) can create a bootable flash drive if you're on Windows.
+   - [Rufus](https://rufus.ie/en/) can create a bootable flash drive if you're on Windows.
 4. Reboot your computer from your flash drive and go through the NixOS installer.
 5. Download your forked repository from your github and ensure the following remotes
    are set up.
@@ -32,7 +32,7 @@ If you'd rather save money, then installing Raven is straightforward.
 
 ## Updating and making changes
 Raven is simple to update once installed. There are only a few commands to
-remember. The 2 main ones are...
+remember.
 
 - Rebuild your your system with any changes you've made, or perform a first-time
   installation on a base NixOS installation.
@@ -40,21 +40,25 @@ remember. The 2 main ones are...
   `sudo nixos-rebuild switch --flake .#raven-gaming`
 
 - Update your home-manager
+
   `home-manager switch --flake .#master@raven-gaming`
 
 If you wish to get updates for currently installed software, then run the
 following command and repeat the above 2.
 - `nix flake update`
 
-Then to get updates from the Raven repository...
-- `git fetch upstream`
-- `git merge upstream/master`
+Run these if you wish to update your copy of Raven with the latest from the
+Master Raven Repository.
+```
+git fetch upstream
+git merge upstream/master
+```
 
 After installing NixOS and going through the installation procedure in the [README](../README.md),
 one of these patterns may be installed by running one of the following commands.
 
 - `sudo nixos-rebuild switch --flake .#raven-terminal`
-- `sudo nixos-rebuild switch --flake .#raven-desktop`
+- `sudo nixos-rebuild switch --flake .#raven-home`
 - `sudo nixos-rebuild switch --flake .#raven-gaming`
 
 Then reboot your computer and log in. Make sure you change the display server
@@ -99,7 +103,8 @@ it may not be trivial to install it.
 
 [This website](https://lazamar.co.uk/nix-versions/) allows a user to search
 older NixOS versions for any package, and will print the command to install and
-run that software.
+run that software. The easiest way is to run the command in a terminal window,
+and then launch the program from there.
 
 ### User management
 The admin username for all raven patterns is "master". If you are the only
@@ -220,9 +225,10 @@ One exception is Yuzu. Copies of Yuzu are hard to come by these days because of
 Nintendo's legal battles against it. You may use this
 
 ## PDF
-The evince program is installed for viewing PDFs.
+The `evince` program is installed for viewing PDFs. It will launch automatically
+if you double click on the file, or launch it through the terminal window.
 
-If you need to sign a pdf or otherwise write on it, use the xournal program.
+If you need to sign a pdf or otherwise write on it, use the `xournal` program.
 
 If you need to append pdf files together then you can use the qpdf program.
 Here is an example which appends one pdf to another and saves the result.
@@ -253,7 +259,7 @@ as "copyright infringement" and you can expect to get a letter from your ISP if
 you don't use a VPN and proxy. Raven comes installed with utilities to avoid this
 drama. Besides, you paid the creators already.
 
-Raven-desktop comes installed with `mullvad` and `qbittorrent` to assist you.
+Raven comes installed with `mullvad` and `qbittorrent` to assist you.
 
 Create a mullvad account. Mullvad is cheap and has a flat pricing structure, and
 is easy to use on raven. Save your account number to `pass`.
@@ -262,7 +268,8 @@ Run `mullvad account login` and enter your account number. Then run `mullvad-ope
 This will set the killswitch and open a connection to mullvad.
 
 But the killswitch alone is not enough protection. You need to tell qBittorrent
-to use a proxy. Open qBittorrent and change these settings.
+to use a proxy. Open qBittorrent and change these settings. This proxy will not
+be able to seed torrents to fellow pirates, but you will be able to download them.
 
 **Connection**
 - Under "Proxy Server", use SOCKS5, Host 10.64.0.1, and port 1080
