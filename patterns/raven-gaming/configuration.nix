@@ -63,6 +63,7 @@
   # Packages
   environment.systemPackages = with pkgs; [
     discord
+    heroic
   ];
 
   # Install steam
