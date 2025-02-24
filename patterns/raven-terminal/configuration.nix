@@ -81,6 +81,7 @@
     gnupg
     gparted
     home-manager
+    iotop
     lm_sensors
     lynx
     openssl
@@ -98,6 +99,7 @@
     rsync
     smartmontools
     srm
+    sysstat
     unzip
     vim
     whois
