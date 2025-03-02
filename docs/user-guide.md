@@ -388,7 +388,18 @@ is easy to use on Raven. Save your account number to `pass`.
 Run `mullvad account login` and enter your account number. Then run `mullvad-open`.
 This will set the killswitch and open a connection to mullvad. The killswitch
 will prevent your computer from communicating with the internet if the vpn is not
-active.
+active. If you wish to turn the vpn off, then run `mullvad-close`.
+
+Those afore-mentioned commands are aliases to conveniently maniuplate both the
+killswitch and connection status. [This webpage](https://mullvad.net/en/help/how-use-mullvad-cli)
+has comprehensive information on how to use the `mullvad` command.
+
+But there is one more common detail operation; changing the connection region. To
+change the region of the server you log in to, run `mullvad relay set location <country-code> [city]`,
+where `[city]` is optional.
+
+For example, to change your region to the United States, run `mullvad relay set location us` .
+Mullvad's default country is Sweden, who's code is `se`.
 
 But the killswitch alone is not enough protection. You need to tell qBittorrent
 to use a proxy. Open qBittorrent and change these settings.
