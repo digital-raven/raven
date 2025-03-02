@@ -30,6 +30,9 @@
           . $HOME/raven/home-manager/resources/alias-alphabet.sh
           . $HOME/raven/nix-configs/home-manager/resources/personal.sh
       fi
+
+      alias mullvad-open='mullvad lockdown-mode set on && mullvad connect'
+      alias mullvad-close='mullvad lockdown-mode set off && mullvad disconnect'
       '';
   };
 }
