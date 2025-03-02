@@ -347,6 +347,11 @@ Here is an example which appends one pdf to another and saves the result.
 qpdf first.pdf second.pdf -- out.pdf  
 ```
 
+You can also convert markdown files to pdf easily with the following command.
+```
+pandoc example.md -o example.pdf
+```
+
 ### Piracy
 Before we begin, we'll cover some ethics.
 
