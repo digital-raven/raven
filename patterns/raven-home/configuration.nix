@@ -60,18 +60,19 @@
 
   # Packages
   environment.systemPackages = with pkgs; [
-    brave
-    electrum
-    evince
-    gimp
-    kolourpaint
-    libreoffice
-    obs-studio
-    qbittorrent
-    syncthing
-    vlc
-    veracrypt
-    vokoscreen
+    brave  # Privacy-focused chromium browser.
+    easytag  # Easily edit mp3 metadata.
+    electrum  # Bitcoin wallet.
+    evince  # Reading PDFs.
+    gimp  # Comprehensive image editor.
+    kolourpaint  # Similar to MS-paint.
+    libreoffice  # Free office software suite.
+    obs-studio  # Record and stream applications and games.
+    qbittorrent  # Torrent software
+    syncthing  # Sync files between your own computers.
+    vlc  # Best video player
+    veracrypt  # Manipulate veracrypt volumes.
+    vokoscreen  # Basic screen and audio recording.
   ];
 
   # Install firefox.
