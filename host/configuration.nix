@@ -19,10 +19,18 @@
   # inputs.hardware.nixosModules.common-ssd
 
   # You can also split up your configuration and import pieces of it here:
-  # ./users.nix
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+
+    # System-wide packages
+    ./system-packages.nix
+
+    # EDIT_ to choose a GPU driver.
+    #./drivers/nvidia.nix
+
+    # Users
+    ./users/users.nix
   ];
 
   # Bootloader.
@@ -46,27 +54,6 @@
   virtualisation.docker.enable = true;
 
   # System Configuration
-
-  # Users
-  # Configure system-wide user settings (groups, etc) here. add more users as needed.
-  #
-  users.users = {
-    master = {
-      # Change this password (using passwd) after rebooting!
-      initialPassword = "masterpass";
-      isNormalUser = true;
-      openssh.authorizedKeys.keys = [
-        # Add your SSH public key(s) here, if you plan on using SSH to connect
-      ];
-      extraGroups = ["master" "docker" "networkmanager" "wheel"];
-    };
-  };
-
-  # Packages
-  environment.systemPackages = with pkgs; [
-    git
-    vim
-  ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "REPLACEME_system.stateVersion";

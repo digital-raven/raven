@@ -3,6 +3,7 @@ Raven is simply implemented as a set of Nix flakes, and is designed to be
 installed on top of an existing NixOS installation.
 
 Raven segregates its models by "patterns".
+
 - `raven-terminal`: Provides a common terminal experience. All other patterns
     base themselves on raven-terminal.
 - `raven-home`: For most people. Provides a graphical desktop environment and
@@ -16,53 +17,101 @@ drives available for purchase with Raven pre-installed.
 
 If you'd rather save money, then installing Raven is straightforward.
 
-1. If you don't have one already, create a github account.
-2. Fork [the Master Raven Repository](https://github.com/digital-raven/raven.git) repository to your own account.
+1. If you don't have one already, create a GitHub account.
+2. Fork [the Master Raven Repository](https://github.com/digital-raven/raven.git) repository to your
+   GitHub account.
    - You can use the GUI on GitHub.
    - Or you can download the repository to your machine, create a private repo
      on GitHub and push a copy there. Create the private repo without any files.
-3. Download and install the NixOS ISO to a flashdrive.
+3. Download and install [the NixOS ISO](https://nixos.org/download/) to a flashdrive.
    - [Rufus](https://rufus.ie/en/) can create a bootable flash drive if you're on Windows.
-4. Reboot your computer from your flash drive and go through the NixOS installer.
-5. Download your forked repository from your github and ensure the following remotes
-   are set up.
+   - If you're on a Mac or a different Linux machine already, then download the NixOS ISO
+     and use `dd` to install it to your flashdrive.
+
+     `dd if=<your-nixos.iso> of=/dev/<your flashdrive block device>`
+
+4. Boot your computer from your flash drive and go through the NixOS installer.
+5. Download your forked repository from your GitHub and `cd` into it. Set up the
+   following remotes.
    - `git remote add upstream https://github.com/digital-raven/raven.git`
    - `git remote add origin https://github.com/<your-github-username>/raven.git`
-6. Run through the update procedure below.
+6. Create a git branch for your machine.
+   - `git checkout -b your-machine`
+7. Run the `./check` script at the top of this repository to list entries you need
+   to replace. Each "REPLACEME_*" has a comment on how to replace the information.
+8. Run through the update procedure below.
 
 ## Updating and making changes
 Raven is simple to update once installed. There are only a few commands to
 remember.
 
-- Rebuild your your system with any changes you've made, or perform a first-time
-  installation on a base NixOS installation.
+- First open a terminal window and `cd` into your repo's local copy.
 
-  `sudo nixos-rebuild switch --flake .#raven-gaming`
+- If you wish to grab changes from the Master Raven Repository, then run these commands.
 
-- Update your home-manager
+  ```
+  git fetch upstream
+  git rebase upstream/master  # Apply your personal changes on top of Master's latest.
+  ```
 
-  `home-manager switch --flake .#master@raven-gaming`
+- If you wish to update currently installed packages, then run the
+  following command before proceeding.
 
-If you wish to get updates for currently installed software, then run the
-following command and repeat the above 2.
-- `nix flake update`
+  `nix flake update`
 
-Run these if you wish to update your copy of Raven with the latest from the
-Master Raven Repository.
-```
-git fetch upstream
-git merge upstream/master
-```
+- If you want to make custom changes to your installation, then you should read the
+  following section, "Customizing Raven", before proceeding to the next step.
 
-After installing NixOS and going through the installation procedure in the [README](../README.md),
-one of these patterns may be installed by running one of the following commands.
+- Now run **one** of the following comamnds to turn your system into the specified
+  Raven model. Your personal data will not be affected going from one to the other.
+  If you accidentally install the incorrect model for your machine then simply run
+  the command with your desired model.
 
-- `sudo nixos-rebuild switch --flake .#raven-terminal`
-- `sudo nixos-rebuild switch --flake .#raven-home`
-- `sudo nixos-rebuild switch --flake .#raven-gaming`
+  If ever you make custom changes to your Raven installation, this is the same command
+  to apply those changes. The following commands are used for both applying changes
+  and initial installations of Raven.
 
-Then reboot your computer and log in. Make sure you change the display server
-to x11 on the login screen if it's your first time.
+  ```
+  sudo nixos-rebuild switch --flake .#raven-terminal
+  sudo nixos-rebuild switch --flake .#raven-home
+  sudo nixos-rebuild switch --flake .#raven-gaming
+  ```
+
+- Finally, update your home-manager.
+
+  `home-manager switch --flake .#<username>`
+
+Depending on how drastic your changes were you may need to reboot. If it's your
+machine's first time installing Raven then you should definitely reboot. If you're
+using `raven-gaming` then change the display server to x11 on the login screen.
+
+### Customizing Raven
+Here is a brief orientation of Raven's directory structure.
+
+- `docs`: User documentation and some memes illustrating the spirit of Raven's creation.
+- `host`: System-specifics are located here, such as users and hardware info.
+        You should use git branches to swith between different hosts if you use
+        a Raven repository to manage multiple machines.
+- `patterns`: Patterns describe the general purpose of your machine and contain
+            useful packages for that purpose.
+
+            You may make changes to patterns if you wish, but Raven reserves this
+            space for altering pattern logic so changes here may produce merge conflicts.
+
+            If you wish to add specific software to your machine, you should do it under `host`.
+- `shared`: Add generic customizations here. This is for overlays, modules, custom
+          packages, and generic home-manager modules you wish to share between
+          your machines.
+
+If you wish to customize your installation, start your grokking in `flake.nix`.
+The `nixosConfigurations` defines the patterns of Raven and which .nix files
+they pull in. Changes or additions to those files will change the pattern.
+These changes can be applied to your installation with the appropriate
+`nixos-rebuild switch` command shown in the previous section.
+
+To change the Home Manager aspect of your installation, start at the
+`homeConfigurations` section. Changes made here will require the appropriate
+`home-manager switch` command to apply.
 
 ## Managing multiple machines
 It's likely you wish to install Raven on multiple machines. Perhaps you have a
@@ -70,7 +119,9 @@ computer for gaming and a computer for office work. It is also likely you may
 wish to use Raven as an starting point to make your own modifications.
 
 The most convenient method is to have one private repo for all your Raven machines
-and create a git branch for each of your machines within that repo.
+and create a git branch for a new machine when you install Raven to it. This makes
+it easy to keep the machine-specific information easily separated, while being
+able to conveniently port and compare extra changes between your installations.
 
 ## What Raven requires to use as intended
 Raven is based on NixOS, and so your installation is declarative and reproducible.
@@ -83,7 +134,7 @@ To make the most of these promises, here's what Raven recommends you create.
 
 - 2 ProtonMail accounts; one "emergency" and one "core" account as detailed in the
   book [A Raven's Guide through the Digital Woods](https://github.com/digital-raven/digital-woods).
-- A GitHub account, as a couple of private reposotories will assist you greatly.
+- A GitHub account, as a couple of private repositories will assist you greatly.
 - A [mullvad](https://mullvad.net/en) account.
 
 The first 2 will permanently secure your foothold into restoring your Raven
@@ -91,7 +142,7 @@ installations in the event of a fire or having your phone stolen. The last one
 is just a damn nice and simple VPN.
 
 ## Common tasks
-This section details how to perform common tasks with Raven's applications.
+This section details how to perform common tasks with Raven.
 
 ### Installing new software
 A huge strength of NixOS is because each application has its runtime isolated
@@ -106,38 +157,53 @@ older NixOS versions for any package, and will print the command to install and
 run that software. The easiest way is to run the command in a terminal window,
 and then launch the program from there.
 
-### User management
+### Basic desktop experience
+All Raven models inherit the same terminal experience from `raven-terminal`, and
+all graphical Raven models have the same utilities as `raven-home`.
+
+All graphical Raven models support what you would expect for a minimum home
+desktop experience; File browsing, media playing, web-browsing, printing,
+and office software are included.
+
+#### User management
 The admin username for all raven patterns is "master". If you are the only
 user on your raven installation, then this may suffice for you. "master" has
 access to sudo for performing system tasks.
 
 To change the password for master, use the `passwd` command.
 
-### Web-browsing
-Raven comes shipped with both Firefox and Brave. Firefox has a much more mature
-structure for add-ons, but Brave is Chromium-based 
+#### Drive management
+Drive management may be accomplished with the command-line `parted` program
+or the graphical `gparted` program.
+
+#### Media playback
+The `vlc` program is installed on Raven and can play basically any video.
+`cmus` is included as a command-line music player, or you may use the graphical
+`elisa` program.
+
+#### Web-browsing
+Raven comes shipped with both Firefox and Brave. Both are decent browsing programs.
 
 Raven does not recommend the use of any Brave features beyond its basic web-browsing
 and sync features. Brave offers some odd features that Raven's author believes should
-be avoided; such as its crypto wallet, rewards program. Brave has ad-blocking capability
+be avoided; such as its crypto wallet and rewards program. Brave has ad-blocking capability
 enabled by default though, so using it to browse the web is quite quiet and convenient.
 
 Feel free to use Brave's syncronization features for your internet-only passwords. This
 makes moving between your machines convenient because you don't need to re-enter passwords
 for your online accounts.
 
-### Encrypted storage
-
 ### Password management
 Raven provides a program for password management, and the best password management
 solution serves as an effective and total catalog of all your credentials.
 
-The `pass` program is included with all versions of Raven. It's an inuitive program.
-Passwords are stored in a simple directory tree under `~/.password-store/` by default.
+The `pass` program is included with all versions of Raven. It's an inuitive program
+which stores passwords in a simple directory tree under `~/.password-store/` by default.
 Each file is locally encrypted using your gpg key, but the filenames themselves are
 not encrypted.
 
 #### GPG Key generation
+
 Run `gpg --generate-key` to generate your public / private gpg key pair. Select a long
 and unique, but memorable, password for your secret key. If you forget this password
 then you will lose access to all your passwords managed by `pass`!
@@ -155,7 +221,7 @@ Then email these 2 files to yourself and delete the local copies.
 #### Examples
 ```
 # Randomly generate a 16 character long alpha-numeric password
-pass generate -n shopping/amazon/shopping.amazon.tricky123@aleeas.com 16
+pass generate -n shopping/amazon/amazon-username 16
 
 # Omit the -n to get all sorts of characters
 pass generate shopping/amazon/amazon-username 16
@@ -170,8 +236,10 @@ pass shopping/amazon/amazon-username
 pass -c shopping/amazon/amazon-username
 ```
 
-You can verify the contents are encrypted by running `cat ~/.password-store/shopping/amazon/amazon-username`.
-It should print encrypted garbage to the terminal.
+You can verify the contents are encrypted by printing contents of a file to stdout.
+The following command will print encrypted garbage to the terminal.
+
+`cat ~/.password-store/shopping/amazon/amazon-username`
 
 #### Pass best practices
 When a critical password is changed, you should create a cold backup of the store
@@ -181,12 +249,12 @@ your attackers will still not have access to your usernames.
 
 ```
 cd $HOME
-tar -zcf': tar -zcf password-store.tar.gz ./.password-store/
+tar -zcf password-store.tar.gz ./.password-store/
 gpg --encrypt password-store.tar.gz
 ```
 
-The file `password-store.tar.gz.gpg` will now be created. Email it to yourself along with some
-instructions to yourself.
+The file `password-store.tar.gz.gpg` will now be created. Email it to yourself along with
+some instructions to yourself.
 
 > Backup of my password store. Update this backup when changing or adding a core password. These are passwords that cannot be recovered if forgotten, and may be necessary for bootstrapping a new installation.
 >
@@ -206,25 +274,123 @@ To fetch this cold backup to a new machine...
 And since Raven is designed for easy user access across multiple machines, we have also
 thought of a solution for distributed password access.
 
-The `pass` program comes included with git integration. Create a private github repository
+The `pass` program comes included with git integration. Create a private GitHub repository
 and use the `pass git` subcommands to keep your passwords in sync across your machines.
 
 #### Backing up 2FA
 Some common webservices require 2-factor authentication. Sometimes these are one-time codes
-which you can generate using an app on your phone.
+which you can generate using an app on your phone. Since GitHub requires 2FA and is where
+Raven expects its users to store their machine-specific Raven repositories and pass vaults,
+we should select a 2FA application which allows us to backup and import these 2FA codes
+to a new device in case our phone becomes lost to us.
 
-Since github is one of these, and backing up your local Raven files is part of the intended
-use of Raven, it is recommended to use pass to back up any required files 
-
-Aegis is a phone app that can satisfy the 2FA requirements of protronmail and github.
-Aegis allows its user to export its vault as a plain json file. When you add a new credential
+Aegis is a phone app that can satisfy the 2FA requirements of ProtonMail and GitHub.
+Aegis allows its user to export its vault as a plaintext json file. When you add a new credential
 to Aegis, you should export the vault on your phone and transfer it to your computer somehow.
-Emailing it to yourself via protonmail should be a private and secure way to perform this before
-deleting the local copy from your phone.
+Emailing it to yourself via ProtonMail should be a private and secure way to perform this before
+deleting the copies from your phone and email.
 
-Copy the text from the exported json and save it with the pass program. Because 2FA is
-necessary to log in to your github account, you should also replace your cold backup of your
-password store in your email.
+Copy the text from the exported json and save it to `pass`. Because 2FA is necessary to log
+in to your GitHub account, you should also replace your cold backup of your password store
+in your email.
+
+### Naked Restart
+"Naked" means all of your devices were lost or otherwise inaccessible to you. A Raven user
+will suffer no permanent damage from this so long as the following checklist is fulfilled.
+
+- [ ] You've set up 2 email accounts; an emergency email and core email account.
+  - [ ] Your emergency email is set up to recover your core email.
+  - [ ] You memorized your emergency email username and password.
+  - [ ] Your emergency email does not require 2FA; the password is enough.
+- [ ] Your GitHub account has Aegis 2FA.
+- [ ] Both your GitHub credentials and Aegis vault are saved to `pass`.
+- [ ] Your GPG keys and pass vault have copies in your core email account.
+- [ ] You saved your personal Raven configurations to GitHub in a private repo.
+
+If all of those are performed, then congratulations! You have the ability to recreate your
+digital ecosystem, including your customized operating system, starting from nothing other
+than a new computer, phone, and internet access.
+
+- [ ] Acquire a new computer, phone, and flashdrive.
+- [ ] Install NixOS and `pass` to the new computer.
+- [ ] Log in to your emergency email account and recover your core email account.
+- [ ] Download your GPG keys and pass vault from your core email account.
+- [ ] Install Aegis to your phone and import your vault.
+- [ ] Log in to GitHub and install your custom Raven repository.
+
+And if you've stored all your other credentials in `pass`, then you've also regained access
+to all of your other accounts.
+
+Your credentials and operating environment are fireproof and criminal-proof; just so long as
+you **never forget** your emergency email username and password.
+
+### Encrypted storage
+You should encrypt your personal data on drives under your control.
+
+- Computers get stolen, so you shouldn't form an emotional attachment to your hardware.
+- Drives go bad, but if they're encrypted you can dispose of them without worry.
+
+Raven comes shipped with the `veracrypt` program which can easily encrypt entire drives
+or create encrypted volumes. These "volumes" are, in themselves, encrypted files that
+may be mounted to your regular file system when you wish to use them. These volumes can
+be safely stored on unencrypted drives.
+
+A command line program to accomplish the same task is `cryptsetup`, and is a more widely
+standard utility. [This blog](https://blog.thomas.maurice.fr/posts/cryptsetup/) has a set of
+more comprhensive examples with keyfiles and YubiKeys, but here are some quick examples.
+
+```
+# To create and use an encrypted volume...
+
+# First create a large but empty file.
+fallocate -l 10G my-encrypted-block
+
+# Encrypt it. You will give it a passphrase. Be sure to generate and save this passphrase in pass.
+cryptsetup luksFormat my-encrypted-block
+
+# Open it. This will create a block device in /dev/mapper .
+sudo cryptsetup open ./my-encrypted-block my-encrypted-block
+
+# Now we add a filesystem to it. You may choose many different filesystems, but we'll use ext4.
+sudo mkfs.ext4 /dev/mapper/my-encrypted-block
+
+# Now the filesystem can be mounted
+sudo mount --mkdir /dev/mapper/my-encrypted-block ./my-encrypted-files
+
+# Create an example file
+sudo mkdir ./my-encrypted-files/files
+sudo chown master ./my-encrypted-files/files
+echo "Hello, but in secret!" > ./my-encrypted-files/files/hello
+
+# Unmount and close the volume.
+sudo umount ./my-encrypted-files
+sudo cryptsetup close my-encrypted-files
+```
+
+Using the volume in the future is much easier.
+```
+sudo cryptsetup open ./my-encrypted-block my-encrypted-block
+sudo mount --mkdir /dev/mapper/my-encrypted-block ./my-encrypted-files
+
+# Read back our file
+cat ./my-encrypted-files/files/hello
+```
+
+And if we wanted to encrypt and use a whole drive it's a similar process, but targets a block
+device.
+
+```
+# First use parted or gparted to format your drive.
+sudo gparted
+
+# And then instead of a file, we'll target the drive. Let's say the drive was sdb and we only
+# have one partition on it.
+
+cryptsetup luksFormat /dev/sdb1
+sudo cryptsetup open /dev/sdb1 my-encrypted-drive
+sudo mkfs.ext4 /dev/mapper/my-encrypted-drive
+sudo mount --mkdir /dev/mapper/my-encrypted-drive ./my-encrypted-files
+```
 
 ### Gaming
 Video games are fun and exciting, and many popular games work with Raven! The following
@@ -233,25 +399,23 @@ avenues for gaming are supported on Raven-Gaming.
 **Conventional PC Gaming**
 - Steam: Via the native Steam client for Linux. When you launch and log-in to Steam, go
          to `Steam -> Settings -> Compatibility` and "Enable Steam Play for all other titles".
-
          This will tell Steam to use Proton for all titles in your library. Valve has done
          a ton of great work for cross-platform game compatibility.
 
 - GoG: GoG sells DRM-free games. GoG titles may be managed via the "Heroic Games Launcher"
        program shipped with Raven. You may configure titles in your library to use Steam's proton.
 
-       GoG also distributes its games with optional offline installers. These should be usable with
-       the `wine` program, but your mileage may vary per game.
+  - GoG also distributes its games with optional offline installers. These should be usable with
+    the `wine` program, but your mileage may vary per game.
 
-       Heroic Games Launcher has some optional dependencies. They may be set [here](../patterns/raven-gaming/configuration.nix).
-- Epic: Via Heroic Games Launcher.
-- Prime Gaming: Via Heroic Games Launcher.
+  - Heroic Games Launcher has some optional dependencies. They may be set [here](../patterns/raven-gaming/configuration.nix).
+
+Epic and Prime gaming are also supported via the Heroic Games Launcher.
 
 **Console Emulation**
 Raven also ships with various emulators for retro and modern consoles.
 
 - dolphin-emu: Best-in-class GameCube / Wii emulator.
-- higan: Supports many retro consoles, but Raven includes it to tick SNES and NES support.
 - mame: Arcade games.
 - mupen64plus: Nintendo 64.
 - pcsxr: Sony's PlayStation.
@@ -259,11 +423,13 @@ Raven also ships with various emulators for retro and modern consoles.
 - rpcs3: Sony's PlayStation 3.
 - vbam: Its full name is VisualBoyAdvance. Emulates the Nintendo Gameboy Advance and, by
         extension, the GameBoy and GameBoy Color.
+- zsnes: SNES emulation.
 
 **Other Games**
 Raven
 - clonehero: Guitar Hero clone. Works with original controller with USB adapter.
 - dwarf-fortress: Hardcore base-management survival sim. Gives you 1000 gamer cred per minute.
+- atlauncher: Minecraft launcher. Requires a valid Minecraft account.
 
 #### Emulation
 If you've wanted to play games from popular consoles on your computer,
@@ -294,10 +460,10 @@ See the "Piracy" section for a quick class on ethics regarding Yuzu's use.
 Specific notes regarding Yuzu are included here.
 
 Many emulators exist for other Nintendo systems and are perfectly legal and continue
-their development under their original development teams and websites. Some
-were even developed and released while their target systems were still active on
-the market. For example, Dolphin Emulator is a GameCube / Wii emulator released in 2003
-and the GameCube was still very active on store shelves in that year, and Dolphin Emulator
+their development under their original development teams and websites. Many were
+developed and released while their target systems were still active on the market.
+For example, Dolphin Emulator is a GameCube / Wii emulator released in 2003 and the
+GameCube was still very active on store shelves in that year, and Dolphin Emulator
 continues its development and distribution to this day. Dolphin had Wii support in 2008,
 and the Wii was still a very hot commodity on store shelves having released in November 2006.
 Why is Yuzu considered a black sheep in this field?
@@ -330,7 +496,7 @@ However soured these waters are, it does not change the fact that Yuzu is, on it
 not a tool for piracy. It is an alternative avenue for playing Switch games that allows users
 more versatility in how they enjoy their games.
 
-If you rip your own Switch keys and rip your own ROMs from Switch games you own then you
+If you purchase your own Switch and only pirate ROMs from Switch games you own then you
 will have appropriately rewarded Nintendo for their artistic efforts and will be using
 Yuzu in an ethically correct fashion.
 
@@ -417,3 +583,83 @@ to use a proxy. Open qBittorrent and change these settings.
 **Advanced**
 - Use `wg0-mullvad` for network interface. This prevents qBittorrent from using
 a non-vpn interface, which it will do if you accidentally.
+
+#### VPNs and their use
+If you've seen any number of internet videos then you've probably seen creators
+sponsered by VPN companies. Those sponsered placements tend to be full of hype
+and lies. We'll go ahead and clear those up.
+
+- A VPN is not, on its own, a security tool; it is an obscurity tool. It masks who
+  you're talking to from your ISP. Your ISP can obviously see that your traffic is
+  being routed to your VPN provider, but they won't know the final recipient.
+- You don't need a VPN to protect your credentials. Traffic between your computer
+  and the vast majority of websites these days is securely encrypted by the
+  https protocol.
+- You don't need a VPN to avoid malware. Downloading malware is agnostic to your VPN.
+  If there are shady websites then it is your job to avoid them and to avoid downloads
+  from such websites.
+
+Reasons to use a VPN.
+
+- You don't like the idea of your ISP knowing which websites you visit. This represents
+  a single point of query for any interested party in gathering detailed information about
+  your internet habits. A VPN forces an ISP to serve as a private mailman and prevents them
+  from acting as partial judge.
+- You pirate content (see this guide's section on Piracy for basic ethics).
+- You wish to access content unavailable in your region.
+- You engage with online forums and don't like the idea of said forums becoming compromised
+  and having your username and location doxxed. No one can vouch for the security of
+  every website, and there are some crazy people in the world.
+
+When your computer makes a web-request without a VPN it communicates the address of the
+recipient to your ISP and includes the packets of data in the request. A VPN connection
+encrypts your original request, recipient included, and tells your ISP to send it instead
+to your VPN provider, and then your VPN provider unwraps it and makes the request for you
+before sending it back.
+
+This requires you to trust your VPN provider. While Raven endorses Mullvad (without sponsership),
+any VPN provider worth their salt will have a zero-logging policy verified by third-party audit,
+include a killswitch, and will require some sort of on-going fee. Never, under any circumstances,
+trust a free VPN. Proper VPN operation requires overhead that only paying customers can offset
+and justify.
+
+The reason Raven endorses Mullvad is because Mullvad only requires an account number which
+Mullvad generates for you, and has a convenient command line tool that proved easy to install
+and use. Mullvad also allows you to mail cash to them, which is a nice privacy touch.
+
+If you do illegal stuff online then a VPN will not protect you. You will need to take
+additional measures with respect to your operational security. Here are a couple of examples
+of bad opsec.
+
+- Ross Ulbrict (Dread Pirate Roberts) was, in part, caught for running Silk Road because the
+  oldest forum post on the surface web related to Silk Road was made with an account whose
+  username was "Altoid", and that username later made a post asking interested enterprisers
+  to email rossulbrict@gmail.com.
+- In December of 2014, a Harvard student by the name of Eldo Kim used the Tor web-browser to
+  issue a fake bomb threat to attempt to buy time to study for his final exams. He made this
+  threat while using Harvard's network, and only 2 computers on campus were using Tor at
+  the time of the threat. It was pretty easy to find which machine issued the threat.
+
+### Crypto currencies
+In general, avoid crypto currencies. The domain is rife with scams, but some crypto
+currencies are honest, and Bitcoin is one of them. [Here is an excellent video](https://www.youtube.com/watch?v=bBC-nXj3Ng4) detailing how Bitcon works.
+
+Because a software Bitcoin wallet allows you to easily recover your wealth on any computer,
+and because no regulatory body can control your Bitcoin wallet without your consent, this
+sort of wallet represents a method to allow users to fundamentally be in control of their
+wealth. For example, the American IRS cannot "freeze" a Bitcoin wallet, and cannot prevent
+you from taking your software Bitcoin wallet overseas. Hardware wallets are technically
+more "hack proof", but come with the risk of loss, theft, or fire.
+
+To this end, Raven comes shipped with a Bitcoin wallet program called `electrum`.
+Electrum can create a bitcoin wallet that can be recovered on any computer via a recovery
+phrase. Electrum calls this phrase "seed". Save your seed to your pass vault. Never lose it,
+and never tell anyone what it is.
+
+Your electrum wallet will be created with a set of "Receiving" addresses that may be used
+to receive funds to the wallet. If you wish to fund it, then either set up a bitcoin miner
+and direct it to your wallet, or purchase funds on an exchange and send them there. Coinbase
+is an example of a legitimate crypto exchange.
+
+[Here is Electrums' FAQ page](https://electrum.readthedocs.io/en/latest/faq.html) with more
+details on how Electrum works. Read it before you start putting money into this wallet.

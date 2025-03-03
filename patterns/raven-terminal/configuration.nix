@@ -1,5 +1,3 @@
-# This is your system's configuration file.
-# Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 {
   inputs,
   outputs,
@@ -10,7 +8,7 @@
 }: {
   # You can import other NixOS modules here
   imports = [
-    # If you want to use modules your own flake exports (from modules/nixos):
+    # If you want to use modules your own flake exports (from shared/modules):
     # outputs.nixosModules.example
 
     # Or modules from other flakes (such as nixos-hardware):
@@ -107,6 +105,7 @@
     whois
     wget
     yt-dlp
+    zip
     zsh
   ];
 

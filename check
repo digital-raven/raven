@@ -9,7 +9,7 @@ cd $SCRIPT_DIR
 echo "Checking for any missed REPLACEME's..." >&2
 echo
 
-grep -r REPLACEME_ | grep -v .swp | grep -v .git
+grep -r REPLACEME_ | grep -v .swp | grep -v .git | grep -v docs
 if [ $? == 0 ]
 then
     echo ""

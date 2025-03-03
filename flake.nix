@@ -35,22 +35,22 @@
   in {
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
-    packages = forAllSystems (system: import ./personal/pkgs nixpkgs.legacyPackages.${system});
+    packages = forAllSystems (system: import ./shared/pkgs nixpkgs.legacyPackages.${system});
 
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
     # Your custom packages and modifications, exported as overlays
-    overlays = import ./personal/overlays {inherit inputs;};
+    overlays = import ./shared/overlays {inherit inputs;};
 
     # Reusable nixos modules you might want to export
     # These are usually stuff you would upstream into nixpkgs
-    nixosModules = import ./personal/modules/nixos;
+    nixosModules = import ./shared/modules;
 
     # Reusable home-manager modules you might want to export
     # These are usually stuff you would upstream into home-manager
-    homeManagerModules = import ./personal/modules/home-manager;
+    homeManagerModules = import ./shared/home-manager;
 
     # Raven's NixOS patterns
     #
@@ -65,7 +65,7 @@
       raven-home = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./nixos/configuration.nix
+          ./host/configuration.nix
           ./patterns/raven-home/configuration.nix
           ./patterns/raven-terminal/configuration.nix
         ];
@@ -73,7 +73,7 @@
       raven-gaming = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./nixos/configuration.nix
+          ./host/configuration.nix
           ./patterns/raven-gaming/configuration.nix
           ./patterns/raven-terminal/configuration.nix
           ./patterns/raven-home/configuration.nix
@@ -82,7 +82,7 @@
       raven-terminal = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./nixos/configuration.nix
+          ./host/configuration.nix
           ./patterns/raven-terminal/configuration.nix
         ];
       };
@@ -90,20 +90,30 @@
 
     # Standalone home-manager configuration entrypoint
     # Install with the following command. Be sure to replace
-    # with your userName and hostName.
+    # with your userName.
     #
     # ```
-    # home-manager --flake .#your-username@your-hostName'
+    # home-manager switch --flake .#username'
     # ```
+    #
+    # EDIT_ this section when adding new users.
     homeConfigurations = {
-      "master@REPLACEME_hostName" = home-manager.lib.homeManagerConfiguration {
+      "master" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          # > Our main home-manager configuration file <
-          ./personal/home-manager/home.nix
+          # home-manager configuration
+          ./host/users/home-manager/master.nix
         ];
       };
+      #"guest" = home-manager.lib.homeManagerConfiguration {
+      #  pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+      #  extraSpecialArgs = {inherit inputs outputs;};
+      #  modules = [
+      #    # home-manager configuration
+      #    ./host/users/home-manager/guest.nix
+      #  ];
+      #};
     };
   };
 }
