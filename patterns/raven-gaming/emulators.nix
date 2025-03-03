@@ -46,4 +46,8 @@
     dwarf-fortress # 1000 gamer cred per minute
     katawa-shoujo # Takes a while to build and install.
   ];
+
+  programs.bash.shellAliases = {
+    raven-yuzu = "nix-shell -p yuzuPackages.mainline -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/087f43a1fa052b17efd441001c4581813c34bc19.tar.gz";
+  };
 }
