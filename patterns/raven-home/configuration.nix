@@ -73,6 +73,7 @@
     vlc  # Best video player
     veracrypt  # Manipulate veracrypt volumes.
     vokoscreen  # Basic screen and audio recording.
+    wine  # For running windows executables.
   ];
 
   # Install firefox.
