@@ -130,7 +130,7 @@ The `vlc` program is installed on Raven and can play basically any video.
 `cmus` is included as a command-line music player, or you may use the graphical
 `elisa` program.
 
-### Web-browsing
+#### Web-browsing
 Raven comes shipped with both Firefox and Brave. Both are decent browsing programs.
 
 Raven does not recommend the use of any Brave features beyond its basic web-browsing
