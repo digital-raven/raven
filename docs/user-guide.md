@@ -332,7 +332,6 @@ Epic and Prime gaming are also supported via the Heroic Games Launcher.
 Raven also ships with various emulators for retro and modern consoles.
 
 - dolphin-emu: Best-in-class GameCube / Wii emulator.
-- higan: Supports many retro consoles, but Raven includes it to tick SNES and NES support.
 - mame: Arcade games.
 - mupen64plus: Nintendo 64.
 - pcsxr: Sony's PlayStation.
@@ -340,6 +339,7 @@ Raven also ships with various emulators for retro and modern consoles.
 - rpcs3: Sony's PlayStation 3.
 - vbam: Its full name is VisualBoyAdvance. Emulates the Nintendo Gameboy Advance and, by
         extension, the GameBoy and GameBoy Color.
+- zsnes: SNES emulation.
 
 **Other Games**
 Raven
