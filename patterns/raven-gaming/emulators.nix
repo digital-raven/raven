@@ -35,13 +35,13 @@
   # Add packages here.
   environment.systemPackages = with pkgs; [
     dolphin-emu  # GC / Wii
-    higan        # Lots, but mostly SNES and NES
     mame         # Arcade
     mupen64plus  # N64
     pcsxr        # PS1
     pcsx2        # PS2
     rpcs3        # PS3
     vbam         # Gameboy advance
+    zsnes        # Super NES emulator
     clonehero    # Guitar Hero clone. Works with original controller with USB adapter.
     dwarf-fortress # 1000 gamer cred per minute
     katawa-shoujo # Takes a while to build and install.
