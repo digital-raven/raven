@@ -28,6 +28,7 @@
       vim-polyglot
       vimwiki
       vim-zettel
+      YouCompleteMe
     ];
 
     extraConfig = ''
@@ -68,6 +69,9 @@
       let g:netrw_winsize=24
 
       set tags=./tags;/
+
+      "Remove this to enable previews for autocomplete
+      set completeopt-=preview
     '';
   };
 }
