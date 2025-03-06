@@ -107,6 +107,7 @@
     whois
     wget
     yt-dlp
+    zip
     zsh
   ];
 
