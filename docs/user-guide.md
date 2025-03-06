@@ -17,23 +17,31 @@ drives available for purchase with Raven pre-installed.
 If you'd rather save money, then installing Raven is straightforward.
 
 1. If you don't have one already, create a github account.
-2. Fork [the Master Raven Repository](https://github.com/digital-raven/raven.git) repository to your own account.
+2. Fork [the Master Raven Repository](https://github.com/digital-raven/raven.git) repository to your
+   GitHub account.
    - You can use the GUI on GitHub.
    - Or you can download the repository to your machine, create a private repo
      on GitHub and push a copy there. Create the private repo without any files.
-3. Download and install the NixOS ISO to a flashdrive.
+3. Download and install [the NixOS ISO](https://nixos.org/download/) to a flashdrive.
    - [Rufus](https://rufus.ie/en/) can create a bootable flash drive if you're on Windows.
-4. Reboot your computer from your flash drive and go through the NixOS installer.
-5. Download your forked repository from your github and ensure the following remotes
-   are set up.
+   - If you're on a Mac or a different Linux machine already, then download the ISO
+     and use `dd if=<your-nixos.iso> of=/dev/<your flashdrive block device>`
+4. Boot your computer from your flash drive and go through the NixOS installer.
+5. Download your forked repository from your github and `cd` into it. Set up the
+   following remotes.
    - `git remote add upstream https://github.com/digital-raven/raven.git`
    - `git remote add origin https://github.com/<your-github-username>/raven.git`
-6. Run through the update procedure below.
+6. Create a git branch for your machine.
+   - `git checkout -b your-machine`
+7. Run the `./check` script at the top of this repository to list entries you need
+   to replace. Each "REPLACEME_*" has a comment on how to replace the information.
+8. Run through the update procedure below.
 
 ## Updating and making changes
 Raven is simple to update once installed. There are only a few commands to
 remember.
 
+- Open a terminal window and `cd` into your repo's local copy.
 - Rebuild your your system with any changes you've made, or perform a first-time
   installation on a base NixOS installation.
 
@@ -61,8 +69,8 @@ one of these patterns may be installed by running one of the following commands.
 - `sudo nixos-rebuild switch --flake .#raven-home`
 - `sudo nixos-rebuild switch --flake .#raven-gaming`
 
-Then reboot your computer and log in. Make sure you change the display server
-to x11 on the login screen if it's your first time.
+Then reboot your computer and log in. If you're using `raven-gaming` then change
+the display server to x11 on the login screen if it's your first time.
 
 ## Managing multiple machines
 It's likely you wish to install Raven on multiple machines. Perhaps you have a
@@ -83,7 +91,7 @@ To make the most of these promises, here's what Raven recommends you create.
 
 - 2 ProtonMail accounts; one "emergency" and one "core" account as detailed in the
   book [A Raven's Guide through the Digital Woods](https://github.com/digital-raven/digital-woods).
-- A GitHub account, as a couple of private reposotories will assist you greatly.
+- A GitHub account, as a couple of private repositories will assist you greatly.
 - A [mullvad](https://mullvad.net/en) account.
 
 The first 2 will permanently secure your foothold into restoring your Raven
@@ -91,7 +99,7 @@ installations in the event of a fire or having your phone stolen. The last one
 is just a damn nice and simple VPN.
 
 ## Common tasks
-This section details how to perform common tasks with Raven's applications.
+This section details how to perform common tasks with Raven.
 
 ### Installing new software
 A huge strength of NixOS is because each application has its runtime isolated
