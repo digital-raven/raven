@@ -3,6 +3,7 @@ Raven is simply implemented as a set of Nix flakes, and is designed to be
 installed on top of an existing NixOS installation.
 
 Raven segregates its models by "patterns".
+
 - `raven-terminal`: Provides a common terminal experience. All other patterns
     base themselves on raven-terminal.
 - `raven-home`: For most people. Provides a graphical desktop environment and
@@ -24,8 +25,11 @@ If you'd rather save money, then installing Raven is straightforward.
      on GitHub and push a copy there. Create the private repo without any files.
 3. Download and install [the NixOS ISO](https://nixos.org/download/) to a flashdrive.
    - [Rufus](https://rufus.ie/en/) can create a bootable flash drive if you're on Windows.
-   - If you're on a Mac or a different Linux machine already, then download the ISO
-     and use `dd if=<your-nixos.iso> of=/dev/<your flashdrive block device>`
+   - If you're on a Mac or a different Linux machine already, then download the NixOS ISO
+     and use `dd` to install it to your flashdrive.
+
+     `dd if=<your-nixos.iso> of=/dev/<your flashdrive block device>`
+
 4. Boot your computer from your flash drive and go through the NixOS installer.
 5. Download your forked repository from your github and `cd` into it. Set up the
    following remotes.
@@ -41,36 +45,70 @@ If you'd rather save money, then installing Raven is straightforward.
 Raven is simple to update once installed. There are only a few commands to
 remember.
 
-- Open a terminal window and `cd` into your repo's local copy.
-- Rebuild your your system with any changes you've made, or perform a first-time
-  installation on a base NixOS installation.
+- First open a terminal window and `cd` into your repo's local copy.
 
-  `sudo nixos-rebuild switch --flake .#raven-gaming`
+- If you wish to grab changes from the Master Raven Repository, then run these commands.
 
-- Update your home-manager
+  ```
+  git fetch upstream
+  git rebase upstream/master  # Apply your personal changes on top of Master's latest.
+  ```
 
-  `home-manager switch --flake .#master@raven-gaming`
+- If you wish to update currently installed packages, then run the
+  following command before proceeding.
 
-If you wish to get updates for currently installed software, then run the
-following command and repeat the above 2.
-- `nix flake update`
+  `nix flake update`
 
-Run these if you wish to update your copy of Raven with the latest from the
-Master Raven Repository.
-```
-git fetch upstream
-git merge upstream/master
-```
+- If you want to make custom changes to your installation, then you should read the
+  following section, "Customizing Raven", before proceeding to the next step.
 
-After installing NixOS and going through the installation procedure in the [README](../README.md),
-one of these patterns may be installed by running one of the following commands.
+- Now run **one** of the following comamnds to turn your system into the specified
+  Raven model. Your personal data will not be affected going from one to the other.
+  If you accidentally install the incorrect model for your machine then simply run
+  the command with your desired model.
 
-- `sudo nixos-rebuild switch --flake .#raven-terminal`
-- `sudo nixos-rebuild switch --flake .#raven-home`
-- `sudo nixos-rebuild switch --flake .#raven-gaming`
+  If ever you make custom changes to your Raven installation, this is the same command
+  to apply those changes. The following commands are used for both applying changes
+  and initial installations of Raven.
 
-Then reboot your computer and log in. If you're using `raven-gaming` then change
-the display server to x11 on the login screen if it's your first time.
+  ```
+  sudo nixos-rebuild switch --flake .#raven-terminal
+  sudo nixos-rebuild switch --flake .#raven-home
+  sudo nixos-rebuild switch --flake .#raven-gaming
+  ```
+
+- Finally, update your home-manager.
+
+  `home-manager switch --flake .#master@hostname`
+
+Depending on how drastic your changes were you may need to reboot. If it's your
+machine's first time installing Raven then you should definitely reboot. If you're
+using `raven-gaming` then change the display server to x11 on the login screen.
+
+### Customizing Raven
+Here is a brief orientation of Raven's directory structure.
+
+- `flake.nix`: Defines the different Raven patterns and shows which .nix files are
+             brought into which patterns.
+- `docs`: User documentation and some memes illustrating the spirit of why this OS
+        was created.
+- `nixos`: Top level system information such as users and hardware info.
+- `patterns`: Each Raven pattern is implemented as .nix files in directories
+            under `patterns`. You may make changes here if you wish, but
+            Raven reserves this space for altering pattern logic so changes
+            here may produce merge conflicts.
+- `personal`: Add your personal touches here. This includes custom packages, custom
+            changes to your various dotfiles (.bashrc, .vimrc, ...), 
+
+If you wish to customize your installation, start your grokking in `flake.nix`.
+The `nixosConfigurations` defines the patterns of Raven and which .nix files
+they pull in. Changes or additions to those files will change the pattern.
+These changes can be applied to your installation with the appropriate
+`nixos-rebuild switch` command shown in the previous section.
+
+To change the Home Manager aspect of your installation, start at the
+`homeConfigurations` section. Changes made here will require the appropriate
+`home-manager switch` command to apply.
 
 ## Managing multiple machines
 It's likely you wish to install Raven on multiple machines. Perhaps you have a
@@ -78,7 +116,9 @@ computer for gaming and a computer for office work. It is also likely you may
 wish to use Raven as an starting point to make your own modifications.
 
 The most convenient method is to have one private repo for all your Raven machines
-and create a git branch for each of your machines within that repo.
+and create a git branch for each of your machines within that repo. This makes
+it easy to keep the machine-specific information easily separated, while being
+able to conveniently port and compare extra changes between your installations.
 
 ## What Raven requires to use as intended
 Raven is based on NixOS, and so your installation is declarative and reproducible.
@@ -154,12 +194,13 @@ for your online accounts.
 Raven provides a program for password management, and the best password management
 solution serves as an effective and total catalog of all your credentials.
 
-The `pass` program is included with all versions of Raven. It's an inuitive program.
-Passwords are stored in a simple directory tree under `~/.password-store/` by default.
+The `pass` program is included with all versions of Raven. It's an inuitive program
+which stores passwords in a simple directory tree under `~/.password-store/` by default.
 Each file is locally encrypted using your gpg key, but the filenames themselves are
 not encrypted.
 
 #### GPG Key generation
+
 Run `gpg --generate-key` to generate your public / private gpg key pair. Select a long
 and unique, but memorable, password for your secret key. If you forget this password
 then you will lose access to all your passwords managed by `pass`!
@@ -192,8 +233,10 @@ pass shopping/amazon/amazon-username
 pass -c shopping/amazon/amazon-username
 ```
 
-You can verify the contents are encrypted by running `cat ~/.password-store/shopping/amazon/amazon-username`.
-It should print encrypted garbage to the terminal.
+You can verify the contents are encrypted by printing contents of a file to stdout.
+The following command will print encrypted garbage to the terminal.
+
+`cat ~/.password-store/shopping/amazon/amazon-username`
 
 #### Pass best practices
 When a critical password is changed, you should create a cold backup of the store
@@ -207,8 +250,8 @@ tar -zcf': tar -zcf password-store.tar.gz ./.password-store/
 gpg --encrypt password-store.tar.gz
 ```
 
-The file `password-store.tar.gz.gpg` will now be created. Email it to yourself along with some
-instructions to yourself.
+The file `password-store.tar.gz.gpg` will now be created. Email it to yourself along with
+some instructions to yourself.
 
 > Backup of my password store. Update this backup when changing or adding a core password. These are passwords that cannot be recovered if forgotten, and may be necessary for bootstrapping a new installation.
 >
