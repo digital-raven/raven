@@ -17,7 +17,7 @@ drives available for purchase with Raven pre-installed.
 
 If you'd rather save money, then installing Raven is straightforward.
 
-1. If you don't have one already, create a github account.
+1. If you don't have one already, create a GitHub account.
 2. Fork [the Master Raven Repository](https://github.com/digital-raven/raven.git) repository to your
    GitHub account.
    - You can use the GUI on GitHub.
@@ -31,7 +31,7 @@ If you'd rather save money, then installing Raven is straightforward.
      `dd if=<your-nixos.iso> of=/dev/<your flashdrive block device>`
 
 4. Boot your computer from your flash drive and go through the NixOS installer.
-5. Download your forked repository from your github and `cd` into it. Set up the
+5. Download your forked repository from your GitHub and `cd` into it. Set up the
    following remotes.
    - `git remote add upstream https://github.com/digital-raven/raven.git`
    - `git remote add origin https://github.com/<your-github-username>/raven.git`
@@ -271,25 +271,55 @@ To fetch this cold backup to a new machine...
 And since Raven is designed for easy user access across multiple machines, we have also
 thought of a solution for distributed password access.
 
-The `pass` program comes included with git integration. Create a private github repository
+The `pass` program comes included with git integration. Create a private GitHub repository
 and use the `pass git` subcommands to keep your passwords in sync across your machines.
 
 #### Backing up 2FA
 Some common webservices require 2-factor authentication. Sometimes these are one-time codes
-which you can generate using an app on your phone.
+which you can generate using an app on your phone. Since GitHub requires 2FA and is where
+Raven expects its users to store their machine-specific Raven repositories and pass vaults,
+we should select a 2FA application which allows us to backup and import these 2FA codes
+to a new device in case our phone becomes lost to us.
 
-Since github is one of these, and backing up your local Raven files is part of the intended
-use of Raven, it is recommended to use pass to back up any required files 
-
-Aegis is a phone app that can satisfy the 2FA requirements of protronmail and github.
-Aegis allows its user to export its vault as a plain json file. When you add a new credential
+Aegis is a phone app that can satisfy the 2FA requirements of ProtonMail and GitHub.
+Aegis allows its user to export its vault as a plaintext json file. When you add a new credential
 to Aegis, you should export the vault on your phone and transfer it to your computer somehow.
-Emailing it to yourself via protonmail should be a private and secure way to perform this before
-deleting the local copy from your phone.
+Emailing it to yourself via ProtonMail should be a private and secure way to perform this before
+deleting the copies from your phone and email.
 
-Copy the text from the exported json and save it with the pass program. Because 2FA is
-necessary to log in to your github account, you should also replace your cold backup of your
-password store in your email.
+Copy the text from the exported json and save it to `pass`. Because 2FA is necessary to log
+in to your GitHub account, you should also replace your cold backup of your password store
+in your email.
+
+### Naked Restart
+"Naked" means all of your devices were lost or otherwise inaccessible to you. A Raven user
+will suffer no permanent damage from this so long as the following checklist is fulfilled.
+
+- [ ] You've set up 2 email accounts; an emergency email and core email account.
+  - [ ] Your emergency email is set up to recover your core email.
+  - [ ] You memorized your emergency email username and password.
+  - [ ] Your emergency email does not require 2FA; the password is enough.
+- [ ] Your GitHub account has Aegis 2FA.
+- [ ] Both your GitHub credentials and Aegis vault are saved to `pass`.
+- [ ] Your GPG keys and pass vault have copies in your core email account.
+- [ ] You saved your personal Raven configurations to GitHub in a private repo.
+
+If all of those are performed, then congratulations! You have the ability to recreate your
+digital ecosystem, including your customized operating system, starting from nothing other
+than a new computer, phone, and internet access.
+
+- [ ] Acquire a new computer, phone, and flashdrive.
+- [ ] Install NixOS and `pass` to the new computer.
+- [ ] Log in to your emergency email account and recover your core email account.
+- [ ] Download your GPG keys and pass vault from your core email account.
+- [ ] Install Aegis to your phone and import your vault.
+- [ ] Log in to GitHub and install your custom Raven repository.
+
+And if you've stored all your other credentials in `pass`, then you've also regained access
+to all of your other accounts.
+
+Your credentials and operating environment are fireproof and criminal-proof; just so long as
+you **never forget** your emergency email username and password.
 
 ### Encrypted storage
 You should encrypt your personal data on drives under your control.
