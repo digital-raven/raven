@@ -246,7 +246,7 @@ your attackers will still not have access to your usernames.
 
 ```
 cd $HOME
-tar -zcf': tar -zcf password-store.tar.gz ./.password-store/
+tar -zcf password-store.tar.gz ./.password-store/
 gpg --encrypt password-store.tar.gz
 ```
 
