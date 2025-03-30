@@ -46,11 +46,11 @@
 
     # Reusable nixos modules you might want to export
     # These are usually stuff you would upstream into nixpkgs
-    nixosModules = import ./shared/modules/nixos;
+    nixosModules = import ./shared/modules;
 
     # Reusable home-manager modules you might want to export
     # These are usually stuff you would upstream into home-manager
-    homeManagerModules = import ./shared/modules/home-manager;
+    homeManagerModules = import ./shared/home-manager;
 
     # Raven's NixOS patterns
     #
@@ -95,13 +95,15 @@
     # ```
     # home-manager --flake .#username'
     # ```
+    #
+    # EDIT THIS SECTION when adding new users.
     homeConfigurations = {
       "master" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           # > Our main home-manager configuration file <
-          ./shared/home-manager/home.nix
+          ./host/users/home-manager/master.nix
         ];
       };
     };

@@ -17,11 +17,11 @@
     # inputs.nix-colors.homeManagerModules.default
 
     # You can also split up your configuration and import pieces of it here:
-    ./bash.nix
-    ./git.nix
-    ./gpg.nix
-    ./nvim.nix
-    ./vim.nix
+    ./common/bash.nix
+    ./common/git.nix
+    ./common/gpg.nix
+    ./common/nvim.nix
+    ./common/vim.nix
   ];
 
   nixpkgs = {
