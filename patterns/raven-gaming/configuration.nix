@@ -9,7 +9,6 @@
   # You can import other NixOS modules here
   imports = [
     ./emulators.nix
-    ./nvidia.nix
   ];
 
   nixpkgs = {

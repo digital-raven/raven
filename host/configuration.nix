@@ -27,6 +27,9 @@
     # System-wide packages
     ./system-packages.nix
 
+    # Choose specialty drivers for your machine
+    #./drivers/nvidia.nix
+
     # Users
     ./users/master.nix
   ];
