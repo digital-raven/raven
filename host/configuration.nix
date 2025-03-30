@@ -19,7 +19,6 @@
   # inputs.hardware.nixosModules.common-ssd
 
   # You can also split up your configuration and import pieces of it here:
-  # ./users.nix
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -27,11 +26,11 @@
     # System-wide packages
     ./system-packages.nix
 
-    # Choose specialty drivers for your machine
+    # EDIT_ to choose a GPU driver.
     #./drivers/nvidia.nix
 
     # Users
-    ./users/master.nix
+    ./users/users.nix
   ];
 
   # Bootloader.

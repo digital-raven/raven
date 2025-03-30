@@ -79,7 +79,7 @@ remember.
 
 - Finally, update your home-manager.
 
-  `home-manager switch --flake .#master@hostname`
+  `home-manager switch --flake .#<username>`
 
 Depending on how drastic your changes were you may need to reboot. If it's your
 machine's first time installing Raven then you should definitely reboot. If you're
