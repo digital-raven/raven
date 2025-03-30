@@ -426,6 +426,7 @@ Raven also ships with various emulators for retro and modern consoles.
 Raven
 - clonehero: Guitar Hero clone. Works with original controller with USB adapter.
 - dwarf-fortress: Hardcore base-management survival sim. Gives you 1000 gamer cred per minute.
+- atlauncher: Minecraft launcher. Requires a valid Minecraft account.
 
 #### Emulation
 If you've wanted to play games from popular consoles on your computer,
