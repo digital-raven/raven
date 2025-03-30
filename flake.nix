@@ -65,7 +65,7 @@
       raven-home = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./nixos/configuration.nix
+          ./host/configuration.nix
           ./patterns/raven-home/configuration.nix
           ./patterns/raven-terminal/configuration.nix
         ];
@@ -73,7 +73,7 @@
       raven-gaming = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./nixos/configuration.nix
+          ./host/configuration.nix
           ./patterns/raven-gaming/configuration.nix
           ./patterns/raven-terminal/configuration.nix
           ./patterns/raven-home/configuration.nix
@@ -82,7 +82,7 @@
       raven-terminal = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./nixos/configuration.nix
+          ./host/configuration.nix
           ./patterns/raven-terminal/configuration.nix
         ];
       };
