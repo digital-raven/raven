@@ -92,13 +92,16 @@ Here is a brief orientation of Raven's directory structure.
              brought into which patterns.
 - `docs`: User documentation and some memes illustrating the spirit of why this OS
         was created.
-- `nixos`: Top level system information such as users and hardware info.
+- `host`: Top level system information for your host such as users and hardware info.
+        You should use git branches to swith between different hosts if you use
+        a Raven repository to manage multiple machines.
 - `patterns`: Each Raven pattern is implemented as .nix files in directories
             under `patterns`. You may make changes here if you wish, but
             Raven reserves this space for altering pattern logic so changes
             here may produce merge conflicts.
-- `personal`: Add your personal touches here. This includes custom packages, custom
-            changes to your various dotfiles (.bashrc, .vimrc, ...), 
+- `shared`: Add generic customizations here. This is for overlays, modules, custom
+          packages, and generic home-manager modules you wish to share between
+          your machines.
 
 If you wish to customize your installation, start your grokking in `flake.nix`.
 The `nixosConfigurations` defines the patterns of Raven and which .nix files
