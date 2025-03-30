@@ -8,7 +8,7 @@
 }: {
   # You can import other NixOS modules here
   imports = [
-    # If you want to use modules your own flake exports (from modules/nixos):
+    # If you want to use modules your own flake exports (from shared/modules):
     # outputs.nixosModules.example
 
     # Or modules from other flakes (such as nixos-hardware):
