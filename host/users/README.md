@@ -1,3 +1,9 @@
 Modify this directory when creating / removing users from your host.
-Each user should have a corresponding .nix file here and optionally
-a home-manager configuration.
+
+To create a new user...
+
+1. Decide if you want to create a new master-level or guest-level user and
+   copy the appropriate block in users.nix.
+2. If you wish to have a home-manager set up for this new user, then modify
+   [flake.nix](../../flake.nix) and create a new .nix file under ./home-manager
+   similar to the ones already present.

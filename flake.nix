@@ -90,22 +90,30 @@
 
     # Standalone home-manager configuration entrypoint
     # Install with the following command. Be sure to replace
-    # with your userName and hostName.
+    # with your userName.
     #
     # ```
-    # home-manager --flake .#username'
+    # home-manager switch --flake .#username'
     # ```
     #
-    # EDIT THIS SECTION when adding new users.
+    # EDIT_ this section when adding new users.
     homeConfigurations = {
       "master" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          # > Our main home-manager configuration file <
+          # home-manager configuration
           ./host/users/home-manager/master.nix
         ];
       };
+      #"guest" = home-manager.lib.homeManagerConfiguration {
+      #  pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+      #  extraSpecialArgs = {inherit inputs outputs;};
+      #  modules = [
+      #    # home-manager configuration
+      #    ./host/users/home-manager/guest.nix
+      #  ];
+      #};
     };
   };
 }

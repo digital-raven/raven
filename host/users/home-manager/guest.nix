@@ -1,5 +1,4 @@
-# This is your home-manager configuration file
-# Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
+# home-manager configuration file for guest
 {
   inputs,
   outputs,
@@ -51,8 +50,8 @@
 
   # EDIT_ username and homeDirectory when copying this file to create a new user.
   home = {
-    username = "master";
-    homeDirectory = "/home/master";
+    username = "guest";
+    homeDirectory = "/home/guest";
   };
 
   # Add stuff for your user as you see fit:

@@ -9,7 +9,7 @@
   ...
 }: {
 
-  # Packages. Every system should have git and vim
+  # Install new packages here.
   environment.systemPackages = with pkgs; [
     git
     vim
