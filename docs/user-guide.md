@@ -88,17 +88,17 @@ using `raven-gaming` then change the display server to x11 on the login screen.
 ### Customizing Raven
 Here is a brief orientation of Raven's directory structure.
 
-- `flake.nix`: Defines the different Raven patterns and shows which .nix files are
-             brought into which patterns.
-- `docs`: User documentation and some memes illustrating the spirit of why this OS
-        was created.
-- `host`: Top level system information for your host such as users and hardware info.
+- `docs`: User documentation and some memes illustrating the spirit of Raven's creation.
+- `host`: System-specifics are located here, such as users and hardware info.
         You should use git branches to swith between different hosts if you use
         a Raven repository to manage multiple machines.
-- `patterns`: Each Raven pattern is implemented as .nix files in directories
-            under `patterns`. You may make changes here if you wish, but
-            Raven reserves this space for altering pattern logic so changes
-            here may produce merge conflicts.
+- `patterns`: Patterns describe the general purpose of your machine and contain
+            useful packages for that purpose.
+
+            You may make changes to patterns if you wish, but Raven reserves this
+            space for altering pattern logic so changes here may produce merge conflicts.
+
+            If you wish to add specific software to your machine, you should do it under `host`.
 - `shared`: Add generic customizations here. This is for overlays, modules, custom
           packages, and generic home-manager modules you wish to share between
           your machines.
@@ -119,7 +119,7 @@ computer for gaming and a computer for office work. It is also likely you may
 wish to use Raven as an starting point to make your own modifications.
 
 The most convenient method is to have one private repo for all your Raven machines
-and create a git branch for each of your machines within that repo. This makes
+and create a git branch for a new machine when you install Raven to it. This makes
 it easy to keep the machine-specific information easily separated, while being
 able to conveniently port and compare extra changes between your installations.
 
