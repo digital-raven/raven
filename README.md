@@ -32,11 +32,10 @@ internet connection.
 Raven's claims are...
 - The target customer is a non-technical user, though competent enough to understand
   what a file-system and storage devices are.
-- By no means does Raven claim hyper-optimization, but it should get the job done
+- Raven does not claim to be a performant OS, but it should get the job done
   for home office, gaming, and various development tasks.
 - This product teaches you how to live without us, even if you're not a technical
-  user. All software requires updates, common sense, and respecting the user as
-  the God of their system.
+  user. Grab this repo and fly in your own direction, if you wish.
 
 Raven allows you to operate independent of us, but you may choose to reference
 this repo for guidance and updates.
@@ -51,10 +50,11 @@ Non-technical users who are tired of annoying desktop operating systems stand
 to benefit the most from adopting Raven.
 
 - Easy starting point to a configurable NixOS system.
-- Competant configurations for office, gaming, or software development.
+- Competant configurations for office, gaming, or software development out of the box.
 - Update when / if you want.
 - Easy access to otherwise hard to get programs.
 - Long list of quality software and guides for common tasks.
 - On-system [user-guide](./docs/user-guide.md).
-- Snapshots on every change! If you make a change you don't like then
-  you can easily reboot and load your old setup.
+- Easy experimentation! Each modification to your system produces a snapshot of the
+  previous configuration. If you make a change you don't like then you can reboot
+  your machine and load your old setup.
