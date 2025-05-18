@@ -18,10 +18,10 @@
 
     # You can also split up your configuration and import pieces of it here:
     ./common/bash.nix
-    ./common/git.nix
-    ./common/gpg.nix
     ./common/nvim.nix
     ./common/vim.nix
+    ./master/git.nix
+    ./master/gpg.nix
   ];
 
   nixpkgs = {
