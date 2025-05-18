@@ -560,7 +560,7 @@ Those afore-mentioned commands are aliases to conveniently maniuplate both the
 killswitch and connection status. [This webpage](https://mullvad.net/en/help/how-use-mullvad-cli)
 has comprehensive information on how to use the `mullvad` command.
 
-But there is one more common detail operation; changing the connection region. To
+But there is one more common operation; changing the connection region. To
 change the region of the server you log in to, run `mullvad relay set location <country-code> [city]`,
 where `[city]` is optional.
 
