@@ -117,28 +117,67 @@
           PS1=''${ORIG}''${TITLE}
       }
 
-      # Rename all files in a dir to the date-time of their creation.
+      # Rename all files in a dir to the date-time of their last modification.
       function date-rename() {
-          read -p "Rename all files in $pwd to their creation dates? (y/N) " -n 1 -r
-          echo
-          read -p "Are you sure? (y/N) " -n 1 -r
-          echo
+          # First confirmation prompt
+          read -p "Rename all files in $PWD to their modification date-times? [y/N]" REPLY
+          [[ $REPLY =~ ^[Yy]$ ]] || return 1
 
-          proceed="''${REPLY:-N}"
+          # Second confirmation prompt
+          read -p "Are you sure? [y/N] " REPLY
+          [[ $REPLY =~ ^[Yy]$ ]] || return 1
 
-          if [ "$REPLY" != "y" ]
-          then
-              return 1
-          fi
+          # Count files to be renamed
+          file_count=0
+          for file in *; do [ -f "$file" ] && ((file_count++)); done
+          echo "Found $file_count files to process..."
 
-          for i in `ls`
-          do
-              filename=$(basename -- "$i")
-              extension="''${filename##*.}"
-              filename="''${filename%.*}"
+          # Process each file
+          renamed_count=0
+          for file in *; do
+              # Skip if not a regular file
+              [ -f "$file" ] || continue
 
-              mv $i "$(date -r $i +"%Y-%m-%d_%H-%M-%S").$extension"
+              # Get file extension
+              filename="''${file%.*}"
+              extension="''${file##*.}"
+
+              # Handle files without extension
+              if [ "$extension" = "$file" ] || [ "$filename" = "" ]
+              then
+                  extension=""
+              else
+                  extension=".$extension"
+              fi
+
+              # Get last modification date in YYYY-MM-DD_HH-MM-SS format
+              mdate=$(date -r "$file" +"%Y-%m-%d_%H-%M-%S")
+
+              # Construct new filename
+              newname="''${mdate}''${extension}"
+
+              # Skip if name wouldn't change
+              [ "$file" = "$newname" ] && continue
+
+              # Handle potential name collisions
+              counter=1
+              while [ -e "$newname" ]; do
+                  newname="''${mdate}_''${counter}''${extension}"
+                  ((counter++))
+              done
+
+              # Rename the file
+              mv -n -- "$file" "$newname"
+              if [ $? != 0 ]
+              then
+                  echo "Renamed '$file' to '$newname'"
+                  ((renamed_count++))
+              else
+                  echo "Error renaming '$file'" >&2
+              fi
           done
+
+          echo "Done. Renamed $renamed_count of $file_count files."
       }
 
       # Double ended fork-bomb. Do not type. Ravens carry guns.
