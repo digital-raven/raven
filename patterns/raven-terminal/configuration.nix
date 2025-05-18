@@ -73,11 +73,11 @@
     docker
     dosfstools
     ffmpeg
+    file
     gcc
     git
     gnumake
     gnupg
-    gparted
     home-manager
     iotop
     lm_sensors
