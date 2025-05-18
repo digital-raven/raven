@@ -6,7 +6,6 @@
   pkgs,
   ...
 }: {
-
   programs.git = {
     enable = true;
     userName = "REPLACEME_gitUserName";

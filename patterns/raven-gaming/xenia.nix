@@ -1,26 +1,23 @@
 # From https://github.com/NixOS/nixpkgs/issues/108212
-
-{ clangStdenv
-, fetchFromGitHub
-, lib
-, python3
-, pkg-config
-, gtk3
-, SDL2
-, lz4
-, libunwind
-, libiberty
-, xorg
-, vulkan-loader
-}:
-
-let
-  mkXenia =
-    { src
-    , version
-    , suffix ? ""
-    }:
-
+{
+  clangStdenv,
+  fetchFromGitHub,
+  lib,
+  python3,
+  pkg-config,
+  gtk3,
+  SDL2,
+  lz4,
+  libunwind,
+  libiberty,
+  xorg,
+  vulkan-loader,
+}: let
+  mkXenia = {
+    src,
+    version,
+    suffix ? "",
+  }:
     clangStdenv.mkDerivation {
       pname = "xenia${suffix}";
       inherit src version;
@@ -64,23 +61,17 @@ let
         patchelf --add-rpath ${vulkan-loader}/lib $out/bin/xenia
       '';
 
-      meta =
-        let
-          inherit (lib) licenses platforms;
-        in
-        {
-          description = "Xenia is an experimental emulator for the Xbox 360";
-          homepage = "https://xenia.jp";
-          license = licenses.bsd3;
-          maintainers = [ ];
-          platforms = platforms.linux;
-        };
-
+      meta = let
+        inherit (lib) licenses platforms;
+      in {
+        description = "Xenia is an experimental emulator for the Xbox 360";
+        homepage = "https://xenia.jp";
+        license = licenses.bsd3;
+        maintainers = [];
+        platforms = platforms.linux;
+      };
     };
-
-in
-{
-
+in {
   xenia = mkXenia {
     version = "unstable-2022-07-27";
     src = fetchFromGitHub {
@@ -102,5 +93,4 @@ in
       hash = "sha256-Njbp9wiyinRnC+Qw1tIEWU4UtQXmEHjAR5I+0Q2z8m8=";
     };
   };
-
 }

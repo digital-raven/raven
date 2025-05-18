@@ -3,14 +3,15 @@
 
   inputs = {
     # Nixpkgs. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-REPLACEME_system.stateVersion";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+
     # You can access packages and modules from different nixpkgs revs
     # at the same time. Here's an working example:
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
+    # Also see the 'unstable-packages' overlay at 'shared/overlays/default.nix'.
 
     # Home manager. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
-    home-manager.url = "github:nix-community/home-manager/release-REPLACEME_system.stateVersion";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -23,11 +24,13 @@
     inherit (self) outputs;
     # Supported systems for your flake packages, shell, etc.
     systems = [
-      "aarch64-linux"
-      "i686-linux"
       "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
+
+      # If your system is one of these you can try Raven on it.
+      #"aarch64-linux"
+      #"i686-linux"
+      #"aarch64-darwin"
+      #"x86_64-darwin"
     ];
     # This is a function that generates an attribute by calling a function you
     # pass to it, with each system as an argument
@@ -65,55 +68,56 @@
       raven-home = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          ./host/hardware-configuration.nix
           ./host/configuration.nix
-          ./patterns/raven-home/configuration.nix
-          ./patterns/raven-terminal/configuration.nix
+          ./patterns/raven-minimal/default.nix
+          ./patterns/raven-terminal/default.nix
+          ./patterns/raven-home/default.nix
+          ./shared/shared-enable.nix
+          home-manager.nixosModules.home-manager
+          {
+            imports = [./host/home-manager];
+          }
         ];
       };
       raven-gaming = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          ./host/hardware-configuration.nix
           ./host/configuration.nix
-          ./patterns/raven-gaming/configuration.nix
-          ./patterns/raven-terminal/configuration.nix
-          ./patterns/raven-home/configuration.nix
+          ./patterns/raven-minimal/default.nix
+          ./patterns/raven-terminal/default.nix
+          ./patterns/raven-home/default.nix
+          ./patterns/raven-gaming/default.nix
+          ./shared/shared-enable.nix
+          home-manager.nixosModules.home-manager
+          {
+            imports = [./host/home-manager];
+          }
         ];
       };
       raven-terminal = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          ./host/hardware-configuration.nix
           ./host/configuration.nix
-          ./patterns/raven-terminal/configuration.nix
+          ./patterns/raven-minimal/default.nix
+          ./patterns/raven-terminal/default.nix
+          ./shared/shared-enable.nix
+          home-manager.nixosModules.home-manager
+          {
+            imports = [./host/home-manager];
+          }
         ];
       };
-    };
-
-    # Standalone home-manager configuration entrypoint
-    # Install with the following command. Be sure to replace
-    # with your userName.
-    #
-    # ```
-    # home-manager switch --flake .#username'
-    # ```
-    #
-    # EDIT_ this section when adding new users.
-    homeConfigurations = {
-      "master" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
+      raven-minimal = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
         modules = [
-          # home-manager configuration
-          ./host/users/home-manager/master.nix
+          ./host/hardware-configuration.nix
+          ./host/configuration.nix
+          ./patterns/raven-minimal/default.nix
         ];
       };
-      #"guest" = home-manager.lib.homeManagerConfiguration {
-      #  pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-      #  extraSpecialArgs = {inherit inputs outputs;};
-      #  modules = [
-      #    # home-manager configuration
-      #    ./host/users/home-manager/guest.nix
-      #  ];
-      #};
     };
   };
 }

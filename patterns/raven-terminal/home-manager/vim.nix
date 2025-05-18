@@ -7,7 +7,6 @@
   pkgs,
   ...
 }: {
-
   # Vim plugins and vimrc
   # maxboisvert/vim-simple-complete
   # madox2/vim-ai is still the best one I've ever used
