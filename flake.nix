@@ -3,7 +3,7 @@
 
   inputs = {
     # Nixpkgs. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     # You can access packages and modules from different nixpkgs revs
     # at the same time. Here's an working example:
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
