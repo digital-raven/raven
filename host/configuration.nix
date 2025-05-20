@@ -20,8 +20,8 @@
 
   # You can also split up your configuration and import pieces of it here:
   imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+
+    # hardware-configuration.nix is brought to the system via flake.nix
 
     # System-wide packages
     ./system-packages.nix
