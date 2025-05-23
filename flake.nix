@@ -66,6 +66,7 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./host/hardware-configuration.nix
+          ./shared/shared-enable.nix
           ./host/configuration.nix
           ./patterns/raven-home/configuration.nix
           ./patterns/raven-terminal/configuration.nix
@@ -75,6 +76,7 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./host/hardware-configuration.nix
+          ./shared/shared-enable.nix
           ./host/configuration.nix
           ./patterns/raven-gaming/configuration.nix
           ./patterns/raven-terminal/configuration.nix
@@ -85,6 +87,7 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./host/hardware-configuration.nix
+          ./shared/shared-enable.nix
           ./host/configuration.nix
           ./patterns/raven-terminal/configuration.nix
         ];
