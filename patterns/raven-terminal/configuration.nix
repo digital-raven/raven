@@ -69,13 +69,14 @@
   # Command-line packages
   environment.systemPackages = with pkgs; [
     bash-completion  # Tab auto-complete
+    btop  # Great system-profiler.
     cmus  # Music player
     docker
     dosfstools
     ffmpeg  # Powerful video and audio editor.
     file  # Print the type of a target file.
     gcc  # World's greatest c compiler.
-    git  # World's greatest file versioning .
+    git  # World's greatest file versioning.
     gnumake
     gnupg
     home-manager
