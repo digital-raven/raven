@@ -19,6 +19,9 @@
   # inputs.hardware.nixosModules.common-ssd
 
   # You can also split up your configuration and import pieces of it here:
+
+  # If you want to use modules your own flake exports (from shared/modules):
+  # outputs.nixosModules.example
   imports = [
 
     # hardware-configuration.nix is brought to the system via flake.nix
