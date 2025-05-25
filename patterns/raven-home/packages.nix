@@ -10,6 +10,10 @@
   imports = [
   ];
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-33.4.11"
+  ];
+
   # Packages
   environment.systemPackages = with pkgs; [
     brave  # Privacy-focused chromium browser.
