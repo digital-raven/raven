@@ -29,8 +29,8 @@
     # System-wide packages
     ./system-packages.nix
 
-    # EDIT_ to choose a GPU driver.
-    #./drivers/nvidia.nix
+    # Choose specific drivers.
+    #./drivers/nvidia-open.nix
 
     # Users
     ./users/users.nix
