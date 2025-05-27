@@ -8,6 +8,11 @@
   ...
 }: {
 
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+
+  # Copy this block to create additional root users.
+  home-manager.users.master = import ./home-manager/master.nix;
   users.users.master = {
     # Change this password (using passwd) after rebooting!
     initialPassword = "master";
@@ -15,6 +20,7 @@
     openssh.authorizedKeys.keys = [
       # Add your SSH public key(s) here, if you plan on using SSH to connect
     ];
+
     extraGroups = [
       "master"
       "docker"
@@ -23,7 +29,8 @@
     ];
   };
 
-  # Uncomment the following to give the system a "guest" user
+  # Uncomment the following to give the system a "guest" user.
+  #home-manager.users.guest = import ./home-manager/master.nix;
   #users.users.guest = {
   #  # Change this password (using passwd) after rebooting!
   #  initialPassword = "guest";

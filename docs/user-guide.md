@@ -77,10 +77,6 @@ remember.
   sudo nixos-rebuild switch --flake .#raven-gaming
   ```
 
-- Finally, update your home-manager.
-
-  `home-manager switch --flake .#<username>`
-
 Depending on how drastic your changes were you may need to reboot. If it's your
 machine's first time installing Raven then you should definitely reboot. If you're
 using `raven-gaming` then change the display server to x11 on the login screen.
@@ -109,9 +105,7 @@ they pull in. Changes or additions to those files will change the pattern.
 These changes can be applied to your installation with the appropriate
 `nixos-rebuild switch` command shown in the previous section.
 
-To change the Home Manager aspect of your installation, start at the
-`homeConfigurations` section. Changes made here will require the appropriate
-`home-manager switch` command to apply.
+Home-manager is integrated as nix modules under the `host/users` directory.
 
 ## Managing multiple machines
 It's likely you wish to install Raven on multiple machines. Perhaps you have a

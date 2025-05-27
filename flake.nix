@@ -4,6 +4,7 @@
   inputs = {
     # Nixpkgs. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+
     # You can access packages and modules from different nixpkgs revs
     # at the same time. Here's an working example:
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -65,6 +66,7 @@
       raven-home = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          home-manager.nixosModules.home-manager
           ./host/hardware-configuration.nix
           ./shared/shared-enable.nix
           ./host/configuration.nix
@@ -75,6 +77,7 @@
       raven-gaming = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          home-manager.nixosModules.home-manager
           ./host/hardware-configuration.nix
           ./shared/shared-enable.nix
           ./host/configuration.nix
@@ -86,40 +89,13 @@
       raven-terminal = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          home-manager.nixosModules.home-manager
           ./host/hardware-configuration.nix
           ./shared/shared-enable.nix
           ./host/configuration.nix
           ./patterns/raven-terminal/configuration.nix
         ];
       };
-    };
-
-    # Standalone home-manager configuration entrypoint
-    # Install with the following command. Be sure to replace
-    # with your userName.
-    #
-    # ```
-    # home-manager switch --flake .#username'
-    # ```
-    #
-    # EDIT_ this section when adding new users.
-    homeConfigurations = {
-      "master" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [
-          # home-manager configuration
-          ./host/users/home-manager/master.nix
-        ];
-      };
-      #"guest" = home-manager.lib.homeManagerConfiguration {
-      #  pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-      #  extraSpecialArgs = {inherit inputs outputs;};
-      #  modules = [
-      #    # home-manager configuration
-      #    ./host/users/home-manager/guest.nix
-      #  ];
-      #};
     };
   };
 }
