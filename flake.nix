@@ -3,16 +3,27 @@
 
   inputs = {
     # Nixpkgs. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-
-    # You can access packages and modules from different nixpkgs revs
-    # at the same time. Here's an working example:
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home manager. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Hydenix and its nixpkgs - kept separate to avoid conflicts
+    hydenix = {
+      # Available inputs:
+      # Main: github:richen604/hydenix
+      # Dev: github:richen604/hydenix/dev
+      # Commit: github:richen604/hydenix/<commit-hash>
+      # Version: github:richen604/hydenix/v1.0.0
+      url = "github:richen604/hydenix";
+    };
+
+    # Nix-index-database - for comma and command-not-found
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -70,6 +81,7 @@
           ./host/hardware-configuration.nix
           ./shared/shared-enable.nix
           ./host/configuration.nix
+          ./host/users/users.nix
           ./patterns/raven-home/configuration.nix
           ./patterns/raven-terminal/configuration.nix
         ];
@@ -81,6 +93,7 @@
           ./host/hardware-configuration.nix
           ./shared/shared-enable.nix
           ./host/configuration.nix
+          ./host/users/users.nix
           ./patterns/raven-gaming/configuration.nix
           ./patterns/raven-terminal/configuration.nix
           ./patterns/raven-home/configuration.nix
@@ -93,7 +106,22 @@
           ./host/hardware-configuration.nix
           ./shared/shared-enable.nix
           ./host/configuration.nix
+          ./host/users/users.nix
           ./patterns/raven-terminal/configuration.nix
+        ];
+      };
+      raven-hyde = inputs.hydenix.inputs.hydenix-nixpkgs.lib.nixosSystem {
+        inherit (inputs.hydenix.lib) system;
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./host/hardware-configuration.nix
+          ./host/configuration.nix
+          ./patterns/raven-terminal/packages.nix
+          ./patterns/raven-gaming/configuration.nix
+          ./patterns/raven-home/packages.nix
+          ./patterns/raven-hyde/configuration.nix
         ];
       };
     };

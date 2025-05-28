@@ -23,6 +23,11 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  # Goes exlicitly with KDE
+  environment.systemPackages = with pkgs; [
+    kdePackages.kolourpaint  # Similar to MS-paint.
+  ];
+
   # Configure keymap in X11
   # TODO: Allow customization of xkb.layout.
   services.xserver = {

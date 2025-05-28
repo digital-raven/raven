@@ -32,8 +32,7 @@
     # Choose specific drivers.
     #./drivers/nvidia-open.nix
 
-    # Users
-    ./users/users.nix
+    # Users are included in flake.nix
   ];
 
   # Bootloader.
