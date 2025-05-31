@@ -10,7 +10,7 @@
   pkgs,
   ...
 }: {
-  services.gpg-agent = {
+  services.gpg-agent.pinentry.package = {
     enable = true;
     defaultCacheTtl = 34560000;
     maxCacheTtl = 34560000;

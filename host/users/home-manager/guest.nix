@@ -36,5 +36,5 @@ asdklfjaskldf
   systemd.user.startServices = "sd-switch";
 
   # https://mynixos.com/home-manager/option/home.stateVersion
-  home.stateVersion = "24.05";
+  home.stateVersion = "25.05";
 }

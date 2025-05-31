@@ -10,10 +10,6 @@
   imports = [
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-33.4.11"
-  ];
-
   # Packages
   environment.systemPackages = with pkgs; [
     brave  # Privacy-focused chromium browser.
@@ -22,7 +18,7 @@
     evince  # Reading PDFs.
     gimp  # Comprehensive image editor.
     gparted
-    kolourpaint  # Similar to MS-paint.
+    kdePackages.kolourpaint  # Similar to MS-paint.
     libreoffice  # Free office software suite.
     obs-studio  # Record and stream applications and games.
     qbittorrent  # Torrent software
