@@ -18,7 +18,6 @@
     evince  # Reading PDFs.
     gimp  # Comprehensive image editor.
     gparted
-    kdePackages.kolourpaint  # Similar to MS-paint.
     libreoffice  # Free office software suite.
     obs-studio  # Record and stream applications and games.
     qbittorrent  # Torrent software
