@@ -1,3 +1,4 @@
+# Packages useful for a home installation.
 {
   inputs,
   outputs,
@@ -18,6 +19,7 @@
     evince  # Reading PDFs.
     gimp  # Comprehensive image editor.
     gparted
+    kitty  # Great desktop-agnostic terminal emulator.
     libreoffice  # Free office software suite.
     obs-studio  # Record and stream applications and games.
     qbittorrent  # Torrent software
