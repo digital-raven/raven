@@ -55,4 +55,8 @@
     wl-clipboard # Command-line copy/paste utilities for Wayland
     xclip # See wl-clipboard, but for x11.
   ];
+
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    konsole  # Raven uses Kitty
+  ];
 }
