@@ -78,4 +78,11 @@
   };
 
   services.mullvad-vpn.enable = true;
+
+
+  # Alias to run neovim as configured in nixos-unified-template.
+  # TODO: Un-alias this and actually integrate this properly.
+  programs.bash.shellAliases = {
+    rio = "nix run github:digital-raven/nixos-unified-template/main#neovim";
+  };
 }
