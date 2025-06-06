@@ -72,8 +72,8 @@
           ./host/hardware-configuration.nix
           ./shared/shared-enable.nix
           ./host/configuration.nix
-          ./patterns/raven-home/configuration.nix
-          ./patterns/raven-terminal/configuration.nix
+          ./patterns/raven-home/default.nix
+          ./patterns/raven-terminal/default.nix
         ];
       };
       raven-gaming = nixpkgs.lib.nixosSystem {
@@ -83,9 +83,9 @@
           ./host/hardware-configuration.nix
           ./shared/shared-enable.nix
           ./host/configuration.nix
-          ./patterns/raven-gaming/configuration.nix
-          ./patterns/raven-terminal/configuration.nix
-          ./patterns/raven-home/configuration.nix
+          ./patterns/raven-gaming/default.nix
+          ./patterns/raven-terminal/default.nix
+          ./patterns/raven-home/default.nix
         ];
       };
       raven-terminal = nixpkgs.lib.nixosSystem {
@@ -95,7 +95,7 @@
           ./host/hardware-configuration.nix
           ./shared/shared-enable.nix
           ./host/configuration.nix
-          ./patterns/raven-terminal/configuration.nix
+          ./patterns/raven-terminal/default.nix
         ];
       };
     };

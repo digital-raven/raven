@@ -402,7 +402,7 @@ avenues for gaming are supported on Raven-Gaming.
   - GoG also distributes its games with optional offline installers. These should be usable with
     the `wine` program, but your mileage may vary per game.
 
-  - Heroic Games Launcher has some optional dependencies. They may be set [here](../patterns/raven-gaming/configuration.nix).
+  - Heroic Games Launcher has some optional dependencies. They may be set [here](../patterns/raven-gaming/launchers.nix).
 
 Epic and Prime gaming are also supported via the Heroic Games Launcher.
 
