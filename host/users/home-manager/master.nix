@@ -20,6 +20,7 @@
     ../../../patterns/raven-terminal/home-manager/bash.nix
     ../../../patterns/raven-terminal/home-manager/nvim.nix
     ../../../patterns/raven-terminal/home-manager/vim.nix
+    ../../../patterns/raven-home/home-manager/kitty/default.nix
     ./master/git.nix
     ./master/gpg.nix
   ];
