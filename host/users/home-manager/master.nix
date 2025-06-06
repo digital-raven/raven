@@ -17,9 +17,9 @@
     # inputs.nix-colors.homeManagerModules.default
 
     # You can also split up your configuration and import pieces of it here:
-    ./common/bash.nix
-    ./common/nvim.nix
-    ./common/vim.nix
+    ../../../patterns/raven-terminal/home-manager/bash.nix
+    ../../../patterns/raven-terminal/home-manager/nvim.nix
+    ../../../patterns/raven-terminal/home-manager/vim.nix
     ./master/git.nix
     ./master/gpg.nix
   ];
