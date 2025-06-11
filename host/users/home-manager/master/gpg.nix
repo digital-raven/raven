@@ -1,4 +1,4 @@
-# Sets GPG agent to a long timeout.
+# Sets GPG agent to a 6 hour timeout.
 #
 # This way you don't have to type your pass password every 10 minutes you need
 # a credential.
@@ -12,8 +12,8 @@
 }: {
   services.gpg-agent = {
     enable = true;
-    defaultCacheTtl = 34560000;
-    maxCacheTtl = 34560000;
+    defaultCacheTtl = 21600;
+    maxCacheTtl = 21600;
     pinentry.package = pkgs.pinentry-curses;
   };
 }
