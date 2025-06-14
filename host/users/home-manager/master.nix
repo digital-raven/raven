@@ -16,11 +16,13 @@
     # Or modules exported from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModules.default
 
-    # You can also split up your configuration and import pieces of it here:
-    ../../../patterns/raven-terminal/home-manager/bash.nix
-    ../../../patterns/raven-terminal/home-manager/nvim.nix
-    ../../../patterns/raven-terminal/home-manager/vim.nix
-    ../../../patterns/raven-home/home-manager/kitty/default.nix
+    # REPLACEME_ Uncomment a pattern below and delete this line.
+    # Uncoment the pattern you're using
+    #../../../patterns/raven-terminal/home-manager/default.nix
+    #../../../patterns/raven-home/home-manager/default.nix
+    #../../../patterns/raven-gaming/home-manager/default.nix
+
+    # Personal
     ./master/git.nix
     ./master/gpg.nix
   ];
