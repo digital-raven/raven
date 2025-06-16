@@ -1,4 +1,3 @@
-asdklfjaskldf
 # home-manager configuration file for guest
 {
   inputs,

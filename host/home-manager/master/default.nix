@@ -23,8 +23,8 @@
     #../../../patterns/raven-gaming/home-manager/default.nix
 
     # Personal
-    ./master/git.nix
-    ./master/gpg.nix
+    ./git.nix
+    ./gpg.nix
   ];
 
   home.username = "master";

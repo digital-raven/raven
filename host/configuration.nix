@@ -33,7 +33,7 @@
     #./drivers/nvidia-open.nix
 
     # Users
-    ./users/users.nix
+    ./users.nix
   ];
 
   # Bootloader.

@@ -105,7 +105,7 @@ they pull in. Changes or additions to those files will change the pattern.
 These changes can be applied to your installation with the appropriate
 `nixos-rebuild switch` command shown in the previous section.
 
-Home-manager is integrated as nix modules under the `host/users` directory.
+Home-manager is integrated as nix modules under the `host/home-manager` directory.
 
 ## Managing multiple machines
 It's likely you wish to install Raven on multiple machines. Perhaps you have a
