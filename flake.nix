@@ -17,6 +17,18 @@
     # Raven uses disko for disk partitioning and the bootloader.
     disko.url = "github:nix-community/disko/v1.12.0";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Hydenix and its nixpkgs - kept separate to avoid conflicts
+    # Raven uses a fork of hydenix for custom internal edits.
+    hydenix = {
+      url = "github:digital-raven/hydenix";
+    };
+
+    # Nix-index-database - for comma and command-not-found
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -128,6 +140,17 @@
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
           "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
           ./patterns/raven-iso/configuration.nix
+        ];
+      };
+      raven-hyde = inputs.hydenix.inputs.hydenix-nixpkgs.lib.nixosSystem {
+        inherit (inputs.hydenix.lib) system;
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./host/hardware-configuration.nix
+          ./host/configuration.nix
+          ./patterns/raven-hyde/default.nix
         ];
       };
     };
