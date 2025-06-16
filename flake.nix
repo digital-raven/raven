@@ -148,8 +148,12 @@
           inherit inputs;
         };
         modules = [
+          inputs.hydenix.inputs.home-manager.nixosModules.home-manager
           ./host/hardware-configuration.nix
           ./host/configuration.nix
+          ./patterns/raven-terminal/packages.nix
+          ./patterns/raven-gaming/default.nix
+          ./patterns/raven-home/packages.nix
           ./patterns/raven-hyde/default.nix
         ];
       };
