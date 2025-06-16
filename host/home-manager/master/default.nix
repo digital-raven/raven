@@ -21,6 +21,7 @@
     #../../../patterns/raven-terminal/home-manager/default.nix
     #../../../patterns/raven-home/home-manager/default.nix
     #../../../patterns/raven-gaming/home-manager/default.nix
+    #../../../patterns/raven-hyde/home-manager/default.nix
 
     # Personal
     ./git.nix
