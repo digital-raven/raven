@@ -148,8 +148,17 @@
           inherit inputs;
         };
         modules = [
+          inputs.disko.nixosModules.disko
+          inputs.hydenix.inputs.home-manager.nixosModules.home-manager
+          {
+            imports = [./host/home-manager];
+          }
           ./host/hardware-configuration.nix
           ./host/configuration.nix
+          ./patterns/raven-minimal/packages.nix
+          ./patterns/raven-terminal/packages.nix
+          ./patterns/raven-gaming/default.nix
+          ./patterns/raven-home/packages.nix
           ./patterns/raven-hyde/default.nix
         ];
       };

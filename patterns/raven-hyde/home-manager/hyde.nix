@@ -13,16 +13,19 @@
 
   # hydenix home-manager options go here
   hydenix.hm = {
-    #! Important options
+    # Enable hydenix
     enable = true;
 
-    spotify.enable = false; # enable spotify module
-    git.enable = false; # enable git module
+    # Raven overrides these defaults
+    spotify.enable = false;
+    git.enable = false;
+    editors.enable = false;
+
     theme = {
       enable = true; # enable theme module
       active = "Catppuccin Mocha"; # active theme name
 
-      # default enabled themes, full list in https://github.com/richen604/hydenix/tree/main/hydenix/sources/themes
+      # full list of themse at https://github.com/richen604/hydenix/tree/main/hydenix/sources/themes
       themes = [
         "BlueSky"
         "Cat Latte"

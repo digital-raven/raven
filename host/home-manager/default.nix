@@ -9,6 +9,9 @@
 }: {
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+  home-manager.extraSpecialArgs = {
+    inherit inputs;
+  };
 
   # Add new users to home manager by creating a "default.nix" file
   # under a folder in this directory named after their username
