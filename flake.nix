@@ -13,6 +13,18 @@
     # Home manager. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Hydenix and its nixpkgs - kept separate to avoid conflicts
+    # Raven uses a fork of hydenix for custom internal edits.
+    hydenix = {
+      url = "github:digital-raven/hydenix";
+    };
+
+    # Nix-index-database - for comma and command-not-found
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -113,6 +125,17 @@
           ./host/hardware-configuration.nix
           ./host/configuration.nix
           ./patterns/raven-minimal/default.nix
+        ];
+      };
+      raven-hyde = inputs.hydenix.inputs.hydenix-nixpkgs.lib.nixosSystem {
+        inherit (inputs.hydenix.lib) system;
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./host/hardware-configuration.nix
+          ./host/configuration.nix
+          ./patterns/raven-hyde/default.nix
         ];
       };
     };
