@@ -68,10 +68,12 @@
       raven-home = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          home-manager.nixosModules.home-manager
           ./host/hardware-configuration.nix
           ./shared/shared-enable.nix
           ./host/configuration.nix
+          home-manager.nixosModules.home-manager {
+            imports = [ ./host/home-manager ];
+          }
           ./patterns/raven-home/default.nix
           ./patterns/raven-terminal/default.nix
         ];
@@ -79,10 +81,12 @@
       raven-gaming = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          home-manager.nixosModules.home-manager
           ./host/hardware-configuration.nix
           ./shared/shared-enable.nix
           ./host/configuration.nix
+          home-manager.nixosModules.home-manager {
+            imports = [ ./host/home-manager ];
+          }
           ./patterns/raven-gaming/default.nix
           ./patterns/raven-terminal/default.nix
           ./patterns/raven-home/default.nix
@@ -91,10 +95,12 @@
       raven-terminal = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          home-manager.nixosModules.home-manager
           ./host/hardware-configuration.nix
           ./shared/shared-enable.nix
           ./host/configuration.nix
+          home-manager.nixosModules.home-manager {
+            imports = [ ./host/home-manager ];
+          }
           ./patterns/raven-terminal/default.nix
         ];
       };
