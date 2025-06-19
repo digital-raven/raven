@@ -20,7 +20,6 @@
     ffmpeg  # Powerful video and audio editor.
     file  # Print the type of a target file.
     gcc  # World's greatest c compiler.
-    git  # World's greatest file versioning.
     gnumake
     gnupg
     home-manager
@@ -34,7 +33,6 @@
     neofetch  # Print system overview, but pretty!
     pandoc  # goes with texlive.combined.scheme-small for converting md to pdf.
     parted  # Hard-drive partition manager
-    pass  # Command line password manager. See best practices in the user-guide.
     python3  # Install python packages using a virutal environment.
     qpdf  # One use is to append pdf files.
     rar  # Manipulate .rar archives.
@@ -46,7 +44,6 @@
     sysstat  # System performance and usage activity.
     texlive.combined.scheme-small  # See pandoc.
     unzip  # Unzip .zip archives.
-    vim  # World's greatest text editor.
     whois  # Look up who owns various URLs.
     wget
     yt-dlp  # Download videos from YouTube. YMMV.
