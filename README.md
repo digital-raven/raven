@@ -18,12 +18,12 @@ with respect.
 
 Raven is part operating system and part guide. It lets you cut through the hype
 of various products and hire the people who care enough to be good at their jobs.
-Raven is a Seal of Approval of sorts; pointing to quality providers to reduce your
+Raven is a Seal of Approval of sorts; pointing to quality providers to reduce a
 computer to the lowest possible cost of respectful software.
 
 Raven contains several models designed to instantly turn any computer
-into a reasonbly configured machine for the intended use. It is also possible,
-without reboot, to transition from one model to another.
+into a reasonbly configured machine for the intended use. It is also possible
+to transition from one model to another.
 
 The Raven project allows you to instantly recreate your desktop computing
 environment on any new machine starting from only your github account and an
@@ -58,3 +58,7 @@ to benefit the most from adopting Raven.
 - Easy experimentation! Each modification to your system produces a snapshot of the
   previous configuration. If you make a change you don't like then you can reboot
   your machine and load your old setup.
+
+## For commercial use
+The files in the repository are GPLv2 licensed software. You may use Raven under an
+altered license by asking permission first. Email raven@rubicon.aleeas.com
