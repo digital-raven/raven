@@ -46,6 +46,7 @@ this repo for guidance and updates.
   system and makes using your computer a quiet and direct experience.
 
 ## Compelling features
+
 Non-technical users who are tired of annoying desktop operating systems stand
 to benefit the most from adopting Raven.
 
@@ -60,5 +61,6 @@ to benefit the most from adopting Raven.
   your machine and load your old setup.
 
 ## For commercial use
+
 The files in the repository are GPLv2 licensed software. You may use Raven under an
 altered license by asking permission first. Email raven@rubicon.aleeas.com

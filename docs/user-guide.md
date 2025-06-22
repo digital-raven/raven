@@ -1,4 +1,5 @@
 # Raven User Guide
+
 Raven is simply implemented as a set of Nix flakes, and is designed to be
 installed on top of an existing NixOS installation.
 
@@ -12,6 +13,7 @@ Raven segregates its models by "patterns".
     the best emulators for various console systems are installed by default.
 
 ## New User Installation
+
 If you don't wish to install Raven to an existing drive, then there are flash
 drives available for purchase with Raven pre-installed.
 
@@ -42,6 +44,7 @@ If you'd rather save money, then installing Raven is straightforward.
 8. Run through the update procedure below.
 
 ## Updating and making changes
+
 Raven is simple to update once installed. There are only a few commands to
 remember.
 
@@ -82,6 +85,7 @@ machine's first time installing Raven then you should definitely reboot. If you'
 using `raven-gaming` then change the display server to x11 on the login screen.
 
 ### Customizing Raven
+
 Here is a brief orientation of Raven's directory structure.
 
 - `docs`: User documentation and some memes illustrating the spirit of Raven's creation.
@@ -108,6 +112,7 @@ These changes can be applied to your installation with the appropriate
 Home-manager is integrated as nix modules under the `host/home-manager` directory.
 
 ## Managing multiple machines
+
 It's likely you wish to install Raven on multiple machines. Perhaps you have a
 computer for gaming and a computer for office work. It is also likely you may
 wish to use Raven as an starting point to make your own modifications.
@@ -118,6 +123,7 @@ it easy to keep the machine-specific information easily separated, while being
 able to conveniently port and compare extra changes between your installations.
 
 ## What Raven requires to use as intended
+
 Raven is based on NixOS, and so your installation is declarative and reproducible.
 This makes it trivial to recreate your set-up on other machines and reduces your
 operating system to a simple set of text configuration files. The software and
@@ -136,9 +142,11 @@ installations in the event of a fire or having your phone stolen. The last one
 is just a damn nice and simple VPN.
 
 ## Common tasks
+
 This section details how to perform common tasks with Raven.
 
 ### Installing new software
+
 A huge strength of NixOS is because each application has its runtime isolated
 from other applications, software from older versions of NixOS should have no
 issue running on your machine.
@@ -152,6 +160,7 @@ run that software. The easiest way is to run the command in a terminal window,
 and then launch the program from there.
 
 ### Basic desktop experience
+
 All Raven models inherit the same terminal experience from `raven-terminal`, and
 all graphical Raven models have the same utilities as `raven-home`.
 
@@ -160,6 +169,7 @@ desktop experience; File browsing, media playing, web-browsing, printing,
 and office software are included.
 
 #### User management
+
 The admin username for all raven patterns is "master". If you are the only
 user on your raven installation, then this may suffice for you. "master" has
 access to sudo for performing system tasks.
@@ -167,15 +177,18 @@ access to sudo for performing system tasks.
 To change the password for master, use the `passwd` command.
 
 #### Drive management
+
 Drive management may be accomplished with the command-line `parted` program
 or the graphical `gparted` program.
 
 #### Media playback
+
 The `vlc` program is installed on Raven and can play basically any video.
 `cmus` is included as a command-line music player, or you may use the graphical
 `elisa` program.
 
 #### Web-browsing
+
 Raven comes shipped with both Firefox and Brave. Both are decent browsing programs.
 
 Raven does not recommend the use of any Brave features beyond its basic web-browsing
@@ -188,6 +201,7 @@ makes moving between your machines convenient because you don't need to re-enter
 for your online accounts.
 
 ### Password management
+
 Raven provides a program for password management, and the best password management
 solution serves as an effective and total catalog of all your credentials.
 
@@ -213,6 +227,7 @@ gpg --export username@myemail.com > username.pub.gpg
 Then email these 2 files to yourself and delete the local copies.
 
 #### Examples
+
 ```
 # Randomly generate a 16 character long alpha-numeric password
 pass generate -n shopping/amazon/amazon-username 16
@@ -236,6 +251,7 @@ The following command will print encrypted garbage to the terminal.
 `cat ~/.password-store/shopping/amazon/amazon-username`
 
 #### Pass best practices
+
 When a critical password is changed, you should create a cold backup of the store
 and upload it to your core email account. This backup will be encrypted on your
 end so even in the highly unlikely event your core email account is compromised then
@@ -272,6 +288,7 @@ The `pass` program comes included with git integration. Create a private GitHub 
 and use the `pass git` subcommands to keep your passwords in sync across your machines.
 
 #### Backing up 2FA
+
 Some common webservices require 2-factor authentication. Sometimes these are one-time codes
 which you can generate using an app on your phone. Since GitHub requires 2FA and is where
 Raven expects its users to store their machine-specific Raven repositories and pass vaults,
@@ -289,6 +306,7 @@ in to your GitHub account, you should also replace your cold backup of your pass
 in your email.
 
 ### Naked Restart
+
 "Naked" means all of your devices were lost or otherwise inaccessible to you. A Raven user
 will suffer no permanent damage from this so long as the following checklist is fulfilled.
 
@@ -319,6 +337,7 @@ Your credentials and operating environment are fireproof and criminal-proof; jus
 you **never forget** your emergency email username and password.
 
 ### Encrypted storage
+
 You should encrypt your personal data on drives under your control.
 
 - Computers get stolen, so you shouldn't form an emotional attachment to your hardware.
@@ -387,6 +406,7 @@ sudo mount --mkdir /dev/mapper/my-encrypted-drive ./my-encrypted-files
 ```
 
 ### Gaming
+
 Video games are fun and exciting, and many popular games work with Raven! The following
 avenues for gaming are supported on Raven-Gaming.
 
@@ -426,10 +446,12 @@ Raven
 - atlauncher: Minecraft launcher. Requires a valid Minecraft account.
 
 #### Emulation
+
 If you've wanted to play games from popular consoles on your computer,
 raven-gaming includes many popular emualators.
 
 #### Yuzu
+
 Raven does not technically come shipped with Yuzu, but the following commands will fetch it
 and create a sub-shell where Yuzu may be launched.
 
@@ -450,6 +472,7 @@ If you decide on the second route, see the "Piracy" section of this guide for ho
 drama with your ISP, as well as the section below on Yuzu ethics and history.
 
 ##### Yuzu Ethics and a brief history
+
 See the "Piracy" section for a quick class on ethics regarding Yuzu's use.
 Specific notes regarding Yuzu are included here.
 
@@ -495,6 +518,7 @@ will have appropriately rewarded Nintendo for their artistic efforts and will be
 Yuzu in an ethically correct fashion.
 
 ## PDF
+
 The `evince` program is installed for viewing PDFs. It will launch automatically
 if you double click on the file, or launch it through the terminal window.
 
@@ -513,6 +537,7 @@ pandoc example.md -o example.pdf
 ```
 
 ### Piracy
+
 Before we begin, we'll cover some ethics.
 
 1. Pay whenever possible. Sometimes we want movies, music, or video games on
@@ -535,11 +560,13 @@ you don't use a VPN and proxy. Raven comes installed with utilities to avoid thi
 drama. Besides, you paid the creators already.
 
 #### Popular piracy sites
+
 The Pirate Bay continues its operation to this day and remains the most consistent
 site to search for and pirate content. Its official site is thepiratebay with a
 .org extension.
 
 #### Necessary programs
+
 Raven comes installed with `mullvad` and `qbittorrent` to assist you.
 
 Create a mullvad account. Mullvad is cheap and has a flat pricing structure, and
@@ -579,6 +606,7 @@ to use a proxy. Open qBittorrent and change these settings.
 a non-vpn interface, which it will do if you accidentally.
 
 #### VPNs and their use
+
 If you've seen any number of internet videos then you've probably seen creators
 sponsered by VPN companies. Those sponsered placements tend to be full of hype
 and lies. We'll go ahead and clear those up.
@@ -635,6 +663,7 @@ of bad opsec.
   the time of the threat. It was pretty easy to find which machine issued the threat.
 
 ### Crypto currencies
+
 In general, avoid crypto currencies. The domain is rife with scams, but some crypto
 currencies are honest, and Bitcoin is one of them. [Here is an excellent video](https://www.youtube.com/watch?v=bBC-nXj3Ng4) detailing how Bitcon works.
 
