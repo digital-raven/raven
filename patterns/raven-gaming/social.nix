@@ -13,6 +13,6 @@
 
   # Packages
   environment.systemPackages = with pkgs; [
-    discord
+    betterdiscordctl
   ];
 }
