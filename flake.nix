@@ -70,7 +70,6 @@
         modules = [
           ./host/hardware-configuration.nix
           ./host/configuration.nix
-          ./patterns/raven-minimal/default.nix
           ./patterns/raven-terminal/default.nix
           ./patterns/raven-home/default.nix
           ./shared/shared-enable.nix
@@ -85,7 +84,6 @@
         modules = [
           ./host/hardware-configuration.nix
           ./host/configuration.nix
-          ./patterns/raven-minimal/default.nix
           ./patterns/raven-terminal/default.nix
           ./patterns/raven-home/default.nix
           ./patterns/raven-gaming/default.nix
@@ -101,7 +99,6 @@
         modules = [
           ./host/hardware-configuration.nix
           ./host/configuration.nix
-          ./patterns/raven-minimal/default.nix
           ./patterns/raven-terminal/default.nix
           ./shared/shared-enable.nix
           home-manager.nixosModules.home-manager
@@ -116,6 +113,14 @@
           ./host/hardware-configuration.nix
           ./host/configuration.nix
           ./patterns/raven-minimal/default.nix
+        ];
+      };
+      raven-iso = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+          ./patterns/raven-iso/configuration.nix
         ];
       };
     };
