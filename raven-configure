@@ -21,6 +21,7 @@ RAVEN_GIT_USERNAME=
 RAVEN_GIT_EMAIL=
 RAVEN_TIMEZONE=
 RAVEN_LOCALE=
+RAVEN_TARGET_DISK=
 
 Values set in this way will not take effect if the respective .nix files have already
 had their "REAPLACEME_*" texts modified.
@@ -30,8 +31,8 @@ EOF
 
 function check
 {
-    echo "Checking for any missed REPLACEME's..." >&2
-    echo
+    echo "Checking for any missed REPLACEME's...
+    " >&2
 
     grep -r REPLACEME_ | grep -v .swp | grep -v ^.git | grep -v docs | grep -v raven-configure
     if [ $? == 0 ]
@@ -129,7 +130,7 @@ fi
 # Raven pattern selection
 if [[ "$REPLACEMES" =~ "REPLACEME_raven-pattern" ]] && [ -z "$RAVEN_PATTERN" ]
 then
-    RAVEN_PATTERN=$(ls patterns | grep -v README.md | gum choose --header "Select which Raven pattern you want to install")
+    RAVEN_PATTERN=$(ls patterns | grep -v raven-iso | grep -v README.md | gum choose --header "Select which Raven pattern you want to install")
 fi
 
 # Git username and email
@@ -157,6 +158,13 @@ then
     fi
 fi
 
+# Disk selection
+sda_devices="$(lsblk -JpS -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE)"
+nvme_devices="$(lsblk -JpN -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE)"
+
+RAVEN_TARGET_DISK=$(echo "$sda_devices" \
+    "$nvme_devices" | jq -s '[.[].blockdevices[]] | map({name, vendor, model, rev, serial, size})' | jq -r '(.[0] | keys_unsorted) as $keys | $keys, map([.[ $keys[] ]])[] | @csv' | gum table | awk -F, '{print $1}')
+
 echo "You've specified
 
 AC name:     $RAVEN_HOSTNAME
@@ -165,6 +173,8 @@ git-name:    $RAVEN_GIT_USERNAME
 git-email:   $RAVEN_GIT_EMAIL
 time-zone:   $RAVEN_TIMEZONE
 locale:      $RAVEN_LOCALE
+
+target disk: $RAVEN_TARGET_DISK
 
 "
 
@@ -196,3 +206,13 @@ BOOT_SETTINGS="$(grep "^ \+boot\." /etc/nixos/configuration.nix)"
 s="$(awk -v r="$BOOT_SETTINGS" '{gsub(/# REPLACEME_boot/,r)}1' ./host/configuration.nix)"
 echo "$s" > ./host/configuration.nix
 nix fmt ./host/configuration.nix >/dev/null 2>&1
+
+#gum confirm  --default=false \
+#    "This will erase $TARGET_DISK and format it for Raven. Is this correct?"
+#
+#echo "Partitioning Disks"
+#sudo nix run github:nix-community/disko \
+#    --extra-experimental-features "nix-command flakes" \
+#    --no-write-lock-file \
+#    -- \
+#    --mode zap_create_mount \
