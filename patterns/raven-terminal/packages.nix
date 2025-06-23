@@ -21,7 +21,6 @@
     gcc # World's greatest c compiler.
     gnumake
     gnupg
-    home-manager
     iotop # I/O monitor.
     lm_sensors # System temperature information. Command is `sensors`.
     lynx # Command-line web-browser.
@@ -69,7 +68,7 @@
       PermitRootLogin = "no";
 
       # Set to false if you don't want to be able to ssh via password.
-      PasswordAuthentication = true;
+      PasswordAuthentication = false;
     };
   };
 

@@ -13,6 +13,10 @@
     # Home manager. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Raven uses disko for disk partitioning and the bootloader.
+    disko.url = "github:nix-community/disko/v1.12.0";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -56,18 +60,11 @@
     homeManagerModules = import ./shared/home-manager;
 
     # Raven's NixOS patterns
-    #
-    # Install one with one of the following commands.
-    #
-    # ```
-    # nixos-rebuild --flake .#raven-home
-    # nixos-rebuild --flake .#raven-gaming
-    # nixos-rebuild --flake .#raven-terminal
-    # ```
     nixosConfigurations = {
       raven-home = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          inputs.disko.nixosModules.disko
           ./host/hardware-configuration.nix
           ./host/configuration.nix
           ./patterns/raven-minimal/default.nix
@@ -83,6 +80,7 @@
       raven-gaming = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          inputs.disko.nixosModules.disko
           ./host/hardware-configuration.nix
           ./host/configuration.nix
           ./patterns/raven-minimal/default.nix
@@ -99,6 +97,7 @@
       raven-terminal = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          inputs.disko.nixosModules.disko
           ./host/hardware-configuration.nix
           ./host/configuration.nix
           ./patterns/raven-minimal/default.nix
@@ -113,9 +112,22 @@
       raven-minimal = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          inputs.disko.nixosModules.disko
           ./host/hardware-configuration.nix
           ./host/configuration.nix
           ./patterns/raven-minimal/default.nix
+          home-manager.nixosModules.home-manager
+          {
+            imports = [./host/home-manager];
+          }
+        ];
+      };
+      raven-iso = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+          ./patterns/raven-iso/configuration.nix
         ];
       };
     };
