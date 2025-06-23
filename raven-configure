@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 # This script interactively walks a user through configuring the Raven template.
+# Designed to be run from an existing NixOS installation or from raven-installer ISO.
 
 function usage
 {
     >&2 cat << EOF
 Usage: $0
-   [ --check ]
-   [ --format ]
+   [ --check ]  # Report any missed REPLACEME's
+   [ --format ]  # Run nix-fmt over the nix files in the repository.
    [ --profile=profile-path ]
    [ -h | --help ]
 
@@ -22,16 +23,20 @@ RAVEN_GIT_EMAIL=
 RAVEN_TIMEZONE=
 RAVEN_LOCALE=
 
+RAVEN_DISK_PROFILE=
+RAVEN_TARGET_DISK=
+
 Values set in this way will not take effect if the respective .nix files have already
 had their "REAPLACEME_*" texts modified.
 
+If installing Raven over an existing NixOS installation, set RAVEN_DISK_PROFILE to "existing".
 EOF
 }
 
 function check
 {
-    echo "Checking for any missed REPLACEME's..." >&2
-    echo
+    echo "Checking for any missed REPLACEME's...
+    " >&2
 
     grep -r REPLACEME_ | grep -v .swp | grep -v ^.git | grep -v docs | grep -v raven-configure
     if [ $? == 0 ]
@@ -49,6 +54,20 @@ function format
 {
     echo "Running nix fmt on all *.nix files under $SCRIPT_DIR" >&2
     for i in $(find -name "*.nix" | grep -v hardware-configuration.nix); do nix fmt $i; done
+}
+
+# Accept /dev/sdx or /dev/nvmex and get path to /dev/disk/by-id/
+# eg. my_disk_id=$(get_disk_id /dev/sdb) => /dev/disk/by-id/usb-my-flashdrive
+function get_disk_id
+{
+    if [ "$1" == "existing" ]
+    then
+        echo "existing"
+        return 0
+    fi
+
+    disk_id=$(lsblk -Jo NAME,ID $1 | jq -r '.blockdevices[0].id')
+    ls /dev/disk/by-id | grep $disk_id$
 }
 
 set -eo pipefail
@@ -129,7 +148,7 @@ fi
 # Raven pattern selection
 if [[ "$REPLACEMES" =~ "REPLACEME_raven-pattern" ]] && [ -z "$RAVEN_PATTERN" ]
 then
-    RAVEN_PATTERN=$(ls patterns | grep -v README.md | gum choose --header "Select which Raven pattern you want to install")
+    RAVEN_PATTERN=$(ls patterns | grep -v raven-iso | grep -v README.md | gum choose --header "Select which Raven pattern you want to install")
 fi
 
 # Git username and email
@@ -157,42 +176,148 @@ then
     fi
 fi
 
+# Disk selection, or maybe we're on top of an existing NixOS installation.
+if [[ "$REPLACEMES" =~ "REPLACEME_disk_profile" ]] && [ -z "$RAVEN_DISK_PROFILE" ]
+then
+
+    profiles="existing# You're installing Raven on an existing NixOS drive."
+    cd host/disks
+    for i in $(ls *.nix)
+    do
+        profiles="$profiles
+$i$(head -n 1 $i)"
+    done
+    cd -
+
+    RAVEN_DISK_PROFILE=$(echo "$profiles" | gum table -s# -c "Disk profile","Description" | awk -F# '{print $1}')
+    if [ "$RAVEN_DISK_PROFILE" != "existing" ]
+    then
+        sda_devices="$(lsblk -JpS -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE)"
+        nvme_devices="$(lsblk -JpN -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE)"
+
+        RAVEN_TARGET_DISK=$(echo "$sda_devices" \
+            "$nvme_devices" | jq -s '[.[].blockdevices[]] | map({name, vendor, model, rev, serial, size})' | jq -r '(.[0] | keys_unsorted) as $keys | $keys, map([.[ $keys[] ]])[] | @csv' | gum table | awk -F, '{print $1}')
+    else
+        RAVEN_TARGET_DISK="existing"
+    fi
+fi
+
 echo "You've specified
 
-AC name:     $RAVEN_HOSTNAME
-pattern:     $RAVEN_PATTERN
-git-name:    $RAVEN_GIT_USERNAME
-git-email:   $RAVEN_GIT_EMAIL
-time-zone:   $RAVEN_TIMEZONE
-locale:      $RAVEN_LOCALE
+AC name:      $RAVEN_HOSTNAME
+pattern:      $RAVEN_PATTERN
+git-name:     $RAVEN_GIT_USERNAME
+git-email:    $RAVEN_GIT_EMAIL
+time-zone:    $RAVEN_TIMEZONE
+locale:       $RAVEN_LOCALE
+
+disk profile: $RAVEN_DISK_PROFILE
+target disk:  $RAVEN_TARGET_DISK
 
 "
 
 gum confirm --default=false "Is this correct?"
 
-# Hardware configuration
-echo "Generating hardware configuration to ./host/hardware-configuration.nix"
-nixos-generate-config --show-hardware-config > host/hardware-configuration.nix
-
-echo "INFO: Setting AC Name as $RAVEN_HOSTNAME" 2>&1
+echo "INFO: Configuring AC $RAVEN_HOSTNAME" 2>&1
 sed -i "s/REPLACEME_hostName/$RAVEN_HOSTNAME/" ./host/configuration.nix
-echo "INFO: Setting Pattern as $RAVEN_PATTERN" 2>&1
+echo "INFO: Pattern: $RAVEN_PATTERN" 2>&1
 sed -i "s/REPLACEME_raven-pattern/$RAVEN_PATTERN/" ./host/home-manager/master/default.nix
 echo "INFO: Setting Git Name as $RAVEN_GIT_USERNAME" 2>&1
 sed -i "s/REPLACEME_gitUserName/$RAVEN_GIT_USERNAME/" ./host/home-manager/master/git.nix
-echo "INFO: Setting Git Name as $RAVEN_GIT_EMAIL" 2>&1
+echo "INFO: Setting Git email as $RAVEN_GIT_EMAIL" 2>&1
 sed -i "s/REPLACEME_gitUserEmail/$RAVEN_GIT_EMAIL/" ./host/home-manager/master/git.nix
-echo "INFO: Setting Git Name as $RAVEN_TIMEZONE" 2>&1
+echo "INFO: Setting timezone as $RAVEN_TIMEZONE" 2>&1
 sed -i "s,REPLACEME_timeZone,$RAVEN_TIMEZONE," ./host/configuration.nix
-echo "INFO: Setting Git Name as $RAVEN_LOCALE" 2>&1
+echo "INFO: Setting locale as $RAVEN_LOCALE" 2>&1
 sed -i "s,REPLACEME_defaultLocale,$RAVEN_LOCALE," ./host/configuration.nix
 
-# Boot settings
-# Copy the lines that start with "boot." from /etc/nixos/configuration.nix
-echo "INFO: Setting boot settings as seen in /etc/nixos/configuration.nix" 2>&1
-BOOT_SETTINGS="$(grep "^ \+boot\." /etc/nixos/configuration.nix)"
+# Disk profile and boot settings
+if [ "$RAVEN_DISK_PROFILE" == "existing" ]
+then
+    # Remove REPLACEME_disk_profile
+    sed -i 's/REPLACEME_disk_profile//' ./host/configuration.nix
 
-# sed doesn't handle multi line substitution
-s="$(awk -v r="$BOOT_SETTINGS" '{gsub(/# REPLACEME_boot/,r)}1' ./host/configuration.nix)"
-echo "$s" > ./host/configuration.nix
+    # Copy the lines that start with "boot." from /etc/nixos/configuration.nix
+    echo "INFO: Setting boot settings as seen in /etc/nixos/configuration.nix" 2>&1
+    BOOT_SETTINGS="$(grep "^ \+boot\." /etc/nixos/configuration.nix)"
+
+    # sed doesn't handle multi line substitution
+    s="$(awk -v r="$BOOT_SETTINGS" '{gsub(/# REPLACEME_boot_settings/,r)}1' ./host/configuration.nix)"
+    echo "$s" > ./host/configuration.nix
+else
+    sed -i "s,#./disks/REPLACEME_disk_profile,./disks/$RAVEN_DISK_PROFILE," ./host/configuration.nix
+
+    BOOT_SETTINGS="boot.loader.systemd-boot.enable = true; boot.loader.efi.canTouchEfiVariables = true;"
+    sed -i "s/# REPLACEME_boot_settings/$BOOT_SETTINGS/" ./host/configuration.nix
+fi
+
+echo 'INFO: Running nix fmt ./host/configuration.nix . This *can* sometimes take a while.' 2>&1
 nix fmt ./host/configuration.nix >/dev/null 2>&1
+
+# Target disk
+echo "INFO: Setting target disk to $RAVEN_TARGET_DISK" 2>&1
+sed -i "s,REPLACEME_target_disk,$(get_disk_id $RAVEN_TARGET_DISK)," ./host/disks/ext4.nix
+sed -i "s,REPLACEME_target_disk,$(get_disk_id $RAVEN_TARGET_DISK)," ./host/disks/ext4-luks.nix
+
+# Generate hardware configuration
+if [ "$RAVEN_DISK_PROFILE" == "existing" ]
+then
+    nixos-generate-config --show-hardware-config > ./host/hardware-configuration.nix
+else
+    nixos-generate-config --show-hardware-config --no-filesystems > ./host/hardware-configuration.nix
+fi
+
+echo "
+# Configuration Complete!
+
+Repository configured. You should be good to install Raven!
+
+It would be smart at this point to create a git branch for your changes if you haven't already.
+
+\`\`\`
+git checkout -b $RAVEN_HOSTNAME
+git add .
+git commit -m \"$RAVEN_HOSTNAME settings.\"
+\`\`\`
+"
+
+if [ "$RAVEN_DISK_PROFILE" == "existing" ]
+then
+
+>&2 cat << EOF
+## Installation over existing NixOS
+
+You've indicated you're applying Raven over an existing NixOS drive. Double check your boot settings
+match the ones in /etc/nixos/configuration.nix
+
+Then run \`sudo nixos rebuild switch --flake .#$RAVEN_PATTERN\` from the root of this repository.
+
+If you don't like Raven, NixOS boot generations will preserve your previous setup.
+
+EOF
+
+else
+
+>&2 cat << EOF
+## Fresh Disk Installation
+
+You've indicated you're installing to a fresh disk using Raven's $RAVEN_DISK_PROFILE profile.
+
+Run the following command to format the disk.
+
+\`\`\`
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount ./host/disks/$RAVEN_DISK_PROFILE
+\`\`\`
+
+Then run this command to install Raven to it.
+
+\`\`\`
+nixos-install --flake .#$RAVEN_PATTERN
+\`\`\`
+
+When you're done, copy this repo to /mnt/home/master on the new drive. Updates you make that way
+can be installed using \`sudo nixos rebuild switch --flake .#$RAVEN_PATTERN\`
+
+EOF
+
+fi

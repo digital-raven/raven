@@ -1,2 +1,5 @@
 *.log
 *.swp
+
+# Output of building an iso are stored in result
+result
