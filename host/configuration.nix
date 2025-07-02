@@ -47,9 +47,10 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "REPLACEME_defaultLocale";
 
-  i18n.extraLocaleSettings = {
-    # REPLACEME_extraLocaleSettings
-  };
+  # Optional. https://wiki.nixos.org/wiki/Locales
+  #i18n.extraLocaleSettings = {
+  #  # extraLocaleSettings
+  #};
 
   # Docker
   virtualisation.docker.enable = true;
