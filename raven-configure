@@ -1,0 +1,198 @@
+#!/usr/bin/env bash
+# This script interactively walks a user through configuring the Raven template.
+
+function usage
+{
+    >&2 cat << EOF
+Usage: $0
+   [ --check ]
+   [ --format ]
+   [ --profile=profile-path ]
+   [ -h | --help ]
+
+check will simply check for missed values.
+
+profile-path can specify a file which contains values which will then be skipped
+during the interactive prompts. These values are...
+
+RAVEN_HOSTNAME=
+RAVEN_PATTERN=
+RAVEN_GIT_USERNAME=
+RAVEN_GIT_EMAIL=
+RAVEN_TIMEZONE=
+RAVEN_LOCALE=
+
+Values set in this way will not take effect if the respective .nix files have already
+had their "REAPLACEME_*" texts modified.
+
+EOF
+}
+
+function check
+{
+    echo "Checking for any missed REPLACEME's..." >&2
+    echo
+
+    grep -r REPLACEME_ | grep -v .swp | grep -v ^.git | grep -v docs | grep -v raven-configure
+    if [ $? == 0 ]
+    then
+        echo ""
+        echo "You missed REPLACEME's in the above files. Don't try to install yet." >&2
+        return 1
+    else
+        echo "You've hit all REPLACEME's. If you did those right then you should be good to use raven!" >&2
+        return 0
+    fi
+}
+
+function format
+{
+    echo "Running nix fmt on all *.nix files under $SCRIPT_DIR" >&2
+    for i in $(find -name "*.nix" | grep -v hardware-configuration.nix); do nix fmt $i; done
+}
+
+set -eo pipefail
+
+SCRIPT_PATH=$(readlink -f "$0")
+SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+
+cd $SCRIPT_DIR
+
+args=$(getopt -o h --long help,check,format,profile: -- "$@")
+if [[ $? -gt 0 ]]; then
+    usage
+fi
+
+eval set -- ${args}
+while :
+do
+    case $1 in
+    --check)
+        check
+        exit $?
+        shift
+        ;;
+    --format)
+        format
+        exit $?
+        shift
+        ;;
+    --profile)
+        source $2
+        shift 2
+        ;;
+    -h | --help)
+        usage
+        exit 0
+        shift
+        ;;
+    # -- means the end of the arguments; drop this, and break out of the while loop
+    --)
+        shift
+        break ;;
+    *)
+        >&2 echo Unsupported option: $1
+        usage
+        exit 1
+        ;;
+    esac
+done
+
+echo "Enter Ctrl-C or ESC to exit this script while entering your values.
+" 1>&2
+
+# This command finds the lines in Raven that need replacing
+REPLACEMES="$(grep -r REPLACEME_ | grep -v .swp | grep -v ^.git | grep -v docs | grep -v raven-configure)"
+
+if ! command -v gum >/dev/null 2>&1 || ! command -v jq >/dev/null 2>&1; then
+    echo "ERROR: This script requires gum and jq to be installed. Run 'nix-shell -p gum jq' and then re-run." 1>&2
+    exit 1
+fi
+
+if [ "$(id -u)" -eq 0 ]; then
+    echo "ERROR: Don't run this script as the root user." 1>&2
+    exit 1
+fi
+
+# Select hostname
+if [[ "$REPLACEMES" =~ "REPLACEME_hostName" ]] && [ -z "$RAVEN_HOSTNAME" ]
+then
+    RAVEN_HOSTNAME=$(gum input --prompt "What will you name your AC? " --placeholder "nightfall")
+
+    if [ -z "$RAVEN_HOSTNAME" ]
+    then
+        echo "ERROR: You must name your AC." 1>&2
+        exit 1
+    fi
+fi
+
+# Raven pattern selection
+if [[ "$REPLACEMES" =~ "REPLACEME_raven-pattern" ]] && [ -z "$RAVEN_PATTERN" ]
+then
+    RAVEN_PATTERN=$(ls patterns | grep -v README.md | gum choose --header "Select which Raven pattern you want to install")
+fi
+
+# Git username and email
+if [[ "$REPLACEMES" =~ "REPLACEME_gitUserName" ]] && [ -z "$RAVEN_GIT_USERNAME" ]
+then
+    if gum confirm --default=false "(Optional) Enter name and email you use for git commits"
+    then
+        RAVEN_GIT_USERNAME=$(gum input --prompt "Enter your name for git commits: " --placeholder "Raven")
+        RAVEN_GIT_EMAIL=$(gum input --prompt "Enter your email for git commits: " --placeholder "raven@rubicon.aleeas.com")
+    fi
+fi
+
+# Select timezone
+if [[ "$REPLACEMES" =~ "REPLACEME_timeZone" ]]
+then
+    RAVEN_TIMEZONE=$(timedatectl list-timezones | gum choose --header "Select your timezone" --height=30)
+fi
+
+# Select locale
+if [[ "$REPLACEMES" =~ "REPLACEME_defaultLocale" ]]
+then
+    RAVEN_LOCALE="en_US.UTF-8"
+    if gum confirm --default=false "Select a locale other than $RAVEN_LOCALE? "; then
+        LOCALE=$(wget -qO - 'https://sourceware.org/git/?p=glibc.git;a=blob_plain;f=localedata/SUPPORTED' | sed -s 's/\\//' | tail -n +4 | gum choose --height=40 --header="Supported Locales")
+    fi
+fi
+
+echo "You've specified
+
+AC name:     $RAVEN_HOSTNAME
+pattern:     $RAVEN_PATTERN
+git-name:    $RAVEN_GIT_USERNAME
+git-email:   $RAVEN_GIT_EMAIL
+time-zone:   $RAVEN_TIMEZONE
+locale:      $RAVEN_LOCALE
+
+"
+
+gum confirm --default=false "Is this correct?"
+
+# Hardware configuration
+echo "Generating hardware configuration to ./host/hardware-configuration.nix"
+nixos-generate-config --show-hardware-config > host/hardware-configuration.nix
+
+echo "INFO: Setting AC Name as $RAVEN_HOSTNAME" 2>&1
+sed -i "s/REPLACEME_hostName/$RAVEN_HOSTNAME/" ./host/configuration.nix
+echo "INFO: Setting Pattern as $RAVEN_PATTERN" 2>&1
+sed -i "s/REPLACEME_raven-pattern/$RAVEN_PATTERN/" ./host/home-manager/master/default.nix
+echo "INFO: Setting Git Name as $RAVEN_GIT_USERNAME" 2>&1
+sed -i "s/REPLACEME_gitUserName/$RAVEN_GIT_USERNAME/" ./host/home-manager/master/git.nix
+echo "INFO: Setting Git Name as $RAVEN_GIT_EMAIL" 2>&1
+sed -i "s/REPLACEME_gitUserEmail/$RAVEN_GIT_EMAIL/" ./host/home-manager/master/git.nix
+echo "INFO: Setting Git Name as $RAVEN_TIMEZONE" 2>&1
+sed -i "s,REPLACEME_timeZone,$RAVEN_TIMEZONE," ./host/configuration.nix
+echo "INFO: Setting Git Name as $RAVEN_LOCALE" 2>&1
+sed -i "s,REPLACEME_defaultLocale,$RAVEN_LOCALE," ./host/configuration.nix
+
+# Boot settings
+# Copy the lines that start with "boot." from /etc/nixos/configuration.nix
+echo "INFO: Setting boot settings as seen in /etc/nixos/configuration.nix" 2>&1
+BOOT_SETTINGS="$(grep "^ \+boot\." /etc/nixos/configuration.nix)"
+
+# sed doesn't handle multi line substitution
+s="$(awk -v r="$BOOT_SETTINGS" '{gsub(/# REPLACEME_boot/,r)}1' ./host/configuration.nix)"
+echo "$s" > ./host/configuration.nix
+nix fmt ./host/configuration.nix >/dev/null 2>&1

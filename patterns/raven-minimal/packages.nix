@@ -13,6 +13,8 @@
   environment.systemPackages = with pkgs; [
     bash
     git # World's greatest file versioning.
+    gum # For raven-configure
+    jq # For raven-configure
     pass # Command line password manager. See best practices in the user-guide.
     vim # World's greatest text editor.
   ];
