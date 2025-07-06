@@ -34,8 +34,8 @@
     ./users.nix
   ];
 
-  # Bootloader.
-  # REPLACEME_boot: Copy the lines that start with "boot." from /etc/nixos/configuration.nix
+  # Bootloader. Copy the lines that start with "boot." from /etc/nixos/configuration.nix
+  # REPLACEME_boot
 
   # Networking
   networking.hostName = "REPLACEME_hostName";
@@ -47,9 +47,9 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "REPLACEME_defaultLocale";
 
-  i18n.extraLocaleSettings = {
-    # REPLACEME_extraLocaleSettings
-  };
+  # Optional extraLocaleSettings. https://nixos.wiki/wiki/Locales
+  #i18n.extraLocaleSettings = {
+  #};
 
   # Docker
   virtualisation.docker.enable = true;

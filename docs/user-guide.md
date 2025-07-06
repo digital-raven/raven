@@ -39,8 +39,11 @@ If you'd rather save money, then installing Raven is straightforward.
    - `git remote add origin https://github.com/<your-github-username>/raven.git`
 6. Create a git branch for your machine.
    - `git checkout -b your-machine`
-7. Run the `./check` script at the top of this repository to list entries you need
-   to replace. Each "REPLACEME_*" has a comment on how to replace the information.
+7. Run `./raven-configure` to interactively configure your installation.
+   - If that script doesn't work on your system for some reason, then run `./raven-configure --check` 
+     to list the entries you need to replace. Each "REPLACEME_*" has a comment on
+     how to replace the information.
+
 8. Run through the update procedure below.
 
 ## Updating and making changes
