@@ -16,11 +16,8 @@
     # Or modules exported from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModules.default
 
-    # REPLACEME_ Uncomment a pattern below and delete this line.
-    # Uncoment the pattern you're using
-    #../../../patterns/raven-terminal/home-manager/default.nix
-    #../../../patterns/raven-home/home-manager/default.nix
-    #../../../patterns/raven-gaming/home-manager/default.nix
+    # Select the pattern you plan on using
+    ../../../patterns/REPLACEME_raven-pattern/home-manager/default.nix
 
     # Personal
     ./git.nix
