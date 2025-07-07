@@ -12,42 +12,42 @@
   # Command-line packages
   environment.systemPackages = with pkgs; [
     bash
-    bash-completion  # Tab auto-complete
-    btop  # Great system-profiler.
-    cmus  # Music player
+    bash-completion # Tab auto-complete
+    btop # Great system-profiler.
+    cmus # Music player
     docker
     dosfstools
-    ffmpeg  # Powerful video and audio editor.
-    file  # Print the type of a target file.
-    gcc  # World's greatest c compiler.
-    git  # World's greatest file versioning.
+    ffmpeg # Powerful video and audio editor.
+    file # Print the type of a target file.
+    gcc # World's greatest c compiler.
+    git # World's greatest file versioning.
     gnumake
     gnupg
     home-manager
-    iotop  # I/O monitor.
-    lm_sensors  # System temperature information. Command is `sensors`.
-    lynx  # Command-line web-browser.
-    openssl  # Cryptography toolkit.
-    man-pages  # Manuals for popular programs. `man <command>`
-    man-pages-posix  # Manuals for classic POSIX programs and libraries.
-    mullvad  # Raven's VPN of choice.
-    neofetch  # Print system overview, but pretty!
-    pandoc  # goes with texlive.combined.scheme-small for converting md to pdf.
-    parted  # Hard-drive partition manager
-    pass  # Command line password manager. See best practices in the user-guide.
-    python3  # Install python packages using a virutal environment.
-    qpdf  # One use is to append pdf files.
-    rar  # Manipulate .rar archives.
-    rclone  # Manipulate cloud-storage from command-line.
-    rig  # Print surface-level fake people.
-    rsync  # Quickly sync directories.
-    smartmontools  # Storage device information, including drive health.
-    srm  # Securely erase a file. Use -D for US DoD compliant 7-pass overwrite.
-    sysstat  # System performance and usage activity.
-    texlive.combined.scheme-small  # See pandoc.
-    unzip  # Unzip .zip archives.
-    vim  # World's greatest text editor.
-    whois  # Look up who owns various URLs.
+    iotop # I/O monitor.
+    lm_sensors # System temperature information. Command is `sensors`.
+    lynx # Command-line web-browser.
+    openssl # Cryptography toolkit.
+    man-pages # Manuals for popular programs. `man <command>`
+    man-pages-posix # Manuals for classic POSIX programs and libraries.
+    mullvad # Raven's VPN of choice.
+    neofetch # Print system overview, but pretty!
+    pandoc # goes with texlive.combined.scheme-small for converting md to pdf.
+    parted # Hard-drive partition manager
+    pass # Command line password manager. See best practices in the user-guide.
+    python3 # Install python packages using a virutal environment.
+    qpdf # One use is to append pdf files.
+    rar # Manipulate .rar archives.
+    rclone # Manipulate cloud-storage from command-line.
+    rig # Print surface-level fake people.
+    rsync # Quickly sync directories.
+    smartmontools # Storage device information, including drive health.
+    srm # Securely erase a file. Use -D for US DoD compliant 7-pass overwrite.
+    sysstat # System performance and usage activity.
+    texlive.combined.scheme-small # See pandoc.
+    unzip # Unzip .zip archives.
+    vim # World's greatest text editor.
+    whois # Look up who owns various URLs.
     wget
     yt-dlp # Download videos from YouTube. YMMV.
     zip # Create .zip archives.
