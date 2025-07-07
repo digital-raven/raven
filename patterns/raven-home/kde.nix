@@ -57,6 +57,6 @@
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    konsole  # Raven uses Kitty
+    konsole # Raven uses Kitty
   ];
 }

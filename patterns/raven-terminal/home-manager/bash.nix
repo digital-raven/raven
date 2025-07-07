@@ -8,7 +8,6 @@
   pkgs,
   ...
 }: {
-
   programs.bash = {
     enable = true;
     enableCompletion = true;
@@ -182,6 +181,6 @@
 
       # Double ended fork-bomb. Do not type. Ravens carry guns.
       # alias emacs=":(){ :|:& };:"
-      '';
+    '';
   };
 }

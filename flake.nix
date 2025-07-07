@@ -74,8 +74,9 @@
           ./patterns/raven-terminal/default.nix
           ./patterns/raven-home/default.nix
           ./shared/shared-enable.nix
-          home-manager.nixosModules.home-manager {
-            imports = [ ./host/home-manager ];
+          home-manager.nixosModules.home-manager
+          {
+            imports = [./host/home-manager];
           }
         ];
       };
@@ -89,8 +90,9 @@
           ./patterns/raven-home/default.nix
           ./patterns/raven-gaming/default.nix
           ./shared/shared-enable.nix
-          home-manager.nixosModules.home-manager {
-            imports = [ ./host/home-manager ];
+          home-manager.nixosModules.home-manager
+          {
+            imports = [./host/home-manager];
           }
         ];
       };
@@ -102,8 +104,9 @@
           ./patterns/raven-minimal/default.nix
           ./patterns/raven-terminal/default.nix
           ./shared/shared-enable.nix
-          home-manager.nixosModules.home-manager {
-            imports = [ ./host/home-manager ];
+          home-manager.nixosModules.home-manager
+          {
+            imports = [./host/home-manager];
           }
         ];
       };

@@ -7,18 +7,17 @@
   pkgs,
   ...
 }: {
-
   imports = [
   ];
 
   environment.systemPackages = with pkgs; [
-    dolphin-emu  # GC / Wii
-    mame         # Arcade
-    mupen64plus  # N64
-    pcsx2        # PS2
-    rpcs3        # PS3
-    vbam         # Gameboy advance
-    zsnes        # Super NES emulator
+    dolphin-emu # GC / Wii
+    mame # Arcade
+    mupen64plus # N64
+    pcsx2 # PS2
+    rpcs3 # PS3
+    vbam # Gameboy advance
+    zsnes # Super NES emulator
   ];
 
   # Launch these emulators using the alias followed by the emulator in the subshell.

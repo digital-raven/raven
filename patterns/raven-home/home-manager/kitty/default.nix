@@ -1,8 +1,5 @@
 # Good kitty config
-{
-  ...
-}: {
-
+{...}: {
   programs.kitty = {
     enable = true;
 
