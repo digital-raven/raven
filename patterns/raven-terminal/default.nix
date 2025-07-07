@@ -6,7 +6,6 @@
   pkgs,
   ...
 }: {
-
   imports = [
     ./packages.nix
   ];

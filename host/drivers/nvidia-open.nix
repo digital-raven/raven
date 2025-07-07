@@ -2,11 +2,12 @@
 # If your Nvidia GPU is after the 20-series, it probably is.
 #
 # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-
-{ pkgs, config, libs, ... }:
-
 {
-
+  pkgs,
+  config,
+  libs,
+  ...
+}: {
   hardware.graphics = {
     enable = true;
   };
@@ -15,7 +16,6 @@
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
-
     # Modesetting is required.
     modesetting.enable = true;
 
@@ -38,7 +38,7 @@
     open = true;
 
     # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.

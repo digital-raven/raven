@@ -8,7 +8,6 @@
   pkgs,
   ...
 }: {
-
   # Copy this block to create additional root users.
   users.users.master = {
     # Change this password (using passwd) after rebooting!
@@ -22,7 +21,7 @@
       "master"
       "docker"
       "networkmanager"
-      "wheel"  # This grants sudo access
+      "wheel" # This grants sudo access
     ];
   };
 

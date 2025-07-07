@@ -1,7 +1,6 @@
 # This is your system's configuration file.
 # Use this to configure your system environment
 # Replace the values as seen in /etc/nixos/configuration.nix
-
 {
   inputs,
   outputs,
@@ -23,7 +22,6 @@
   # If you want to use modules your own flake exports (from shared/modules):
   # outputs.nixosModules.example
   imports = [
-
     # hardware-configuration.nix is brought to the system via flake.nix
 
     # System-wide packages

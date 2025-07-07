@@ -12,8 +12,8 @@
 
   # Packages
   environment.systemPackages = with pkgs; [
-    atlauncher  # Minecraft launcher.
-    heroic  # Epic Store, GoG, and Prime Gaming.
+    atlauncher # Minecraft launcher.
+    heroic # Epic Store, GoG, and Prime Gaming.
   ];
 
   # From https://wiki.nixos.org/wiki/Heroic_Games_Launcher

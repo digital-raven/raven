@@ -13,21 +13,21 @@
 
   # Packages
   environment.systemPackages = with pkgs; [
-    brave  # Privacy-focused chromium browser.
-    easytag  # Easily edit mp3 metadata.
-    electrum  # Bitcoin wallet.
-    evince  # Reading PDFs.
-    gimp  # Comprehensive image editor.
+    brave # Privacy-focused chromium browser.
+    easytag # Easily edit mp3 metadata.
+    electrum # Bitcoin wallet.
+    evince # Reading PDFs.
+    gimp # Comprehensive image editor.
     gparted
-    kitty  # Great desktop-agnostic terminal emulator.
-    libreoffice  # Free office software suite.
-    obs-studio  # Record and stream applications and games.
-    qbittorrent  # Torrent software
-    syncthing  # Sync files between your own computers.
-    vlc  # Best video player
-    veracrypt  # Manipulate veracrypt volumes.
-    vokoscreen  # Basic screen and audio recording.
-    wine  # For running windows executables.
+    kitty # Great desktop-agnostic terminal emulator.
+    libreoffice # Free office software suite.
+    obs-studio # Record and stream applications and games.
+    qbittorrent # Torrent software
+    syncthing # Sync files between your own computers.
+    vlc # Best video player
+    veracrypt # Manipulate veracrypt volumes.
+    vokoscreen # Basic screen and audio recording.
+    wine # For running windows executables.
   ];
 
   # Install firefox.
