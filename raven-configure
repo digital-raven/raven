@@ -87,6 +87,9 @@ do
     esac
 done
 
+echo "Enter Ctrl-C or ESC to exit this script while entering your values.
+"
+
 # This command finds the lines in Raven that need replacing
 REPLACEMES="$(grep -r REPLACEME_ | grep -v .swp | grep -v ^.git | grep -v docs | grep -v raven-configure)"
 
@@ -150,7 +153,7 @@ nvme_devices="$(lsblk -JpN -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE)"
 RAVEN_TARGET_DISK=$(echo "$sda_devices" \
     "$nvme_devices" | jq -s '[.[].blockdevices[]] | map({name, vendor, model, rev, serial, size})' | jq -r '(.[0] | keys_unsorted) as $keys | $keys, map([.[ $keys[] ]])[] | @csv' | gum table | awk -F, '{print $1}')
 
-confirm_text="You've specified
+echo "You've specified
 
 AC name:     $RAVEN_HOSTNAME
 pattern:     $RAVEN_PATTERN
@@ -161,17 +164,29 @@ locale:      $RAVEN_LOCALE
 
 target disk: $RAVEN_TARGET_DISK
 
-Is this correct?
 "
 
-gum confirm --default=false "$confirm_text"
-
-# Copy the lines that start with "boot." from /etc/nixos/configuration.nix
-BOOT_SETTINGS="$(grep "^ \+boot\." /etc/nixos/configuration.nix)"
+gum confirm --default=false "Is this correct?"
 
 # Hardware configuration
 echo "Generating hardware configuration to ./host/hardware-configuration.nix"
 nixos-generate-config --show-hardware-config > host/hardware-configuration.nix
+
+sed -i "s/REPLACEME_hostName/$RAVEN_HOSTNAME/" ./host/configuration.nix
+sed -i "s/REPLACEME_raven-pattern/$RAVEN_PATTERN/" ./host/home-manager/master/default.nix
+sed -i "s/REPLACEME_gitUserName/$RAVEN_GIT_USERNAME/" ./host/home-manager/master/git.nix
+sed -i "s/REPLACEME_gitUserEmail/$RAVEN_GIT_EMAIL/" ./host/home-manager/master/git.nix
+sed -i "s/REPLACEME_timeZone/$RAVEN_TIMEZONE/" ./host/configuration.nix
+sed -i "s/REPLACEME_defaultLocale/$RAVEN_LOCALE/" ./host/configuration.nix
+
+# Boot settings
+# Copy the lines that start with "boot." from /etc/nixos/configuration.nix
+BOOT_SETTINGS="$(grep "^ \+boot\." /etc/nixos/configuration.nix)"
+
+# sed doesn't handle multi line substitution
+s="$(awk -v r="$BOOT_SETTINGS" '{gsub(/REPLACEME_boot/,r)}1' ./host/configuration.nix)"
+echo "$s" > ./host/configuration.nix
+nix fmt ./host/configuration.nix >/dev/null 2>&1
 
 #gum confirm  --default=false \
 #    "This will erase $TARGET_DISK and format it for Raven. Is this correct?"

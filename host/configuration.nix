@@ -34,8 +34,8 @@
     ./users.nix
   ];
 
-  # Bootloader.
-  # REPLACEME_boot: Copy the lines that start with "boot." from /etc/nixos/configuration.nix
+  # Bootloader. Copy the lines that start with "boot." from /etc/nixos/configuration.nix
+  REPLACEME_boot
 
   # Networking
   networking.hostName = "REPLACEME_hostName";
