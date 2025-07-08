@@ -87,19 +87,19 @@ do
     esac
 done
 
-echo "Enter Ctrl-C or ESC to exit this script while entering your values.
-"
+echo "Enter Ctrl-C or ESC to exit this script while entering your values. 
+" 1>&2
 
 # This command finds the lines in Raven that need replacing
 REPLACEMES="$(grep -r REPLACEME_ | grep -v .swp | grep -v ^.git | grep -v docs | grep -v raven-configure)"
 
 if ! command -v gum >/dev/null 2>&1 || ! command -v jq >/dev/null 2>&1; then
-    echo "ERROR: This script requires gum and jq to be installed. Run 'nix-shell -p gum jq' and then re-run."
+    echo "ERROR: This script requires gum and jq to be installed. Run 'nix-shell -p gum jq' and then re-run." 1>&2
     exit 1
 fi
 
 if [ "$(id -u)" -eq 0 ]; then
-    echo "ERROR: Don't run this script as the root user."
+    echo "ERROR: Don't run this script as the root user." 1>&2
     exit 1
 fi
 
@@ -107,12 +107,12 @@ fi
 if [[ "$REPLACEMES" =~ "REPLACEME_hostName" ]] && [ -z "$RAVEN_HOSTNAME" ]
 then
     RAVEN_HOSTNAME=$(gum input --prompt "What will you name your AC? " --placeholder "nightfall")
-fi
 
-if [ -z "$RAVEN_HOSTNAME" ]
-then
-    echo "ERROR: You must name your AC."
-    exit 1
+    if [ -z "$RAVEN_HOSTNAME" ]
+    then
+        echo "ERROR: You must name your AC." 1>&2
+        exit 1
+    fi
 fi
 
 # Raven pattern selection
@@ -172,19 +172,26 @@ gum confirm --default=false "Is this correct?"
 echo "Generating hardware configuration to ./host/hardware-configuration.nix"
 nixos-generate-config --show-hardware-config > host/hardware-configuration.nix
 
+echo "INFO: Setting AC Name as $RAVEN_HOSTNAME" 2>&1
 sed -i "s/REPLACEME_hostName/$RAVEN_HOSTNAME/" ./host/configuration.nix
+echo "INFO: Setting Pattern as $RAVEN_PATTERN" 2>&1
 sed -i "s/REPLACEME_raven-pattern/$RAVEN_PATTERN/" ./host/home-manager/master/default.nix
+echo "INFO: Setting Git Name as $RAVEN_GIT_USERNAME" 2>&1
 sed -i "s/REPLACEME_gitUserName/$RAVEN_GIT_USERNAME/" ./host/home-manager/master/git.nix
+echo "INFO: Setting Git Name as $RAVEN_GIT_EMAIL" 2>&1
 sed -i "s/REPLACEME_gitUserEmail/$RAVEN_GIT_EMAIL/" ./host/home-manager/master/git.nix
-sed -i "s/REPLACEME_timeZone/$RAVEN_TIMEZONE/" ./host/configuration.nix
-sed -i "s/REPLACEME_defaultLocale/$RAVEN_LOCALE/" ./host/configuration.nix
+echo "INFO: Setting Git Name as $RAVEN_TIMEZONE" 2>&1
+sed -i "s,REPLACEME_timeZone,$RAVEN_TIMEZONE," ./host/configuration.nix
+echo "INFO: Setting Git Name as $RAVEN_LOCALE" 2>&1
+sed -i "s,REPLACEME_defaultLocale,$RAVEN_LOCALE," ./host/configuration.nix
 
 # Boot settings
 # Copy the lines that start with "boot." from /etc/nixos/configuration.nix
+echo "INFO: Setting boot settings as seen in /etc/nixos/configuration.nix" 2>&1
 BOOT_SETTINGS="$(grep "^ \+boot\." /etc/nixos/configuration.nix)"
 
 # sed doesn't handle multi line substitution
-s="$(awk -v r="$BOOT_SETTINGS" '{gsub(/REPLACEME_boot/,r)}1' ./host/configuration.nix)"
+s="$(awk -v r="$BOOT_SETTINGS" '{gsub(/# REPLACEME_boot/,r)}1' ./host/configuration.nix)"
 echo "$s" > ./host/configuration.nix
 nix fmt ./host/configuration.nix >/dev/null 2>&1
 
