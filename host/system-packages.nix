@@ -9,7 +9,5 @@
 }: {
   # Install new packages here.
   environment.systemPackages = with pkgs; [
-    git
-    vim
   ];
 }
