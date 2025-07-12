@@ -162,6 +162,37 @@ older NixOS versions for any package, and will print the command to install and
 run that software. The easiest way is to run the command in a terminal window,
 and then launch the program from there.
 
+### System management
+
+Every time you update or modify Raven and install the changes via one of the
+`nixos-rebuild switch` commands, a new system generation is created in the
+boot menu.
+
+Raven is a NixOS system, and NixOS will keep old references and system generations
+which you can choose to roll back to.
+
+These eventually begin to eat up a non-negligible amount of disk space. There
+are some commands you can run to manage this.
+
+Run `nix-collect-garbage` to delete old packages your user account has permissions on.
+
+Run `sudo nix-collect-garbage` to collect old system packages.
+
+Run `sudo nix-collect-garbage -d [period]` to delete system generations older than
+the specified period. `[period]` can be something like `7d`, for example, which will
+delete generations produced more than 7 days ago. This period is optional to
+provide, and `-d` on its own will remove all previous generations.
+
+And then, from the root of your Raven repository, run `sudo nixos-rebuild boot .#<raven-pattern>`
+to update the generation list in your boot menu; but replace `<raven-pattern>`
+with your selected raven-pattern.
+
+The `nix-collect-garbage` commands will print a message toward the end telling you
+how much disk space you can save by optmizing. The command to perform this optimization
+is `nix-store --optimize -vv`. The `-vv` will print output as it performs its task.
+
+Run it both with and without `sudo`.
+
 ### Basic desktop experience
 
 All Raven models inherit the same terminal experience from `raven-terminal`, and

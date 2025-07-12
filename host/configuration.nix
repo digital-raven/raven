@@ -47,7 +47,7 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "REPLACEME_defaultLocale";
 
-  # Optional extraLocaleSettings. https://nixos.wiki/wiki/Locales
+  # Optional. https://nixos.wiki/wiki/Locales
   #i18n.extraLocaleSettings = {
   #};
 
