@@ -3,12 +3,12 @@
     disk = {
       main = {
         type = "disk";
-        device = "/dev/vdb";
+        device = "/dev/sdd";
         content = {
           type = "gpt";
           partitions = {
             ESP = {
-              size = "500M";
+              size = "512M";
               type = "EF00";
               content = {
                 type = "filesystem";
@@ -29,11 +29,18 @@
                   keyFile = "/tmp/secret.key";
                   allowDiscards = true;
                 };
-                additionalKeyFiles = ["/tmp/additionalSecret.key"];
                 content = {
                   type = "lvm_pv";
                   vg = "pool";
                 };
+              };
+            };
+            encryptedSwap = {
+              size = "8G";
+              content = {
+                type = "swap";
+                randomEncryption = true;
+                priority = 100; # prefer to encrypt as long as we have space for it
               };
             };
           };
@@ -54,17 +61,6 @@
                 "defaults"
               ];
             };
-          };
-          home = {
-            size = "10M";
-            content = {
-              type = "filesystem";
-              format = "ext4";
-              mountpoint = "/home";
-            };
-          };
-          raw = {
-            size = "10M";
           };
         };
       };
