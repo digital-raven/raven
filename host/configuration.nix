@@ -30,12 +30,15 @@
     # Choose specific drivers.
     #./drivers/nvidia-open.nix
 
+    ./disks/ext4.nix
+
     # Users
     ./users.nix
   ];
 
   # Bootloader. Copy the lines that start with "boot." from /etc/nixos/configuration.nix
-  # REPLACEME_boot
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # Networking
   networking.hostName = "REPLACEME_hostName";

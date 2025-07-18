@@ -13,6 +13,9 @@
     # Home manager. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -68,6 +71,7 @@
       raven-home = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          inputs.disko.nixosModules.disko
           ./host/hardware-configuration.nix
           ./host/configuration.nix
           ./patterns/raven-minimal/default.nix

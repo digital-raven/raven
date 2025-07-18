@@ -7,6 +7,7 @@ function usage
 Usage: $0
    [ --check ]
    [ --format ]
+   [ --no-hardware-config ]
    [ --profile=profile-path ]
    [ -h | --help ]
 
@@ -59,10 +60,12 @@ SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 
 cd $SCRIPT_DIR
 
-args=$(getopt -o h --long help,check,format,profile: -- "$@")
+args=$(getopt -o h --long help,check,format,no-hardware-config,profile: -- "$@")
 if [[ $? -gt 0 ]]; then
     usage
 fi
+
+NO_HARDWARE_CONFIG="false"
 
 eval set -- ${args}
 while :
@@ -76,6 +79,10 @@ do
     --format)
         format
         exit $?
+        shift
+        ;;
+    --no-hardware-config)
+        NO_HARDWARE_CONFIG="true"
         shift
         ;;
     --profile)
@@ -159,11 +166,11 @@ then
 fi
 
 # Disk selection
-sda_devices="$(lsblk -JpS -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE)"
-nvme_devices="$(lsblk -JpN -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE)"
+sda_devices="$(lsblk -JpS -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE,ID)"
+nvme_devices="$(lsblk -JpN -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE,ID)"
 
 RAVEN_TARGET_DISK=$(echo "$sda_devices" \
-    "$nvme_devices" | jq -s '[.[].blockdevices[]] | map({name, vendor, model, rev, serial, size})' | jq -r '(.[0] | keys_unsorted) as $keys | $keys, map([.[ $keys[] ]])[] | @csv' | gum table | awk -F, '{print $1}')
+    "$nvme_devices" | jq -s '[.[].blockdevices[]] | map({name, vendor, model, rev, serial, size, id})' | jq -r '(.[0] | keys_unsorted) as $keys | $keys, map([.[ $keys[] ]])[] | @csv' | gum table | awk -F, '{print $1}')
 
 echo "You've specified
 
@@ -178,11 +185,20 @@ target disk: $RAVEN_TARGET_DISK
 
 "
 
+if [ "$NO_HARDWARE_CONFIG" == "true" ]
+then
+    echo "And we're skipping the hardware config.
+"
+fi
+
 gum confirm --default=false "Is this correct?"
 
 # Hardware configuration
-echo "Generating hardware configuration to ./host/hardware-configuration.nix"
-nixos-generate-config --show-hardware-config > host/hardware-configuration.nix
+if [ "$NO_HARDWARE_CONFIG" == "false" ]
+then
+    echo "Generating hardware configuration to ./host/hardware-configuration.nix"
+    nixos-generate-config --show-hardware-config > host/hardware-configuration.nix
+fi
 
 echo "INFO: Setting AC Name as $RAVEN_HOSTNAME" 2>&1
 sed -i "s/REPLACEME_hostName/$RAVEN_HOSTNAME/" ./host/configuration.nix
@@ -197,10 +213,10 @@ sed -i "s,REPLACEME_timeZone,$RAVEN_TIMEZONE," ./host/configuration.nix
 echo "INFO: Setting Git Name as $RAVEN_LOCALE" 2>&1
 sed -i "s,REPLACEME_defaultLocale,$RAVEN_LOCALE," ./host/configuration.nix
 
-# Boot settings
-# Copy the lines that start with "boot." from /etc/nixos/configuration.nix
-echo "INFO: Setting boot settings as seen in /etc/nixos/configuration.nix" 2>&1
-BOOT_SETTINGS="$(grep "^ \+boot\." /etc/nixos/configuration.nix)"
+## Boot settings
+## Copy the lines that start with "boot." from /etc/nixos/configuration.nix
+#echo "INFO: Setting boot settings as seen in /etc/nixos/configuration.nix" 2>&1
+#BOOT_SETTINGS="$(grep "^ \+boot\." /etc/nixos/configuration.nix)"
 
 # sed doesn't handle multi line substitution
 s="$(awk -v r="$BOOT_SETTINGS" '{gsub(/# REPLACEME_boot/,r)}1' ./host/configuration.nix)"
