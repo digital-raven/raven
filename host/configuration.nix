@@ -30,15 +30,22 @@
     # Choose specific drivers.
     #./drivers/nvidia-open.nix
 
-    ./disks/ext4.nix
+    # Choose a disk profile if installing Raven to its own drive.
+    #./disks/REPLACEME_disk_profile
 
     # Users
     ./users.nix
   ];
 
-  # Bootloader. Copy the lines that start with "boot." from /etc/nixos/configuration.nix
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # Bootloader
+  # If you're installing Raven to a fresh disk, the following boot settings will
+  # work with the provided disk profiles.
+  #boot.loader.systemd-boot.enable = true;
+  #boot.loader.efi.canTouchEfiVariables = true;
+  #
+  # If you're instead installing Raven to an existing NixOS installation, then copy the
+  # lines that start with "boot." from /etc/nixos/configuration.nix
+  # REPLACEME_boot_settings
 
   # Networking
   networking.hostName = "REPLACEME_hostName";

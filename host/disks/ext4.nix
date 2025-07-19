@@ -2,7 +2,7 @@
   disko.devices = {
     disk = {
       my-disk = {
-        device = "/dev/disk/by-id/usb-Samsung_Flash_Drive_FIT_0307423070000034-0:0";
+        device = "/dev/disk/by-id/REPLACEME_target_disk";
         type = "disk";
         content = {
           type = "gpt";

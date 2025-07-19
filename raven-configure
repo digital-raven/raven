@@ -5,9 +5,9 @@ function usage
 {
     >&2 cat << EOF
 Usage: $0
-   [ --check ]
-   [ --format ]
-   [ --no-hardware-config ]
+   [ --check ]  # Report any missed REPLACEME's
+   [ --format ]  # Run nix-fmt over the nix files in the repository.
+   [ --no-hardware-config ]  # Skip the hardware configuration
    [ --profile=profile-path ]
    [ -h | --help ]
 
@@ -23,9 +23,12 @@ RAVEN_GIT_EMAIL=
 RAVEN_TIMEZONE=
 RAVEN_LOCALE=
 RAVEN_TARGET_DISK=
+RAVEN_DISK_PROFILE=
 
 Values set in this way will not take effect if the respective .nix files have already
 had their "REAPLACEME_*" texts modified.
+
+If installing Raven over an existing NixOS installation, set RAVEN_TARGET_DISK to "existing".
 
 EOF
 }
@@ -166,11 +169,45 @@ then
 fi
 
 # Disk selection
-sda_devices="$(lsblk -JpS -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE,ID)"
-nvme_devices="$(lsblk -JpN -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE,ID)"
+if [[ "$REPLACEMES" =~ "REPLACEME_target_disk" ]] && [ -z "$RAVEN_TARGET_DISK" ]
+then
 
-RAVEN_TARGET_DISK=$(echo "$sda_devices" \
-    "$nvme_devices" | jq -s '[.[].blockdevices[]] | map({name, vendor, model, rev, serial, size, id})' | jq -r '(.[0] | keys_unsorted) as $keys | $keys, map([.[ $keys[] ]])[] | @csv' | gum table | awk -F, '{print $1}')
+    if gum confirm --default=false "Are you overwriting a storage device for Raven?"
+    then
+
+        if [[ "$REPLACEMES" =~ "REPLACEME_disk_profile" ]] && [ -z "$RAVEN_DISK_PROFILE" ]
+        then
+            if [ -z "$RAVEN_DISK_PASSWORD" ] && gum confirm --default=true "Would you like to encrypt it?"
+            then
+                RAVEN_DISK_PROFILE="ext4-luks.nix"
+                RAVEN_DISK_PASSWORD="something"
+                second_input="something else"
+                while [ "$RAVEN_DISK_PASSWORD" != "$second_input" ]
+                do
+                    RAVEN_DISK_PASSWORD=$(gum input --password --prompt "Enter the password to unlock the disk: ")
+                    second_input=$(gum input --password --prompt "Enter it again to confirm it: ")
+                    if [ "$second_input" != "$RAVEN_DISK_PASSWORD" ]
+                    then
+                        echo "Passwords do not match. Try again." 2>&1
+                    fi
+                done
+
+                echo -n "$RAVEN_DISK_PASSWORD" > /tmp/secret.key
+            else
+                RAVEN_DISK_PROFILE="ext4.nix"
+            fi
+        fi
+
+        sda_devices="$(lsblk -JpS -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE,ID)"
+        nvme_devices="$(lsblk -JpN -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE,ID)"
+
+        RAVEN_TARGET_DISK=$(echo "$sda_devices" \
+        "$nvme_devices" | jq -s '[.[].blockdevices[]] | map({name, vendor, model, rev, serial, size, id})' | jq -r '(.[0] | keys_unsorted) as $keys | $keys, map([.[ $keys[] ]])[] | @csv' | gum table | awk -F, '{print $1}')
+    else
+        RAVEN_TARGET_DISK = "existing"
+        RAVEN_DISK_PROFILE = "existing"
+    fi
+fi
 
 echo "You've specified
 
@@ -182,6 +219,7 @@ time-zone:   $RAVEN_TIMEZONE
 locale:      $RAVEN_LOCALE
 
 target disk: $RAVEN_TARGET_DISK
+disk profile: $RAVEN_DISK_PROFILE
 
 "
 
@@ -212,23 +250,35 @@ echo "INFO: Setting Git Name as $RAVEN_TIMEZONE" 2>&1
 sed -i "s,REPLACEME_timeZone,$RAVEN_TIMEZONE," ./host/configuration.nix
 echo "INFO: Setting Git Name as $RAVEN_LOCALE" 2>&1
 sed -i "s,REPLACEME_defaultLocale,$RAVEN_LOCALE," ./host/configuration.nix
+echo "INFO: Setting target disk to $RAVEN_TARGET_DISK" 2>&1
+sed -i "s,REPLACEME_target_disk,$RAVEN_TARGET_DISK," ./host/disks/ext4.nix
+sed -i "s,REPLACEME_target_disk,$RAVEN_TARGET_DISK," ./host/disks/ext4-luks.nix
 
-## Boot settings
-## Copy the lines that start with "boot." from /etc/nixos/configuration.nix
-#echo "INFO: Setting boot settings as seen in /etc/nixos/configuration.nix" 2>&1
-#BOOT_SETTINGS="$(grep "^ \+boot\." /etc/nixos/configuration.nix)"
+# Boot settings
+if [ "$RAVEN_TARGET_DISK" == "existing" ]
+then
+    # Copy the lines that start with "boot." from /etc/nixos/configuration.nix
+    echo "INFO: Setting boot settings as seen in /etc/nixos/configuration.nix" 2>&1
+    BOOT_SETTINGS="$(grep "^ \+boot\." /etc/nixos/configuration.nix)"
 
-# sed doesn't handle multi line substitution
-s="$(awk -v r="$BOOT_SETTINGS" '{gsub(/# REPLACEME_boot/,r)}1' ./host/configuration.nix)"
-echo "$s" > ./host/configuration.nix
+    # sed doesn't handle multi line substitution
+    s="$(awk -v r="$BOOT_SETTINGS" '{gsub(/# REPLACEME_boot_settings/,r)}1' ./host/configuration.nix)"
+    echo "$s" > ./host/configuration.nix
+
+    # Remove REPLACEME_disk_profile
+    sed -i 's/REPLACEME_disk_profile//' ./host/configuration.nix
+else
+    BOOT_SETTINGS="boot.loader.systemd-boot.enable = true; boot.loader.efi.canTouchEfiVariables = true;"
+    sed -i "s/# REPLACEME_boot_settings/$BOOT_SETTINGS/" ./host/configuration.nix
+
+    sed -i "s,#./disks/REPLACEME_disk_profile,./disks/$RAVEN_DISK_PROFILE," ./host/configuration.nix
+fi
 nix fmt ./host/configuration.nix >/dev/null 2>&1
 
-#gum confirm  --default=false \
-#    "This will erase $TARGET_DISK and format it for Raven. Is this correct?"
-#
-#echo "Partitioning Disks"
-#sudo nix run github:nix-community/disko \
-#    --extra-experimental-features "nix-command flakes" \
-#    --no-write-lock-file \
-#    -- \
-#    --mode zap_create_mount \
+echo "You should be good to install Raven!
+
+If you're installing on top of an existing NixOS installation, run 'sudo nixos rebuild switch --flake .#$RAVEN_PATTERN'
+
+If you're installing to a fresh disk, run 'sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount ./host/disks/$RAVEN_DISK_PROFILE'
+
+Double check your settings are correct with 'git diff' and './raven-configure --check'" 2>&1

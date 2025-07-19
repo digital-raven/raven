@@ -3,7 +3,7 @@
     disk = {
       main = {
         type = "disk";
-        device = "/dev/sdd";
+        device = "/dev/disk/by-id/REPLACEME_target_disk";
         content = {
           type = "gpt";
           partitions = {
