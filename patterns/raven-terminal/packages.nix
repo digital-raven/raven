@@ -69,7 +69,7 @@
       PermitRootLogin = "no";
 
       # Set to false if you don't want to be able to ssh via password.
-      PasswordAuthentication = true;
+      PasswordAuthentication = false;
     };
   };
 
