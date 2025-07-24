@@ -8,6 +8,11 @@
   pkgs,
   ...
 }: {
+  # Disable root user. Nothing hashes to just "!", so this effectively disables
+  # password authentication for root.
+  # A user with sudo access can still use `sudo su` to get into root.
+  users.users.root.hashedPassword = "!";
+
   # Copy this block to create additional root users.
   users.users.master = {
     # Change this password (using passwd) after rebooting!
