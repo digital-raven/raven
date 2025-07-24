@@ -38,16 +38,15 @@ function check
     echo "Checking for any missed REPLACEME's...
     " >&2
 
-    grep -r REPLACEME_ | grep -v .swp | grep -v ^.git | grep -v docs | grep -v raven-configure
-    if [ $? == 0 ]
+    if grep -r REPLACEME_ | grep -v .swp | grep -v ^.git | grep -v docs | grep -v raven-configure
     then
         echo ""
         echo "You missed REPLACEME's in the above files. Don't try to install yet." >&2
         return 1
-    else
-        echo "You've hit all REPLACEME's. If you did those right then you should be good to use raven!" >&2
-        return 0
     fi
+
+    echo "You've hit all REPLACEME's. If you did those right then you should be good to use raven!" >&2
+    return 0
 }
 
 function format
