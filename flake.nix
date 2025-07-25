@@ -60,14 +60,6 @@
     homeManagerModules = import ./shared/home-manager;
 
     # Raven's NixOS patterns
-    #
-    # Install one with one of the following commands.
-    #
-    # ```
-    # nixos-rebuild --flake .#raven-home
-    # nixos-rebuild --flake .#raven-gaming
-    # nixos-rebuild --flake .#raven-terminal
-    # ```
     nixosConfigurations = {
       raven-home = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
@@ -124,6 +116,10 @@
           ./host/hardware-configuration.nix
           ./host/configuration.nix
           ./patterns/raven-minimal/default.nix
+          home-manager.nixosModules.home-manager
+          {
+            imports = [./host/home-manager];
+          }
         ];
       };
       raven-iso = nixpkgs.lib.nixosSystem {
