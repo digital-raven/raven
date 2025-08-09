@@ -22,6 +22,7 @@
     kitty # Great desktop-agnostic terminal emulator.
     libreoffice # Free office software suite.
     obs-studio # Record and stream applications and games.
+    pavucontrol # Fine-grained audio control for applications.
     qbittorrent # Torrent software
     syncthing # Sync files between your own computers.
     vlc # Best video player

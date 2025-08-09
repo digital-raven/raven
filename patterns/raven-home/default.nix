@@ -7,7 +7,7 @@
   ...
 }: {
   imports = [
-    ./kde.nix
+    ./xfce.nix
     ./packages.nix
   ];
 }
