@@ -28,6 +28,10 @@
     veracrypt # Manipulate veracrypt volumes.
     vokoscreen # Basic screen and audio recording.
     wine # For running windows executables.
+
+    ## Allows pass -c to function.
+    wl-clipboard # Command-line copy/paste utilities for Wayland
+    xclip # See wl-clipboard, but for x11.
   ];
 
   # Install firefox.

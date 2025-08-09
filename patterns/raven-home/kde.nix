@@ -50,10 +50,6 @@
     kdePackages.partitionmanager # Manage the disk devices, partitions and file systems on your computer
     hardinfo2 # System information and benchmarks for Linux systems
     wayland-utils # Wayland utilities
-
-    # Allows pass -c to function.
-    wl-clipboard # Command-line copy/paste utilities for Wayland
-    xclip # See wl-clipboard, but for x11.
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
