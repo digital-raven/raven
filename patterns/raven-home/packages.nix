@@ -19,6 +19,8 @@
     evince # Reading PDFs.
     gimp # Comprehensive image editor.
     gparted
+    kdePackages.gwenview # Photo-viewer
+    kdePackages.kolourpaint # Easy-to-use paint program
     kitty # Great desktop-agnostic terminal emulator.
     libreoffice # Free office software suite.
     obs-studio # Record and stream applications and games.
@@ -28,6 +30,10 @@
     veracrypt # Manipulate veracrypt volumes.
     vokoscreen # Basic screen and audio recording.
     wine # For running windows executables.
+
+    ## Allows pass -c to function.
+    wl-clipboard # Command-line copy/paste utilities for Wayland
+    xclip # See wl-clipboard, but for x11.
   ];
 
   # Install firefox.
