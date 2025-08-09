@@ -1,0 +1,94 @@
+* {
+    font-family: JetBrains Mono, Symbols Nerd Font;
+    font-size: 24px;
+    transition-property: background-color;
+    transition-duration: 0.7s;
+}
+
+window {
+    background-color: #000000;
+    /* border-radius: 10px; */
+}
+
+button {
+    background-color: #11111b;
+    border-style: solid;
+    /* border-width: 2px; */
+    border-radius: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 15%;
+    margin: 15px;
+}
+
+button:active,
+button:hover {
+    background-color: #cdd6f4;
+}
+
+button:focus {
+    background-color: #cdd6f4;
+}
+
+#lock {
+    background-image: image(url("icons/lock_white.png"));
+    color: #fff0f0;
+}
+
+#lock:hover {
+    background-image: image(url("icons/lock_black.png"));
+    color: #11111b;
+}
+
+#logout {
+    background-image: image(url("icons/logout_white.png"));
+    color: #fff0f0;
+}
+
+#logout:hover {
+    background-image: image(url("icons/logout_black.png"));
+    color: #11111b;
+}
+
+#suspend {
+    background-image: image(url("icons/suspend_white.png"));
+    color: #fff0f0;
+}
+
+#suspend:hover {
+    background-image: image(url("icons/suspend_black.png"));
+    color: #11111b;
+}
+
+#shutdown {
+    background-image: image(url("icons/shutdown_white.png"));
+    color: #fff0f0;
+}
+
+#shutdown:hover {
+    background-image: image(url("icons/shutdown_black.png"));
+    color: #11111b;
+}
+
+#reboot {
+    background-image: image(url("icons/reboot_white.png"));
+    color: #fff0f0;
+}
+
+#reboot:hover {
+    background-image: image(url("icons/reboot_black.png"));
+    color: #11111b;
+}
+
+#main_system {
+    background-image: image(url("icons/main_system_white.png"));
+    background-color: #11111b;
+    color: #fff0f0;
+
+}
+
+#main_system:hover {
+    background-image: image(url("icons/main_system_black.png"));
+    background-color: #cdd6f4;
+    color: #11111b;
+}
