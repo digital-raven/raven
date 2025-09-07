@@ -16,6 +16,7 @@
     mupen64plus # N64
     pcsx2 # PS2
     rpcs3 # PS3
+    shadps4 # PS4
     vbam # Gameboy advance
     zsnes # Super NES emulator
   ];

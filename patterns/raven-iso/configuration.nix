@@ -35,6 +35,28 @@
     };
   };
 
+  # Docker
+  virtualisation.docker.enable = true;
+
+  users.mutableUsers = false;
+  users.users.nixos = {
+    enable = false;
+  };
+  services.getty.autologinUser = lib.mkForce "tourist";
+
+  users.users.tourist = {
+    isNormalUser = true;
+    home = "/home/tourist";
+    description = "Looks like you're having fun, tourist.";
+    extraGroups = [
+      "tourist"
+      "master"
+      "networkmanager"
+      "docker"
+      "wheel"
+    ];
+  };
+
   system.stateVersion = lib.mkDefault "25.05";
 
   environment.systemPackages = with pkgs; [

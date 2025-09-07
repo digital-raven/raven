@@ -720,3 +720,35 @@ is an example of a legitimate crypto exchange.
 
 [Here is Electrums' FAQ page](https://electrum.readthedocs.io/en/latest/faq.html) with more
 details on how Electrum works. Read it before you start putting money into this wallet.
+
+### Use with Raspberry Pi
+
+The Raven operating system is not, itself, supported on Raspberry Pi boards. However, it
+may be used to create a bootable image on one.
+
+Go to [raspberrypi.com/software/operating-systems](https://www.raspberrypi.com/software/operating-systems)
+and download one of their operating system images. Your download may deliver the file in a
+compressed format. At time of writing that format is an `xz` archive, and needs to be
+decompressed.
+
+```
+# Using the 2025 Raspberry Pi OS as an example
+cd ~/Downloads
+unxz 2025-10-01-raspios-trixie-arm64.img.xz
+```
+
+Now plug in your SD card to your computer and run this command to figure out which
+block device (NAME) it is.
+
+```
+lsblk -pS -o NAME,VENDOR,MODEL,REV,SERIAL,SIZE
+```
+
+Once you know which one corresponds to your SD card we can write the image to it.
+
+```
+sudo dd if=2025-10-01-raspios-trixie-arm64.img of=/dev/sdX status=PROGRESS
+```
+
+When you install the SD card to your Pi and power it on it should boot! If you have any
+problems with your Pi go hit up [their forums](https://forums.raspberrypi.com).
