@@ -22,6 +22,7 @@
     gnumake
     gnupg
     iotop # I/O monitor.
+    killall # Kill all processes by name
     lm_sensors # System temperature information. Command is `sensors`.
     lynx # Command-line web-browser.
     openssl # Cryptography toolkit.
