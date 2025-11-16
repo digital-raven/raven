@@ -48,6 +48,16 @@
     yt-dlp # Download videos from YouTube. YMMV.
     zip # Create .zip archives.
     zsh # Popular alternative to BASH.
+
+    (pkgs.writeShellApplication # CREDIT: https://www.youtube.com/watch?v=7QLhCgDMqgw
+    {
+      name = "nix-search";
+      runtimeInputs = with pkgs; [
+        fzf
+        nix-search-tv
+      ];
+      text = builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh";
+    })
   ];
 
   # Configure gnupg
