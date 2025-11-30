@@ -8,6 +8,9 @@
 }: {
   imports = [
     ./packages.nix
+
+    # Active system-level attachments.
+    ./attachments/system.nix
   ];
 
   # Enable sound with pipewire.
