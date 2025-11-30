@@ -1,4 +1,4 @@
-# Packages useful for a home installation.
+# Software determined useful for any full-desktop experience.
 {
   inputs,
   outputs,

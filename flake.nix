@@ -61,7 +61,7 @@
 
     # Raven's NixOS patterns
     nixosConfigurations = {
-      raven-home = nixpkgs.lib.nixosSystem {
+      raven-desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           inputs.disko.nixosModules.disko
@@ -69,24 +69,7 @@
           ./host/configuration.nix
           ./patterns/raven-minimal/default.nix
           ./patterns/raven-terminal/default.nix
-          ./patterns/raven-home/default.nix
-          ./shared/shared-enable.nix
-          home-manager.nixosModules.home-manager
-          {
-            imports = [./host/home-manager];
-          }
-        ];
-      };
-      raven-gaming = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          inputs.disko.nixosModules.disko
-          ./host/hardware-configuration.nix
-          ./host/configuration.nix
-          ./patterns/raven-minimal/default.nix
-          ./patterns/raven-terminal/default.nix
-          ./patterns/raven-home/default.nix
-          ./patterns/raven-gaming/default.nix
+          ./patterns/raven-desktop/default.nix
           ./shared/shared-enable.nix
           home-manager.nixosModules.home-manager
           {
