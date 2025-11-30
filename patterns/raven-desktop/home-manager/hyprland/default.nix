@@ -1,3 +1,8 @@
+# This file is organized as
+#   Base-level -> Desktop level (Hyprland) -> Application level
+#
+# I hope that description helps geographically where these elements "live"
+# with respect to your system's boot-to-usage sequence.
 {
   inputs,
   pkgs,
@@ -50,14 +55,7 @@
     };
   };
 
-  # Useful utilities
-  programs.waybar.enable = true;
-  programs.rofi.enable = true;
-
-  services.swww.enable = true;
-
-  # Lock screen and idle
-  services.hypridle.enable = true;
+  # Configure hyprland and set up hyprland.conf to launch plugins
   wayland.windowManager.hyprland = {
     enable = true;
     extraConfig = ''
@@ -67,7 +65,13 @@
     '';
   };
 
-  # Other files
+  # Idle daemon, Waybar, program launcher, wallpaper daemon.
+  services.hypridle.enable = true;
+  programs.waybar.enable = true;
+  programs.rofi.enable = true;
+  services.swww.enable = true;
+
+  # Copy over dotfiles
   home.file = {
     ".config/assets" = {
       source = ./dotfiles/assets;

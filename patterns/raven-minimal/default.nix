@@ -8,5 +8,8 @@
 }: {
   imports = [
     ./packages.nix
+
+    # Active system-level attachments.
+    ./attachments/system.nix
   ];
 }

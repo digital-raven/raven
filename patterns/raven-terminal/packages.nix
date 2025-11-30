@@ -18,6 +18,7 @@
     dosfstools
     ffmpeg # Powerful video and audio editor.
     file # Print the type of a target file.
+    fzf
     gcc # World's greatest c compiler.
     gnumake
     gnupg
@@ -30,6 +31,7 @@
     man-pages-posix # Manuals for classic POSIX programs and libraries.
     mullvad # Raven's VPN of choice.
     neofetch # Print system overview, but pretty!
+    p7zip # Handle .7z archive files.
     pandoc # goes with texlive.combined.scheme-small for converting md to pdf.
     parted # Hard-drive partition manager
     python3 # Install python packages using a virutal environment.

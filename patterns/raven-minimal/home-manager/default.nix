@@ -1,4 +1,7 @@
-# Home manager here does nothing, but exists so the replaceme
-# text in host/home-manager/master/default.nix works.
+# Raven-minimal doesn't offer any added home-manager functionality by default.
 {...}: {
+  imports = [
+    # Home-manager active attachments.
+    ../attachments/home-manager.nix
+  ];
 }
