@@ -5,6 +5,11 @@
     # Nixpkgs. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
 
+    # You can access packages and modules from different nixpkgs revs
+    # at the same time. Here's an working example:
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Also see the 'unstable-packages' overlay at 'shared/overlays/default.nix'.
+
     # Home manager. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -35,9 +40,24 @@
     # pass to it, with each system as an argument
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
+    # Your custom packages
+    # Accessible through 'nix build', 'nix shell', etc
+    packages = forAllSystems (system: import ./shared/pkgs nixpkgs.legacyPackages.${system});
+
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+
+    # Your custom packages and modifications, exported as overlays
+    overlays = import ./shared/overlays {inherit inputs;};
+
+    # Reusable nixos modules you might want to export
+    # These are usually stuff you would upstream into nixpkgs
+    nixosModules = import ./shared/modules;
+
+    # Reusable home-manager modules you might want to export
+    # These are usually stuff you would upstream into home-manager
+    homeManagerModules = import ./shared/home-manager;
 
     # Raven's NixOS patterns
     nixosConfigurations = {
@@ -50,6 +70,7 @@
           ./patterns/raven-minimal/default.nix
           ./patterns/raven-terminal/default.nix
           ./patterns/raven-desktop/default.nix
+          ./shared/shared-enable.nix
           home-manager.nixosModules.home-manager
           {
             imports = [./host/home-manager];
@@ -64,6 +85,7 @@
           ./host/configuration.nix
           ./patterns/raven-minimal/default.nix
           ./patterns/raven-terminal/default.nix
+          ./shared/shared-enable.nix
           home-manager.nixosModules.home-manager
           {
             imports = [./host/home-manager];

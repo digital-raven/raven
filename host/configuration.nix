@@ -9,7 +9,18 @@
   pkgs,
   ...
 }: {
+  # You can import other NixOS modules here
+  # If you want to use modules your own flake exports (from modules/nixos):
+  # outputs.nixosModules.example
+
+  # Or modules from other flakes (such as nixos-hardware):
+  # inputs.hardware.nixosModules.common-cpu-amd
+  # inputs.hardware.nixosModules.common-ssd
+
   # You can also split up your configuration and import pieces of it here:
+
+  # If you want to use modules your own flake exports (from shared/modules):
+  # outputs.nixosModules.example
   imports = [
     # hardware-configuration.nix is brought to the system via flake.nix
 
