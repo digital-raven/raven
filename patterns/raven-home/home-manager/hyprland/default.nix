@@ -1,4 +1,8 @@
-{inputs, pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ../kitty/default.nix
   ];
@@ -9,14 +13,14 @@
     mimeApps = {
       enable = true;
       associations.added = {
-        "image/*" = [ "org.kde.gwenview.desktop" ];
-        "video/*" = [ "vlc.desktop" ];
-        "text/*" = [ "vim" ];
+        "image/*" = ["org.kde.gwenview.desktop"];
+        "video/*" = ["vlc.desktop"];
+        "text/*" = ["vim"];
       };
       defaultApplications = {
-        "image/*" = [ "org.kde.gwenview.desktop" ];
-        "video/*" = [ "vlc.desktop" ];
-        "text/*" = [ "vim" ];
+        "image/*" = ["org.kde.gwenview.desktop"];
+        "video/*" = ["vlc.desktop"];
+        "text/*" = ["vim"];
       };
     };
     portal = {
@@ -65,12 +69,30 @@
 
   # Other files
   home.file = {
-    ".config/assets" = { source = ./dotfiles/assets; recursive = true; };
-    ".config/dunst" = { source = ./dotfiles/dunst; recursive = true; };
-    ".config/hypr" = { source = ./dotfiles/hypr; recursive = true; };
+    ".config/assets" = {
+      source = ./dotfiles/assets;
+      recursive = true;
+    };
+    ".config/dunst" = {
+      source = ./dotfiles/dunst;
+      recursive = true;
+    };
+    ".config/hypr" = {
+      source = ./dotfiles/hypr;
+      recursive = true;
+    };
     ".config/menus/applications.menu" = {source = ./dotfiles/menus/applications.menu;};
-    ".config/rofi" = { source = ./dotfiles/rofi; recursive = true; };
-    ".config/waybar" = { source = ./dotfiles/waybar; recursive = true; };
-    ".config/wlogout" = { source = ./dotfiles/wlogout; recursive = true; };
+    ".config/rofi" = {
+      source = ./dotfiles/rofi;
+      recursive = true;
+    };
+    ".config/waybar" = {
+      source = ./dotfiles/waybar;
+      recursive = true;
+    };
+    ".config/wlogout" = {
+      source = ./dotfiles/wlogout;
+      recursive = true;
+    };
   };
 }

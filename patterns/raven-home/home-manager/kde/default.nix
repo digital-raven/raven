@@ -2,5 +2,4 @@
   imports = [
     ../kitty/default.nix
   ];
-
 }
