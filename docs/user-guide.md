@@ -102,9 +102,6 @@ Here is a brief orientation of Raven's directory structure.
             space for altering pattern logic so changes here may produce merge conflicts.
 
             If you wish to add specific software to your machine, you should do it under `host`.
-- `shared`: Add generic customizations here. This is for overlays, modules, custom
-          packages, and generic home-manager modules you wish to share between
-          your machines.
 
 If you wish to customize your installation, start your grokking in `flake.nix`.
 The `nixosConfigurations` defines the patterns of Raven and which .nix files
