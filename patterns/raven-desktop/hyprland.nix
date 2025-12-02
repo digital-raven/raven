@@ -1,4 +1,32 @@
-# KDE specifc packages and configuration.
+# This file illustrates what is required for hyprland to work
+# and be usable at the system-level.
+#
+# It configures a display manager to start automatically, configures
+# portals and polkits in a minimal fashion at the system level, and
+# establishes hyprland with a few pre-selected high-quality plugins
+# which should allow clear intuition about how to add new plugins
+# to your Raven system.
+#
+# If you were trying to set up hyprland on NixOS from scratch,
+# I, the author, currently believe this is "the best you can do".
+# I have tried alternative methods with different polkits and other
+# popular hyprland-based flakes, and this setup has so far proven
+# the most stable. I hope it provides a clear showing of required foundation
+# for a hyprland user experience capable of media production, programming,
+# gaming, and personal data management.
+#
+# Thank you, to simple-hyprland, for delivering a portal and polkit
+# structure that works in a Nix-flake developed generically from the
+# ground up.
+#
+# https://github.com/gaurav23b/simple-hyprland/blob/main/docs/installation_Hypr.md
+#
+# This file is organized as
+#
+#   System level -> Desktop level (Hyprland) -> Application level
+#
+# I hope that description helps show when these elements become relevant
+# with respect to your system's boot-to-usage sequence.
 {
   pkgs,
   lib,
@@ -8,6 +36,43 @@
   imports = [
   ];
 
+  # Required packages for base hyprland
+  environment.systemPackages = with pkgs; [
+
+    # Generic desktop requirements
+    kdePackages.polkit-kde-agent-1
+
+    # Core Hyprland utilities
+    hyprland-qt-support
+    kdePackages.dolphin
+
+    # Brightness and Volume Control
+    brightnessctl
+
+    ## Lock, logout, and idle
+    hyprlock
+    wlogout
+
+    ## Desktop tools
+    grimblast # Screenshot
+    hyprpicker # Color picker
+
+    ## Waybar and notifications
+    waybar
+    dunst
+
+    ## Plugins
+    hyprlandPlugins.hypr-dynamic-cursors
+    hyprlandPlugins.hyprspace
+
+    # Other tools
+    pulseaudio
+    pamixer
+    fzf
+  ];
+
+  # Foundations
+  # Display server and login screen.
   services.xserver = {
     enable = true;
     displayManager.gdm = {
@@ -16,26 +81,10 @@
     };
   };
 
-  # For waybar.
-  services.playerctld.enable = true;
-
   hardware.graphics.enable = true;
 
-  programs.hyprland = {
-    # Install the packages from nixpkgs
-    enable = true;
-    # Whether to enable XWayland
-    xwayland.enable = true;
-  };
-  # ...
-
-  # simple-hyprland calls out these fonts, but https://wiki.nixos.org/wiki/Fonts
-  # says this is how you install all nerd fonts and IDK how to exactly port his list.
-  # Here's simple-hyprland's list https://github.com/gaurav23b/simple-hyprland/blob/main/docs/prerequisites.md
-  fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
-
-  # Hyprland & Critical Softwares
-  # https://github.com/gaurav23b/simple-hyprland/blob/main/docs/installation_Hypr.md#hyprland--critical-softwares-%EF%B8%8F
+  # Portals and polkits
+  # simple-hyprland does it this way.
   xdg.portal = {
     enable = true;
     extraPortals = [pkgs.xdg-desktop-portal-hyprland];
@@ -59,34 +108,23 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    # Core Hyprland utilities
-    hyprland-qt-support
-    kdePackages.polkit-kde-agent-1
-    kdePackages.dolphin
+  # Hyprland time.
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
 
-    # Brightness and Volume Control
-    brightnessctl
-    pamixer
+  ## Allow Chromium and Electron applications to run without Xwayland.
+  environment.variables = {
+    NIXOS_OZONE_WL = "1";
+  };
 
-    # Logout
-    hyprlock
-    wlogout
+  # For waybar.
+  services.playerctld.enable = true;
 
-    # Useful utilities
-    hyprpicker # Color picker
-    grimblast # Screenshot
-
-    # mecha waybar
-    waybar
-    dunst
-    fzf
-    pulseaudio
-
-    # Plugins
-    hyprlandPlugins.hypr-dynamic-cursors
-    hyprlandPlugins.hyprspace
-  ];
+  # simple-hyprland calls out these fonts, and https://wiki.nixos.org/wiki/Fonts
+  # says this is how you install all nerd fonts and IDK how to exactly port his list.
+  fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   # also mecha waybar
   hardware.bluetooth = {
