@@ -18,6 +18,7 @@
     dosfstools
     ffmpeg # Powerful video and audio editor.
     file # Print the type of a target file.
+    fzf
     gcc # World's greatest c compiler.
     gnumake
     gnupg
