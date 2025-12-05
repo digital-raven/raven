@@ -1,7 +1,7 @@
 # This file is organized as
 #   Base-level -> Desktop level (Hyprland) -> Application level
 #
-# I hope that description helps geographically where these elemnts "live"
+# I hope that description helps geographically where these elements "live"
 # with respect to your system's boot-to-usage sequence.
 {
   inputs,
