@@ -32,9 +32,6 @@
   lib,
   ...
 }: {
-  # You can import other NixOS modules here
-  imports = [
-  ];
 
   # Required packages for base hyprland
   environment.systemPackages = with pkgs; [
@@ -44,31 +41,6 @@
 
     # Core Hyprland utilities
     hyprland-qt-support
-    kdePackages.dolphin
-
-    # Brightness and Volume Control
-    brightnessctl
-
-    ## Lock, logout, and idle
-    hyprlock
-    wlogout
-
-    ## Desktop tools
-    grimblast # Screenshot
-    hyprpicker # Color picker
-
-    ## Waybar and notifications
-    waybar
-    dunst
-
-    ## Plugins
-    hyprlandPlugins.hypr-dynamic-cursors
-    hyprlandPlugins.hyprspace
-
-    # Other tools
-    pulseaudio
-    pamixer
-    fzf
   ];
 
   # Foundations
@@ -112,40 +84,5 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
-  };
-
-  ## Allow Chromium and Electron applications to run without Xwayland.
-  environment.variables = {
-    NIXOS_OZONE_WL = "1";
-  };
-
-  # For waybar.
-  services.playerctld.enable = true;
-
-  # simple-hyprland calls out these fonts, and https://wiki.nixos.org/wiki/Fonts
-  # says this is how you install all nerd fonts and IDK how to exactly port his list.
-  fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
-
-  # also mecha waybar
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings = {
-      General = {
-        # Shows battery charge of connected devices on supported
-        # Bluetooth adapters. Defaults to 'false'.
-        Experimental = true;
-        # When enabled other devices can connect faster to us, however
-        # the tradeoff is increased power consumption. Defaults to
-        # 'false'.
-        FastConnectable = true;
-      };
-      Policy = {
-        # Enable all controllers when they are found. This includes
-        # adapters present on start as well as adapters that are plugged
-        # in later on. Defaults to 'true'.
-        AutoEnable = true;
-      };
-    };
   };
 }
