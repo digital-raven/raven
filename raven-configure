@@ -11,6 +11,10 @@ Usage: $0
    [ --profile=profile-path ]
    [ -h | --help ]
 
+Raven as cloned from the master branch contains template text in the code
+which need to be replaced before installation. raven-configure interactively
+performs that needful, and is trivial to automate.
+
 check will simply check for missed values.
 
 profile-path can specify a file which contains values which will then be skipped
@@ -311,7 +315,7 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 Then run this command to install Raven to it.
 
 \`\`\`
-nixos-install --flake .#$RAVEN_PATTERN
+sudo nixos-install --no-root-password --flake .#$RAVEN_PATTERN
 \`\`\`
 
 When you're done, copy this repo to /mnt/home/master on the new drive. Updates you make that way
