@@ -9,7 +9,7 @@
     # For more information, see https://sw.kovidgoyal.net/kitty/conf.html
     # For your custom configurations, put it in ./kitty.conf
     extraConfig = ''
-      ${builtins.readFile ./kitty.conf}
+      include kitty-main.conf
     '';
 
     # Use `kitten theme` to demo other themes.
@@ -31,6 +31,21 @@
     #
     # 3. If you wish to manage your kitty.conf in home-manager but be able to switch themes on
     #    the fly, then comment out the line below and see the instructions in ./kitty.conf
-    themeFile = "tokyo_night_storm";
+    #
+    # Some ones I like are...
+    #
+    #  base2tone-drawbridge-dark
+    #  tokyo_night_storm
+
+    #themeFile = "base2tone-drawbridge-dark";
+  };
+
+
+  # Copy over dotfiles
+  home.file = {
+    ".config/kitty" = {
+      source = ./kitty;
+      recursive = true;
+    };
   };
 }
