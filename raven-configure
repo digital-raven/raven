@@ -309,7 +309,7 @@ You've indicated you're installing to a fresh disk using Raven's $RAVEN_DISK_PRO
 Run the following command to format the disk.
 
 \`\`\`
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount ./host/disks/$RAVEN_DISK_PROFILE
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/v1.12.0 -- --mode destroy,format,mount ./host/disks/$RAVEN_DISK_PROFILE
 \`\`\`
 
 Then run this command to install Raven to it.
