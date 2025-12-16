@@ -60,7 +60,7 @@
 	-------------*/
 
 	"layer": "top",
-	"output": "DP-6",
+	//"output": // Use `hyprctl monitors` to set which monitor ID waybar should appear on.
 	// "position":
 	"height": 0,
 	"width": 0,
