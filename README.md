@@ -1,62 +1,88 @@
 # Raven
 
-In short, Raven is an operating system. It's a product that you can apply to a
-block of computing hardware and then use software applications on it.
+Raven is an operating system. It's a product that you can apply to a block of
+computing hardware and then run software applications.
 
-In long, why care about an operating system?
+Raven's implementation attempts to maximize commitment in these areas.
+
+- Clear documentation for expected uses.
+- Non-technical and power users are each first-class citizens.
+- Good taste in provided software.
+- Mechanical transparency. Raven may be completely understood from this respository.
+- Authority and responsibility are assumed by the user.
+- Dress nice with conveniences and sleek UI out of the box.
+
+But there is an unbreakable rule of the universe; Compromises are unavoidable
+in any engineering or design effort. Any compromises are made in the name of
+optimizing the above commitments.
 
 <img src="logo.png" width="256" height="256">
 
-An operating system determines what programs you use, and programs are
-made by people, and these people are employed by you. The people you employ
-speak to you. You don't like it when someone speaks without meaning. Wouldn't
-it be nice to fire those people?
+If your computer has annoyed you, then the Raven operating system may be for you.
 
-This product is the operating system answer to that question. If your computer
-has annoyed you, then the Raven operating system can help you use your computer
-with respect.
+## General Usage and Understanding
 
-Raven is part operating system and part guide. It lets you cut through the hype
-of various products and hire the people who care enough to be good at their jobs.
-Raven is a Seal of Approval of sorts; pointing to quality providers to reduce a
-computer to the lowest possible cost of respectful software.
+Raven is part operating system and part guide. In its default state it serves
+as a Seal of Approval of sorts; pointing to quality providers to reduce your
+computer to a low input of respectful software.
 
-Raven contains several models designed to instantly turn any computer
-into a reasonbly configured machine for the intended use. It is also possible
-to transition from one model to another.
+Raven is implemented as a Nix Flake. This means when you install Raven onto
+your computer it is configured by manipulating the text files within your
+system's local copy of this repository.
 
-The Raven project allows you to instantly recreate your desktop computing
-environment on any new machine starting from only your github account and an
-internet connection.
+This implementation has several advantages, such as providing an avenue to the
+user for trivial re-creation of their computing environment on a fresh machine
+starting from only their GitHub account. This also allows a Raven user to
+operate independently of its developer. Your machine is safe from tampering;
+even from us.
 
-Raven's claims are...
-- The target customer is a non-technical user, though competent enough to understand
-  what a file-system and storage devices are.
+There are 2 general approaches to using Raven. Exact installation instructions
+are provided in the [user-guide](./docs/user-guide.md).
+
+A flashdrive with Raven pre-installed from the developer.
+
+1. Purchase a flashdrive from the developer.
+2. When you receive it, plug it in an select it as your boot device.
+3. Your machine's settings will then be manipulated from the local copy of
+   this repository in the `/home/master/raven-machines` directory.
+
+Or you can install it yourself to one of your own drives.
+
+1. Create a GitHub account.
+2. Fork this repository to your account as a private repo.
+3. Boot a computer into NixOS and clone your private repo to it.
+4. Use the `raven-configure` script to change the necessary `REPLACEME`
+   placeholders.
+5. Raven is capable of overwriting an existing NixOS installation or
+   targeting a specific drive. The `raven-configure` script will assist you.
+
+## What to expect
+
+Raven has some expectations of its user, though they are not onerous.
+
+- Raven's user understands what a file-system and storage devices are.
+- Read the [user-guide](./docs/user-guide.md).
 - Raven does not claim to be a performant OS, but it should get the job done
   for home office, gaming, and various development tasks.
-- This product teaches you how to live without us, even if you're not a technical
-  user. Grab this repo and fly in your own direction, if you wish.
-
-Raven allows you to operate independent of us, but you may choose to reference
-this repo for guidance and updates.
-
-- This product is GPLV2 licensed, so share it, back it up, modify it, or create a copy
-  for your friends. 
-- Raven, when used as guided, is more secure and hygenic than the Windows operating
-  system and makes using your computer a quiet and direct experience.
-
+- Raven should be about as secure as any operating system can reasonably be.
+  We get our security updates at the same time as everyone else.
+- What you see is what you get. Being based on NixOS, Raven suppors full and
+  exact software auditability.
+  
 ## Compelling features
 
-Non-technical users who are tired of annoying desktop operating systems stand
-to benefit the most from adopting Raven.
+Raven allows you to operate independently, but you may choose to reference
+this repo for guidance and updates.
 
-- Easy starting point to a configurable NixOS system.
 - Competant configurations for office, gaming, or software development out of the box.
+- Easy starting point to a configurable NixOS system as a flake.
 - Update when / if you want.
+- Raven provides instruction on how to live without us, even if you're not
+  a technical user. Grab this repo and fly in your own direction, if you wish.
 - Easy access to otherwise hard to get programs.
-- Long list of quality software and guides for common tasks.
-- On-system [user-guide](./docs/user-guide.md).
-- Easy experimentation! Each modification to your system produces a snapshot of the
+- Long list of quality software and guides for common tasks in the
+  on-system [user-guide](./docs/user-guide.md).
+- Easy experimentation. Each modification to your system produces a snapshot of the
   previous configuration. If you make a change you don't like then you can reboot
   your machine and load your old setup.
 
