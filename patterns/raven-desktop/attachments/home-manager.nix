@@ -1,7 +1,6 @@
-# Modify this file to choose which attachments have
-# their home-manager level configurations active.
+# Attachments with active home-manager components.
 {...}: {
   imports = [
-    ./gaming/home-manager/default.nix
+    ./hyprland/home-manager/default.nix
   ];
 }

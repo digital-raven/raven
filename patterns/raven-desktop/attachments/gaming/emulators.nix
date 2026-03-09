@@ -1,15 +1,5 @@
 # Popular emulators.
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
-  imports = [
-  ];
-
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     dolphin-emu # GC / Wii
     mame # Arcade
