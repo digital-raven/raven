@@ -1,56 +1,91 @@
 # Raven User Guide
 
-Raven is implemented as a Nix flake.
+Raven is an operating system implemented and distributed as a Nix flake.
 
 Raven segregates its models by "patterns".
 
-- `raven-terminal`: Provides a common terminal experience. All other patterns
-    base themselves on raven-terminal.
-- `raven-home`: For most people. Provides a graphical desktop environment and
-    office software, and drivers for printers.
-- `raven-gaming`: For gamers and computers with discrete graphics cards. Steam and
-    the best emulators for various console systems are installed by default.
+- `raven-desktop`: For most people. Provides a graphical desktop environment and
+    attachments for various specialized use-cases, like gaming and media creation.
+- `raven-terminal`: Terminal-only experience with many command-line tools.
+- `raven-minimal`: Minimal terminal experience with added tools to operate on
+    Raven repositories.
+- `raven-iso`: Pattern used to create bootable ISO images.
 
 ## New User Installation
 
 If you don't wish to install Raven to an existing drive, then there are flash
 drives available for purchase with Raven pre-installed.
 
-If you'd rather save money, then installing Raven is straightforward.
+Installing Raven yourself is straightforward.
 
 1. If you don't have one already, create a GitHub account.
 2. Fork [the Master Raven Repository](https://github.com/digital-raven/raven.git) repository to your
-   GitHub account.
-   - You can use the GUI on GitHub.
-   - Or you can download the repository to your machine, create a private repo
-     on GitHub and push a copy there. Create the private repo without any files.
+   GitHub account. Click the "fork" button near the "Starred" tab.
 3. Download and install [the NixOS ISO](https://nixos.org/download/) to a flashdrive.
    - [Rufus](https://rufus.ie/en/) can create a bootable flash drive if you're on Windows.
    - If you're on a Mac or a different Linux machine already, then download the NixOS ISO
-     and use `dd` to install it to your flashdrive.
+     and use `dd` to install it to your flashdrive. You'll run a similar or
+     near identical command as the following:
 
      `dd if=<your-nixos.iso> of=/dev/<your flashdrive block device>`
 
-4. Boot your computer from your flash drive and go through the NixOS installer.
-5. Download your forked repository from your GitHub and `cd` into it. Set up the
-   following remotes.
+4. Boot the target computer from the flash drive. Your motherboard BIOS should allow
+   for boot device selection.
+5. Open a terminal and run `nix-shell -p gum jq git` to download required programs.
+6. You need a local copy of your fork.
+   - `git clone git@github.com:<your-github-username>/raven.git`
+   - `cd raven`
+7. Add the developer's remote.
    - `git remote add upstream https://github.com/digital-raven/raven.git`
-   - `git remote add origin https://github.com/<your-github-username>/raven.git`
-6. Create a git branch for your machine.
+8. Name your machine and checkout a branch for it.
    - `git checkout -b your-machine`
-7. Run `./raven-configure` to interactively configure your installation.
-   - If that script doesn't work on your system for some reason, then run `./raven-configure --check` 
-     to list the entries you need to replace. Each "REPLACEME_*" has a comment on
-     how to replace the information.
+9. Run `./raven-configure` to configure the soon-to-be installation.
+10. This script will print the exact commands to format and install Raven
+   to your selected drive upon its completion. These commands must be run
+   on their own.
 
-8. Run through the update procedure below.
+### Troubleshooting
+   
+If modifications produced by the `raven-configure` script don't work on your
+system for some reason, then run `./raven-configure --check` to list the
+entries in the files you need to replace. Each "REPLACEME_*" has
+a comment on how to replace the information.
 
-## Updating and making changes
+More general error messages will be reported in the output of the various
+`nixos-*` commands.
 
-Raven is simple to update once installed. There are only a few commands to
-remember.
+## Create a New Installation from an Existing Installation
 
-- First open a terminal window and `cd` into your repo's local copy.
+1. Connect the desired storage device to a Raven machine.
+2. `cd` to your local copy of your fork and start your new configuration 
+   from the master branch.
+   - `git checkout master`
+3. Name your machine and checkout a branch for it.
+   - `git checkout -b your-machine`
+4. Run through the `raven-configure` script and its instructions. 
+
+Each installation Raven contains its own copy of the Raven repository if
+created properly. If yours doesn't for some reason then you'll need to
+download a new copy.
+
+## Initial Use
+
+The default login username is `master` and the default password is also `master`.
+Login to this user account.
+
+Then open a terminal with ALT+T and change the password with `passwd`.
+
+Generate new ssh keys with `ssh-keygen` and copy them to your github account.
+
+There are a few commands to remember when making changes to your Raven
+installation.
+
+- A user may make changes for their specific installation by modifying the local
+  copy of the Raven repository.
+
+  The `host` directory is designed for machine-specific changes. If you wish
+  to avoid merge conflicts from the Master Raven Repository then your changes
+  here should be safe.
 
 - If you wish to grab changes from the Master Raven Repository, then run these commands.
 
@@ -77,14 +112,14 @@ remember.
   and initial installations of Raven.
 
   ```
+  # Choose your pattern.
+  sudo nixos-rebuild switch --flake .#raven-desktop
   sudo nixos-rebuild switch --flake .#raven-terminal
-  sudo nixos-rebuild switch --flake .#raven-home
-  sudo nixos-rebuild switch --flake .#raven-gaming
+  sudo nixos-rebuild switch --flake .#raven-minimal
   ```
 
 Depending on how drastic your changes were you may need to reboot. If it's your
-machine's first time installing Raven then you should definitely reboot. If you're
-using `raven-gaming` then change the display server to x11 on the login screen.
+machine's first time installing Raven then you should definitely reboot.
 
 ### Customizing Raven
 
@@ -98,7 +133,7 @@ Here is a brief orientation of Raven's directory structure.
             useful packages for that purpose.
 
             You may make changes to patterns if you wish, but Raven reserves this
-            space for altering pattern logic so changes here may produce merge conflicts.
+            space for altering patterns. User changes may produce merge conflicts.
 
             If you wish to add specific software to your machine, you should do it under `host`.
 - `shared`: Add generic customizations here. This is for overlays, modules, custom
@@ -455,7 +490,7 @@ avenues for gaming are supported on Raven-Gaming.
   - GoG also distributes its games with optional offline installers. These should be usable with
     the `wine` program, but your mileage may vary per game.
 
-  - Heroic Games Launcher has some optional dependencies. They may be set [here](../patterns/raven-gaming/launchers.nix).
+  - Heroic Games Launcher has some optional dependencies. They may be set [here](../patterns/raven-desktop/attachments/gaming/launchers.nix).
 
 Epic and Prime gaming are also supported via the Heroic Games Launcher.
 
