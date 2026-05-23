@@ -46,4 +46,4 @@ Raven also features terminal-only and minimal installation paths.
 
 ### Privacy
 
-[Step this way](./docs/user-guide.md) for a guide to private operation.
+[Step this way](./docs/privacy.md) for a guide to private operation.
