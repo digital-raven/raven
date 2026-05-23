@@ -1,7 +1,6 @@
 # Raven User Guide
 
-Raven is simply implemented as a set of Nix flakes, and is designed to be
-installed on top of an existing NixOS installation.
+Raven is implemented as a Nix flake.
 
 Raven segregates its models by "patterns".
 
@@ -91,7 +90,7 @@ using `raven-gaming` then change the display server to x11 on the login screen.
 
 Here is a brief orientation of Raven's directory structure.
 
-- `docs`: User documentation and some memes illustrating the spirit of Raven's creation.
+- `docs`: User documentation.
 - `host`: System-specifics are located here, such as users and hardware info.
         You should use git branches to swith between different hosts if you use
         a Raven repository to manage multiple machines.
