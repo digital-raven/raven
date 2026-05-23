@@ -28,7 +28,6 @@
     syncthing # Sync files between your own computers.
     vlc # Best video player
     veracrypt # Manipulate veracrypt volumes.
-    vokoscreen # Basic screen and audio recording.
     wine # For running windows executables.
 
     ## Allows pass -c to function.
