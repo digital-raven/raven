@@ -44,6 +44,15 @@ media-viewing and creation, software development and deployment, or computer-gam
 
 Raven also features terminal-only and minimal installation paths.
 
-### Privacy
+## System Requirements
+
+`raven-desktop` consumes resources at rest from a fresh installation.
+
+- Storage: Approximately 32Gb. You should bring a 64Gb drive or larger.
+  - This is an action item.
+- Memory: 1.19 Gb. Your system should have at least 4Gb memory.
+- Compute: 1% CPU usage. Measured on an Intel Core-8700.
+
+## Privacy
 
 [Step this way](./docs/privacy.md) for a guide to private operation.
