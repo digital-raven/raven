@@ -17,4 +17,9 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   boot.initrd.kernelModules = [ "amdgpu" ];
+
+  # GPU performance profiler `nvtop`.
+  environment.systemPackages = with pkgs; [
+    nvtopPackages.amd
+  ];
 }
