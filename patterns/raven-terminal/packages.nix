@@ -11,6 +11,13 @@
 
   # Command-line packages
   environment.systemPackages = with pkgs; [
+
+    # Spell-check
+    aspell
+    aspellDicts.en
+    aspellDicts.en-computers
+    aspellDicts.en-science
+
     bash-completion # Tab auto-complete
     btop # Great system-profiler.
     cmus # Music player
