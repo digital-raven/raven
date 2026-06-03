@@ -23,12 +23,19 @@
     pulse.enable = true;
 
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+    jack.enable = true;
   };
+
+  # Reduce pipewire latency
+  # https://nixos.wiki/wiki/PipeWire#Low-latency_setup
+  #services.pipewire.extraConfig.pipewire."92-low-latency" = {
+  #  "context.properties" = {
+  #    "default.clock.rate" = 48000;
+  #    "default.clock.quantum" = 512;  # ~12ms
+  #    "default.clock.min-quantum" = 512;
+  #    "default.clock.max-quantum" = 512;
+  #  };
+  #};
 
   hardware.bluetooth = {
     enable = true;
