@@ -1,5 +1,4 @@
-# This is your home-manager configuration file
-# Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
+# Use this to configure your home environment.
 {
   inputs,
   outputs,
@@ -10,9 +9,8 @@
 }: {
   # You can import other home-manager modules here
   imports = [
-
     # Select the pattern you plan on using
-    ../../../patterns/REPLACEME_raven-pattern/home-manager/default.nix
+    ../../../patterns/REPLACEME_raven-pattern/home-manager.nix
 
     # Personal
     ./git.nix

@@ -35,7 +35,6 @@
     # pass to it, with each system as an argument
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
-
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
@@ -48,8 +47,6 @@
           inputs.disko.nixosModules.disko
           ./host/hardware-configuration.nix
           ./host/configuration.nix
-          ./patterns/raven-minimal/default.nix
-          ./patterns/raven-terminal/default.nix
           ./patterns/raven-desktop/default.nix
           home-manager.nixosModules.home-manager
           {
@@ -57,39 +54,25 @@
           }
         ];
       };
-      raven-terminal = nixpkgs.lib.nixosSystem {
+      raven-core = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           inputs.disko.nixosModules.disko
           ./host/hardware-configuration.nix
           ./host/configuration.nix
-          ./patterns/raven-minimal/default.nix
-          ./patterns/raven-terminal/default.nix
+          ./patterns/raven-core/default.nix
           home-manager.nixosModules.home-manager
           {
             imports = [./host/home-manager];
           }
         ];
       };
-      raven-minimal = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          inputs.disko.nixosModules.disko
-          ./host/hardware-configuration.nix
-          ./host/configuration.nix
-          ./patterns/raven-minimal/default.nix
-          home-manager.nixosModules.home-manager
-          {
-            imports = [./host/home-manager];
-          }
-        ];
-      };
-      raven-iso = nixpkgs.lib.nixosSystem {
+      loader = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
           "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-          ./patterns/raven-iso/configuration.nix
+          ./patterns/loader/presets/iso.nix
         ];
       };
     };

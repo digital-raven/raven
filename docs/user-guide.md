@@ -6,10 +6,8 @@ Raven segregates its models by "patterns".
 
 - `raven-desktop`: For most people. Provides a graphical desktop environment and
     attachments for various specialized use-cases, like gaming and media creation.
-- `raven-terminal`: Terminal-only experience with many command-line tools.
-- `raven-minimal`: Minimal terminal experience with added tools to operate on
-    Raven repositories.
-- `raven-iso`: Pattern used to create bootable ISO images.
+- `raven-core`: Terminal-only with many command-line tools.
+- `loader`: Specialized pattern for the installation ISO.
 
 ## New User Installation
 
@@ -114,8 +112,7 @@ installation.
   ```
   # Choose your pattern.
   sudo nixos-rebuild switch --flake .#raven-desktop
-  sudo nixos-rebuild switch --flake .#raven-terminal
-  sudo nixos-rebuild switch --flake .#raven-minimal
+  sudo nixos-rebuild switch --flake .#raven-core
   ```
 
 Depending on how drastic your changes were you may need to reboot. If it's your
@@ -225,9 +222,6 @@ is `nix-store --optimize -vv`. The `-vv` will print output as it performs its ta
 Run it both with and without `sudo`.
 
 ### Basic desktop experience
-
-All Raven models inherit the same terminal experience from `raven-terminal`, and
-all graphical Raven models have the same utilities as `raven-home`.
 
 All graphical Raven models support what you would expect for a minimum home
 desktop experience; File browsing, media playing, web-browsing, printing,

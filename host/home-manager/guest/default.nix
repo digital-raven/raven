@@ -9,11 +9,7 @@
 }: {
   # You can import other home-manager modules here
   imports = [
-
-    # You can also split up your configuration and import pieces of it here:
-    ../../../patterns/raven-terminal/home-manager/bash.nix
-    ../../../patterns/raven-terminal/home-manager/nvim.nix
-    ../../../patterns/raven-terminal/home-manager/vim.nix
+    ../../../patterns/REPLACEME_raven-pattern/home-manager.nix
   ];
 
   # EDIT_ username and homeDirectory when copying this file to create a new user.

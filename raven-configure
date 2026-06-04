@@ -151,7 +151,7 @@ fi
 # Raven pattern selection
 if [[ "$REPLACEMES" =~ "REPLACEME_raven-pattern" ]] && [ -z "$RAVEN_PATTERN" ]
 then
-    RAVEN_PATTERN=$(ls patterns | grep -v raven-iso | grep -v README.md | gum choose --header "Select which Raven pattern you want to install")
+    RAVEN_PATTERN=$(ls patterns | grep -v loader | grep -v README.md | gum choose --header "Select which Raven pattern you want to install")
 fi
 
 # Git username and email

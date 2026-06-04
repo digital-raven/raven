@@ -1,15 +1,4 @@
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
-  # You can import other NixOS modules here
-  imports = [
-  ];
-
+{pkgs, ...}: {
   # Packages
   environment.systemPackages = with pkgs; [
     atlauncher # Minecraft launcher.
