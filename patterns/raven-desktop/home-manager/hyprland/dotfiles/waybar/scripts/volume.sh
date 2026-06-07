@@ -4,7 +4,6 @@
 #
 # Requirements:
 # 	- pactl (libpulse)
-# 	- dunstify (dunst)
 #
 # Author: Jesse Mirabel <sejjymvm@gmail.com>
 # Created: September 07, 2025
@@ -67,37 +66,8 @@ get-volume() {
 	echo "$vol"
 }
 
-get-icon() {
-	local state vol
-	state=$(check-muted)
-	vol=$(get-volume)
-
-	local icon
-	local new_vol=${1:-$vol}
-
-	if [[ $state == 'Muted' ]]; then
-		icon="$HOME/.config/dunst/icons/$dev_icon-muted-white.png"
-	else
-		if ((new_vol < ((MAX * 33) / 100))); then
-			icon="$HOME/.config/dunst/icons/$dev_icon-low-white.png"
-		elif ((new_vol < ((MAX * 66) / 100))); then
-			icon="$HOME/.config/dunst/icons/$dev_icon-medium-white.png"
-		else
-			icon="$HOME/.config/dunst/icons/$dev_icon-high-white.png"
-		fi
-	fi
-
-	echo "$icon"
-}
-
 toggle-mute() {
 	pactl "set-$dev_mute" "$dev" toggle
-
-	local state icon
-	state=$(check-muted)
-	icon=$(get-icon)
-
-	dunstify "$title: $state" -I "$icon" -r $ID -t 1300
 }
 
 set-volume() {
@@ -117,11 +87,6 @@ set-volume() {
 	esac
 
 	pactl "set-$dev_vol" "$dev" "${new_vol}%"
-
-	local icon
-	icon=$(get-icon "$new_vol")
-
-	dunstify "$title: ${new_vol}%" -I "$icon" -r $ID -t 1300
 }
 
 main() {
@@ -136,15 +101,11 @@ main() {
 			dev='@DEFAULT_SOURCE@'
 			dev_mute='source-mute'
 			dev_vol='source-volume'
-			dev_icon='mic-volume'
-			title='Microphone'
 			;;
 		'output')
 			dev='@DEFAULT_SINK@'
 			dev_mute='sink-mute'
 			dev_vol='sink-volume'
-			dev_icon='audio-volume'
-			title='Volume'
 			;;
 		*) print-usage ;;
 	esac

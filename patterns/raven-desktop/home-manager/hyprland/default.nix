@@ -77,10 +77,6 @@
       source = ./dotfiles/assets;
       recursive = true;
     };
-    ".config/dunst" = {
-      source = ./dotfiles/dunst;
-      recursive = true;
-    };
     ".config/hypr" = {
       source = ./dotfiles/hypr;
       recursive = true;
