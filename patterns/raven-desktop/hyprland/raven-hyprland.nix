@@ -27,9 +27,8 @@
     grimblast # Screenshot
     hyprpicker # Color picker
 
-    ## Waybar and notifications
+    ## Waybar
     waybar
-    dunst
 
     ## Plugins
     hyprlandPlugins.hypr-dynamic-cursors
