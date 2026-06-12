@@ -10,6 +10,11 @@
 }: {
   # You can import other home-manager modules here
   imports = [
+    # If you want to use modules your own flake exports (from shared/home-manager):
+    # outputs.homeManagerModules.example
+
+    # Or modules exported from other flakes (such as nix-colors):
+    # inputs.nix-colors.homeManagerModules.default
 
     # Select the pattern you plan on using
     ../../../patterns/REPLACEME_raven-pattern/home-manager/default.nix
