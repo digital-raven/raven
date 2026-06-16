@@ -13,10 +13,9 @@
     kitty # Great desktop-agnostic terminal emulator.
     libreoffice # Free office software suite.
     qbittorrent # Torrent software
-    veracrypt # Manipulate veracrypt volumes.
     wine # For running windows executables.
 
-    ## Allows pass -c to function.
+    # Allows pass -c to function.
     wl-clipboard # Command-line copy/paste utilities for Wayland. wl-copy
   ];
 }
