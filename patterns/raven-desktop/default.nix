@@ -12,11 +12,11 @@
     evince # Reading PDFs.
     kitty # Great desktop-agnostic terminal emulator.
     libreoffice # Free office software suite.
+    pavucontrol # Graphical audio congiguration.
     qbittorrent # Torrent software
-    veracrypt # Manipulate veracrypt volumes.
     wine # For running windows executables.
 
-    ## Allows pass -c to function.
+    # Allows pass -c to function.
     wl-clipboard # Command-line copy/paste utilities for Wayland. wl-copy
   ];
 }

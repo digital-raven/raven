@@ -9,7 +9,6 @@
     plugins = with pkgs.vimPlugins; [
       ai-vim
       calendar-vim
-      copilot-vim
       fzf-vim
       nerdtree
       vim-airline

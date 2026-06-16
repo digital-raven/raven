@@ -17,15 +17,9 @@ hardware and then run applications.
 Raven can do a lot as an operating system, but the [user-guide](./docs/user-guide.md)
 details its intentions and considerations as a product. Start there.
 
-But of note are the general approaches to installing Raven. Precise instructions
-are provided in the [user-guide](./docs/user-guide.md).
-
-1. A flashdrive with Raven pre-installed. The developer provides these upon
-   request for a cost. They're not expensive. Email the developer to inquire.
-2. Install it yourself to a personal drive.
-
 Raven's code contains references to unfree software, but the exact source code
-in this repository is licensed under GPLv2.
+in this repository is licensed under GPLv2. Unfree software is not installed
+by default.
 
 ## User Expectations
 

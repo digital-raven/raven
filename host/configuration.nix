@@ -25,7 +25,7 @@
     ./system-packages.nix
 
     # Choose specific drivers.
-    #./drivers/nvidia-open.nix
+    #./drivers/amd.nix
 
     # Choose a disk profile if installing Raven to its own drive.
     #./disks/REPLACEME_disk_profile
@@ -61,9 +61,12 @@
   # Docker
   virtualisation.docker.enable = true;
 
-  # Allow unfree software
-  nixpkgs.config.allowUnfree = true;
+  # Raven provides unfree software, but not by default. Allowance
+  # of unfree packages must be enabled manually.
+  # Unfree files are explicitly placed in unfree directories.
+  nixpkgs.config.allowUnfree = false;
 
+  # Global NixOS settings.
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
   in {
@@ -86,6 +89,7 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 
+  # Don't ever change this.
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.05";
 }

@@ -7,7 +7,6 @@
     aspell
     aspellDicts.en
     aspellDicts.en-computers
-    aspellDicts.en-science
 
     fzf # Fuzzy-find. Needed for vim plugin.
 
