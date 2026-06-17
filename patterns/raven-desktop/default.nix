@@ -12,6 +12,7 @@
     evince # Reading PDFs.
     kitty # Great desktop-agnostic terminal emulator.
     libreoffice # Free office software suite.
+    pavucontrol # Graphical audio congiguration.
     qbittorrent # Torrent software
     wine # For running windows executables.
 
