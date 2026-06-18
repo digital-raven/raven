@@ -1,94 +1,22 @@
-# This file is organized as
-#   Base-level -> Desktop level (Hyprland) -> Application level
+# Raven keeps all hyprland modifications scoped in home-manager.
+# This is done through themes.
 #
-# I hope that description helps geographically where these elements "live"
-# with respect to your system's boot-to-usage sequence.
+# A theme is responsible for all reliant programs and configuration files.
+#
+# eg. If your theme has a waybar configuration, then it should be
+#     responsible for waybar's installation as well.
+#
+# This makes it easy to keep a theme portable. It also allows switching
+# themes using home manager instead of an entire system rebuild.
+#
 {pkgs, ...}: {
+  # Import a theme.
   imports = [
-    ./kitty/default.nix
+    ./nightfall/default.nix
   ];
 
-  xdg = {
-    enable = true;
-    mime.enable = true;
-    mimeApps = {
-      enable = true;
-      associations.added = {
-        "image/*" = ["org.kde.gwenview.desktop"];
-        "video/*" = ["vlc.desktop"];
-        "text/*" = ["vim"];
-      };
-      defaultApplications = {
-        "image/*" = ["org.kde.gwenview.desktop"];
-        "video/*" = ["vlc.desktop"];
-        "text/*" = ["vim"];
-      };
-    };
-    portal = {
-      enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-hyprland];
-      configPackages = [pkgs.hyprland];
-    };
-  };
-
-  # Hyprland & Critical Softwares
-  # https://github.com/gaurav23b/simple-hyprland/blob/main/docs/installation_Hypr.md#hyprland--critical-softwares-%EF%B8%8F
-  systemd.user.services.polkit-kde-authentication-agent-1 = {
-    Unit = {
-      Description = "polkit-kde-authentication-agent-1";
-      Wants = ["graphical-session.target"];
-      After = ["graphical-session.target"];
-    };
-    Install = {
-      WantedBy = ["graphical-session.target"];
-    };
-    Service = {
-      Type = "simple";
-      ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
-      Restart = "on-failure";
-      RestartSec = 1;
-      TimeoutStopSec = 10;
-    };
-  };
-
-  # Configure hyprland and set up hyprland.conf to launch plugins
+  # Enable Hyprland.
   wayland.windowManager.hyprland = {
     enable = true;
-    extraConfig = ''
-      exec-once = hyprctl plugin load ${pkgs.hyprlandPlugins.hypr-dynamic-cursors.outPath}/lib/libhypr-dynamic-cursors.so
-      exec-once = hyprctl plugin load ${pkgs.hyprlandPlugins.hyprspace.outPath}/lib/libhyprspace.so
-      source = hyprland-main.conf
-    '';
-  };
-
-  # Idle daemon, Waybar, program launcher, wallpaper daemon.
-  services.hypridle.enable = true;
-  programs.waybar.enable = true;
-  programs.rofi.enable = true;
-  services.swww.enable = true;
-
-  # Copy over dotfiles
-  home.file = {
-    ".config/assets" = {
-      source = ./dotfiles/assets;
-      recursive = true;
-    };
-    ".config/hypr" = {
-      source = ./dotfiles/hypr;
-      recursive = true;
-    };
-    ".config/menus/applications.menu" = {source = ./dotfiles/menus/applications.menu;};
-    ".config/rofi" = {
-      source = ./dotfiles/rofi;
-      recursive = true;
-    };
-    ".config/waybar" = {
-      source = ./dotfiles/waybar;
-      recursive = true;
-    };
-    ".config/wlogout" = {
-      source = ./dotfiles/wlogout;
-      recursive = true;
-    };
   };
 }

@@ -1,4 +1,4 @@
-# Attachments with active system-level components.
+# Enable all system-level by default.
 {...}: {
   imports = [
     ./gaming/default.nix
