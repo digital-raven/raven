@@ -43,7 +43,7 @@
   # Copy over dotfiles
   home.file = {
     ".config/kitty" = {
-      source = ./kitty;
+      source = ./dotfiles/kitty;
       recursive = true;
     };
   };
