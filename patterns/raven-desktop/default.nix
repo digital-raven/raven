@@ -1,3 +1,4 @@
+# Common desktop utilities.
 {pkgs, ...}: {
   imports = [
     ./core/default.nix
@@ -12,11 +13,10 @@
     evince # Reading PDFs.
     kitty # Great desktop-agnostic terminal emulator.
     libreoffice # Free office software suite.
-    pavucontrol # Graphical audio congiguration.
-    qbittorrent # Torrent software
+    pavucontrol # Graphical audio configuration.
     wine # For running windows executables.
-
-    # Allows pass -c to function.
-    wl-clipboard # Command-line copy/paste utilities for Wayland. wl-copy
   ];
+
+  # Enables trash and network options in a file explorer.
+  services.gvfs.enable = true;
 }
