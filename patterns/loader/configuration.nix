@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ../default.nix
+    ../../parts-store/digital-woods/cores/loader-core/default.nix
   ];
 
   nixpkgs = {

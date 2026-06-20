@@ -17,10 +17,5 @@
   imports = [
     ./emulators.nix
     ./launchers.nix
-
-    # Uncomment to use unfree software.
-    #./unfree/games.nix
-    #./unfree/launchers.nix
-    #./unfree/social.nix
   ];
 }

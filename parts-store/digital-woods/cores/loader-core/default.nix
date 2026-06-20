@@ -1,6 +1,7 @@
 # The bare-minimum utilities to install a proper Raven system.
 {pkgs, ...}: {
   imports = [
+    ./comforts.nix
   ];
 
   # Loaders are VPN-capable.

@@ -1,4 +1,4 @@
-# Edit this file to add remove users from home-manager.
+# Edit this file to add or remove users from home-manager.
 {
   inputs,
   outputs,

@@ -1,5 +1,5 @@
 {
-  description = "Raven's nix configuration";
+  description = "The Raven Operating System";
 
   inputs = {
     # Nixpkgs. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
@@ -41,29 +41,15 @@
 
     # Raven's NixOS patterns
     nixosConfigurations = {
-      raven-desktop = nixpkgs.lib.nixosSystem {
+      main-system = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           inputs.disko.nixosModules.disko
-          ./host/hardware-configuration.nix
-          ./host/configuration.nix
-          ./patterns/raven-desktop/default.nix
+          ./main-system/hardware-configuration.nix
+          ./main-system/configuration.nix
           home-manager.nixosModules.home-manager
           {
-            imports = [./host/home-manager];
-          }
-        ];
-      };
-      raven-core = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          inputs.disko.nixosModules.disko
-          ./host/hardware-configuration.nix
-          ./host/configuration.nix
-          ./patterns/raven-core/default.nix
-          home-manager.nixosModules.home-manager
-          {
-            imports = [./host/home-manager];
+            imports = [./main-system/home-manager];
           }
         ];
       };
@@ -72,7 +58,7 @@
         modules = [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
           "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-          ./patterns/loader/presets/iso.nix
+          ./patterns/loader/configuration.nix
         ];
       };
     };

@@ -24,7 +24,9 @@
     gum
   ];
 
+  # Networking.
   # Run mullvad-open to lock network to VPN only.
+  networking.networkmanager.enable = true;
   services.mullvad-vpn.enable = true;
 
   # Enable GPG

@@ -21,6 +21,9 @@
   imports = [
     # hardware-configuration.nix is brought to the system via flake.nix
 
+    # Apply pattern.
+    ../patterns/REPLACEME_raven-pattern/default.nix
+
     # System-wide packages
     ./system-packages.nix
 
@@ -44,9 +47,8 @@
   # lines that start with "boot." from /etc/nixos/configuration.nix
   # REPLACEME_boot_settings
 
-  # Networking
+  # Name of this installation.
   networking.hostName = "REPLACEME_hostName";
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "REPLACEME_timeZone";
@@ -57,9 +59,6 @@
   # Optional. https://nixos.wiki/wiki/Locales
   #i18n.extraLocaleSettings = {
   #};
-
-  # Docker
-  virtualisation.docker.enable = true;
 
   # Raven provides unfree software, but not by default. Allowance
   # of unfree packages must be enabled manually.

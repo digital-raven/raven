@@ -1,5 +1,6 @@
-Build the loader ISO with the following command.
+Loader is exclusively for creating a bootable ISO image. This may be
+built by using the following command.
 
 ```
-nix build ~/repos/raven-machines#nixosConfigurations.loader.config.system.build.isoImage
+nix build ~/raven#nixosConfigurations.loader.config.system.build.isoImage
 ```
