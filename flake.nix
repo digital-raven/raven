@@ -1,16 +1,16 @@
 {
-  description = "Raven's nix configuration";
+  description = "The Raven Operating System";
 
   inputs = {
-    # Nixpkgs. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    # Custom forks for nixpkgs, home-manager, and disko.
+    nixpkgs.url = "github:digital-raven/nixpkgs/nixos-25.05";
 
-    # Home manager. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    # Home manager.
+    home-manager.url = "github:digital-raven/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Raven uses disko for disk partitioning and the bootloader.
-    disko.url = "github:nix-community/disko/v1.12.0";
+    # Disko handles disk partitioning.
+    disko.url = "github:digital-raven/disko/v1.13.0";
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -41,29 +41,15 @@
 
     # Raven's NixOS patterns
     nixosConfigurations = {
-      raven-desktop = nixpkgs.lib.nixosSystem {
+      main-system = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           inputs.disko.nixosModules.disko
-          ./host/hardware-configuration.nix
-          ./host/configuration.nix
-          ./patterns/raven-desktop/default.nix
+          ./main-system/hardware-configuration.nix
+          ./main-system/configuration.nix
           home-manager.nixosModules.home-manager
           {
-            imports = [./host/home-manager];
-          }
-        ];
-      };
-      raven-core = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          inputs.disko.nixosModules.disko
-          ./host/hardware-configuration.nix
-          ./host/configuration.nix
-          ./patterns/raven-core/default.nix
-          home-manager.nixosModules.home-manager
-          {
-            imports = [./host/home-manager];
+            imports = [./main-system/home-manager];
           }
         ];
       };
@@ -72,7 +58,7 @@
         modules = [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
           "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-          ./patterns/loader/presets/iso.nix
+          ./patterns/loader/configuration.nix
         ];
       };
     };

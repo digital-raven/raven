@@ -7,36 +7,33 @@
 
 So we'll settle for a fancy filing cabinet.
 
-<img src="logo.png" width="256" height="256">
+<img src=".logo.png" width="256" height="256">
 
 Raven is an operating system. It may be applied to a block of computing
 hardware and then run applications.
 
-## Important
+## User Expectations
 
-Raven can do a lot as an operating system, but the [user-guide](./docs/user-guide.md)
-details its intentions and considerations as a product. Start there.
+Read the [user-guide](./docs/user-guide.md).
+
+## Orientation
+
+- `docs`: Contains the [user-guide](./docs/user-guide.md), start there.
+- `machine`: Entry point to *this* machine's configuration. Very universal
+           information. Set hostname, user accounts, choose specific drivers...
+- `parts-store`: Re-usable modules.
+- `patterns`: Preset selections of parts applied onto your machine.
 
 Raven's code contains references to unfree software, but the exact source code
 in this repository is licensed under GPLv2. Unfree software is not installed
-by default.
-
-## User Expectations
-
-Raven has some expectations of its user. They are not onerous.
-
-- Understand what a file-system and storage devices are.
-- Have or create a GitHub account.
-- Read the [user-guide](./docs/user-guide.md).
+by default, and is explicitly labeled.
 
 ## Features
 
-Raven envisions a home desktop user, but using a product designed such that it
-may also serve as a strong foundation for the use-cases of particularly technical
-individuals. It should satisfy users who require paths for home office,
-media-viewing and creation, software development and deployment, or computer-gaming.
+Strong, stable, and flexible home computing environment.
 
-Raven also features terminal-only and minimal installation paths.
+Raven should satisfy users who require paths for home office, media engagement,
+software development, or computer-gaming.
 
 ## System Requirements
 
