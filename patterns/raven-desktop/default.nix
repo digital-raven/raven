@@ -1,22 +1,23 @@
-# Common desktop utilities.
+# Raven-Desktop installs a graphical desktop environment and GUI-based tools.
+#
+# This environment is Hyprland, with modifications provided via home-manager.
+#
 {pkgs, ...}: {
   imports = [
-    ./core/default.nix
+    # Raven-Core
+    ../../parts-store/digital-woods/cores/raven-core/default.nix
 
-    # Active system-level attachments.
-    ./attachments/system.nix
+    # All digital-woods terminal software.
+    ../../parts-store/digital-woods/terminal/default.nix
+
+    # Desktop environment and associated software.
+    ../../parts-store/digital-woods/desktop/default.nix
+
+    # Uncomment to install unfree software.
+    #../../parts-store/digital-woods/unfree/discord.nix
+    #../../parts-store/digital-woods/unfree/games.nix
+    #../../parts-store/digital-woods/unfree/rar.nix
+    #../../parts-store/digital-woods/unfree/steam.nix
+    #../../parts-store/digital-woods/unfree/veracrypt.nix
   ];
-
-  # Packages
-  environment.systemPackages = with pkgs; [
-    electrum # Bitcoin wallet.
-    evince # Reading PDFs.
-    kitty # Great desktop-agnostic terminal emulator.
-    libreoffice # Free office software suite.
-    pavucontrol # Graphical audio configuration.
-    wine # For running windows executables.
-  ];
-
-  # Enables trash and network options in a file explorer.
-  services.gvfs.enable = true;
 }

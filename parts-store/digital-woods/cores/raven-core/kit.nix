@@ -1,8 +1,11 @@
-# Optional survival kit.
+# Extra kit.
 #
 # This kit contains programs that, while not strictly speaking necessary,
-# are near-universally useful.
+# have near-universal utility.
 {pkgs, ...}: {
+  # Allow for running docker containers.
+  virtualisation.docker.enable = true;
+
   # Command-line packages
   environment.systemPackages = with pkgs; [
     # Hardware management.

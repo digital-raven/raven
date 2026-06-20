@@ -1,10 +1,5 @@
 # Archivers, file tools, and file-system support.
 {pkgs, ...}: {
-  imports = [
-    # Uncomment to use unfree components.
-    #./unfree/default.nix
-  ];
-
   environment.systemPackages = with pkgs; [
     dosfstools # Use FAT file systems.
     file # Print the type of a target file.
