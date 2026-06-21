@@ -2,15 +2,15 @@
   description = "The Raven Operating System";
 
   inputs = {
-    # Nixpkgs. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    # Custom forks for nixpkgs, home-manager, and disko.
+    nixpkgs.url = "github:digital-raven/nixpkgs/nixos-25.05";
 
-    # Home manager. Replace the text with your system.stateVersion in /etc/nixos/configuration.nix
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    # Home manager.
+    home-manager.url = "github:digital-raven/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Raven uses disko for disk partitioning and the bootloader.
-    disko.url = "github:nix-community/disko/v1.12.0";
+    # Disko handles disk partitioning.
+    disko.url = "github:digital-raven/disko/v1.13.0";
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
