@@ -1,9 +1,11 @@
-# Firefox and Brave to cover non-chromium and chromium bases.
+# Firefox and chromium angles handled via librewolf and brave.
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    brave # Privacy-focused chromium browser.
-  ];
+  #programs.firefox = {
+  #  enable = true;
+  #  package = pkgs.librewolf;
+  #};
 
-  # Install firefox.
-  programs.firefox.enable = true;
+  #environment.systemPackages = with pkgs; [
+  #  brave
+  #];
 }
