@@ -65,6 +65,12 @@
   # Unfree files are explicitly placed in unfree directories.
   nixpkgs.config.allowUnfree = false;
 
+  # Specific insecure packages are permitted.
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-36.9.5" # heroic games launcher.
+    "python3.12-ecdsa-0.19.1" # electrum requirement.
+  ];
+
   # Global NixOS settings.
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
