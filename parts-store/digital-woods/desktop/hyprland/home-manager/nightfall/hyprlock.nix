@@ -6,7 +6,7 @@
     ".config/hypr/hyprlock.conf" = {
       source = ./dotfiles/hyprlock/hyprlock.conf;
     };
-    ".config/hypr/assets " = {
+    ".config/hypr/hyprlock/assets" = {
       source = ./dotfiles/hyprlock/assets;
       recursive = true;
     };
