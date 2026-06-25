@@ -3,11 +3,11 @@
 #
 {...}: {
   # Obsidian-Purple is not a provided theme by default.
-  home.file = {
-    ".config/kitty/Obsidian-Purple.conf" = {
-      source = ./Obsidian-Purple.conf;
-    };
-  };
+  #home.file = {
+  #  ".config/kitty/Obsidian-Purple.conf" = {
+  #    source = ./Obsidian-Purple.conf;
+  #  };
+  #};
 
   programs.kitty = {
     enable = true;
@@ -17,9 +17,9 @@
 
     # Use `kitten theme` to demo other themes. Obsidian-Purple is not in `kitten theme`.
     # themeFile = "tokyo_night_storm";
-    extraConfig = ''
-      include Obsidian-Purple.conf
-    '';
+    #extraConfig = ''
+    #  include Obsidian-Purple.conf
+    #'';
 
     keybindings = {
       # Open new tabs in same working directory.
