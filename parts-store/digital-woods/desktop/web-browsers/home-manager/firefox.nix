@@ -47,7 +47,11 @@
     enable = true;
 
     policies = {
-      AIControls = {Default = {Value = "blocked";};}; # Disable in-browser AI.
+      AIControls = {
+        # Disable in-browser AI.
+        Default = {Value = "blocked";};
+        Translations = {Value = "available";};
+      };
       AllowFileSelectionDialogs = true;
       AppAutoUpdate = false;
       AutofillAddressEnabled = false; # Don't give out your address willy-nilly.
@@ -110,6 +114,11 @@
         SponsoredSuggestions = false;
         ImproveSuggest = false;
       };
+      GenerativeAI = {
+        # Disable generative AI features.
+        Enabled = false;
+        Locked = true;
+      };
       HardwareAcceleration = true;
       Homepage = {
         StartPage = "previous-session"; # Open previous session on start.
@@ -165,9 +174,11 @@
       };
       SearchBar = "unified";
 
-      # TODO: Set Qwant as default. Also these don't remove correctly for some reason.
+      # TODO: Set a good default. Also these don't seem to remove correctly,
+      #       but if removed manually will not be restored.
       SearchEngines = {
-        Remove = ["Google" "Amazon.com" "Bing" "DuckDuckGo" "eBay" "Perplexity"];
+        Default = "DuckDuckGo";
+        Remove = ["Amazon.com" "Bing" "eBay" "Perplexity"];
       };
       SearchSuggestEnabled = false; # It's gross.
       ShowHomeButton = true;
@@ -201,11 +212,6 @@
         "uBlock0@raymondhill.net" = {
           "installation_mode" = "normal_installed";
           "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-        };
-        # Qwant search engine
-        "{ac2b7ffb-2186-41bb-a61d-0443875f30ea}" = {
-          "installation_mode" = "normal_installed";
-          "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/{ac2b7ffb-2186-41bb-a61d-0443875f30ea}/latest.xpi";
         };
         # Firefox Translations
         "firefox-translations-addon@mozilla.org" = {
