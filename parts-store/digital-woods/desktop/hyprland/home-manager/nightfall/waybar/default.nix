@@ -32,7 +32,7 @@ in {
 
   home.file = {
     ".config/waybar" = {
-      source = ./dotfiles/waybar;
+      source = ./waybar;
       recursive = true;
     };
   };

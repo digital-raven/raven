@@ -3,7 +3,7 @@
 
   home.file = {
     "Wallpapers" = {
-      source = ./dotfiles/swww;
+      source = ./Wallpapers;
       recursive = true;
     };
   };

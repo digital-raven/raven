@@ -14,9 +14,4 @@
   imports = [
     ./nightfall/default.nix
   ];
-
-  # Enable Hyprland.
-  wayland.windowManager.hyprland = {
-    enable = true;
-  };
 }

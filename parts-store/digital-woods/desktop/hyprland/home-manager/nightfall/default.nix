@@ -12,12 +12,12 @@
 {pkgs, ...}: {
   imports = [
     ./hypridle.nix
-    ./hyprland.nix
-    ./hyprlock.nix
-    ./kitty.nix
-    ./rofi.nix
-    ./swww.nix
-    ./waybar.nix
-    ./wlogout.nix
+    ./hyprland/default.nix
+    ./hyprlock/default.nix
+    ./kitty/default.nix
+    ./rofi/default.nix
+    ./swww/default.nix
+    ./waybar/default.nix
+    ./wlogout/default.nix
   ];
 }
