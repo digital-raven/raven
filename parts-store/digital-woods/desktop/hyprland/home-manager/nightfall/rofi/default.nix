@@ -2,8 +2,8 @@
   programs.rofi.enable = true;
 
   home.file = {
-    ".config/rofi" = {
-      source = ./dotfiles/rofi;
+    ".config/rofi/deathemonic" = {
+      source = ./deathemonic;
       recursive = true;
     };
   };
