@@ -1,13 +1,8 @@
 # Modify this file to install extra off-the-shelf system-wide packages.
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Install new packages here.
   environment.systemPackages = with pkgs; [
   ];
+
+  services.fstrim.enable = true;
 }
