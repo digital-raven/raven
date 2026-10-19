@@ -1,11 +1,15 @@
-# Installation ISO.
+# Loader ISO configuration entrypoint.
 {
   pkgs,
   lib,
   ...
 }: {
   imports = [
-    ../../parts-store/digital-woods/cores/loader-core/default.nix
+    # Import loader pattern
+    ../default.nix
+
+    # Users
+    ./users/default.nix
   ];
 
   nixpkgs = {
@@ -24,6 +28,10 @@
   };
 
   networking = {
+    # networkmanager handles wireless communication.
+    wireless.enable = false;
+    networkmanager.enable = true;
+
     hostName = "loader";
   };
 
@@ -35,28 +43,6 @@
       hibernate.enable = false;
       hybrid-sleep.enable = false;
     };
-  };
-
-  # Docker
-  virtualisation.docker.enable = true;
-
-  users.mutableUsers = false;
-  users.users.nixos = {
-    enable = false;
-  };
-  services.getty.autologinUser = lib.mkForce "tourist";
-
-  users.users.tourist = {
-    isNormalUser = true;
-    home = "/home/tourist";
-    description = "Looks like you're having fun, tourist.";
-    extraGroups = [
-      "tourist"
-      "master"
-      "networkmanager"
-      "docker"
-      "wheel"
-    ];
   };
 
   system.stateVersion = lib.mkDefault "25.05";

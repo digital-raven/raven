@@ -172,6 +172,8 @@
 
       # Double ended fork-bomb. Do not type. Ravens carry guns.
       # alias emacs=":(){ :|:& };:"
+
+      eval "$(direnv hook bash)"
     '';
   };
 }

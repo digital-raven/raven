@@ -1,15 +1,8 @@
 # home-manager configuration file for guest
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # You can import other home-manager modules here
   imports = [
-    ../../../patterns/REPLACEME_raven-pattern/home-manager.nix
+    ../../../../patterns/REPLACEME_raven-pattern/home-manager/default.nix
   ];
 
   # EDIT_ username and homeDirectory when copying this file to create a new user.

@@ -49,7 +49,7 @@
           ./main-system/configuration.nix
           home-manager.nixosModules.home-manager
           {
-            imports = [./main-system/home-manager];
+            imports = [./main-system/home-manager.nix];
           }
         ];
       };
@@ -58,7 +58,11 @@
         modules = [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
           "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-          ./patterns/loader/configuration.nix
+          ./patterns/loader/main-system/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            imports = [./patterns/loader/main-system/home-manager.nix];
+          }
         ];
       };
     };

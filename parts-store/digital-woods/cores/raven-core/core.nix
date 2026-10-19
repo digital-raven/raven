@@ -1,7 +1,4 @@
-# These tools allow for full use of the Raven repository and
-# credential management.
-#
-# Also includes and enables a VPN for masked communication.
+# This is the core. This is what really matters.
 {pkgs, ...}: {
   # Command-line packages
   environment.systemPackages = with pkgs; [
@@ -19,14 +16,13 @@
     pass # Store all credentials. Encrypted with gpg.
     gnupg # Create / import your gpg key.
 
-    # raven-configure dependencies
+    # raven repository dependencies
+    direnv
     jq
     gum
   ];
 
-  # Networking.
   # Run mullvad-open to lock network to VPN only.
-  networking.networkmanager.enable = true;
   services.mullvad-vpn.enable = true;
 
   # Enable GPG

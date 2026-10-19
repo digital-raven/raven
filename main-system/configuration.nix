@@ -3,10 +3,8 @@
 # Replace the values as seen in /etc/nixos/configuration.nix
 {
   inputs,
-  outputs,
   lib,
   config,
-  pkgs,
   ...
 }: {
   # You can import other NixOS modules here
@@ -34,7 +32,7 @@
     #./disks/REPLACEME_disk_profile
 
     # Users
-    ./users.nix
+    ./users/default.nix
   ];
 
   # Bootloader
@@ -48,6 +46,7 @@
   # REPLACEME_boot_settings
 
   # Name of this installation.
+  networking.networkmanager.enable = true;
   networking.hostName = "REPLACEME_hostName";
 
   # Set your time zone.

@@ -14,6 +14,6 @@ attachments.
 
 Here is an overview of the patterns provided by default.
 
-- loader: Contains a configuration for building an ISO.
+- loader: Pattern and concrete system-configuration for ISO installer.
 - raven-core: Base operator pattern. Full terminal with home-manager touches.
 - raven-desktop: Graphical desktop and applications.

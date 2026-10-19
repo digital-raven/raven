@@ -2,14 +2,7 @@
 #
 # This way you don't have to type your pass password every 10 minutes you need
 # a credential.
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   services.gpg-agent = {
     enable = true;
     defaultCacheTtl = 21600;

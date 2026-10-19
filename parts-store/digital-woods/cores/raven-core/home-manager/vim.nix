@@ -55,8 +55,6 @@
 
       autocmd FileType make set tabstop=8 softtabstop=8
 
-      au BufNewFile ~/Sync/personal/vimwiki/diary/*.md :silent 0r !~/.vim/bin/generate-vimwiki-diary-template '%'
-
       let g:netrw_winsize=24
 
       set tags=./tags;/

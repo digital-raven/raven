@@ -1,6 +1,7 @@
 # Raven User Guide
 
-Raven is an operating system implemented and distributed as a Nix flake.
+Raven is an operating system implemented as a Nix flake.
+It should be user-friendly.
 
 Raven segregates its models by "patterns".
 
@@ -12,35 +13,29 @@ Raven segregates its models by "patterns".
 ## New User Installation
 
 If you don't wish to install Raven to an existing drive, then there are flash
-drives available for purchase with Raven pre-installed.
+drives available for purchase with Raven pre-installed as raven-desktop.
 
-Installing Raven yourself is straightforward.
+But you may install Raven yourself.
 
-1. If you don't have one already, create a GitHub account.
-2. Fork [the Master Raven Repository](https://github.com/digital-raven/raven.git) repository to your
-   GitHub account. Click the "fork" button near the "Starred" tab.
-3. Download and install [the NixOS ISO](https://nixos.org/download/) to a flashdrive.
+1. Download and install [the Raven ISO](https://u.pcloud.link/publink/show?code=kZBbSbJZQc13p2DQvc5tYwKLJKGag7S15nPk) to a flashdrive. The link opens a PCloud URL.
    - [Rufus](https://rufus.ie/en/) can create a bootable flash drive if you're on Windows.
-   - If you're on a Mac or a different Linux machine already, then download the NixOS ISO
-     and use `dd` to install it to your flashdrive. You'll run a similar or
-     near identical command as the following:
+   - If you're on a Mac or a different Linux machine already, then just
+     use `dd`. You'll run a similar or near identical command as the following:
 
      `dd if=<your-nixos.iso> of=/dev/<your flashdrive block device>`
 
-4. Boot the target computer from the flash drive. Your motherboard BIOS should allow
+2. Boot the target computer from the flash drive. Your motherboard BIOS should allow
    for boot device selection.
-5. Open a terminal and run `nix-shell -p gum jq git` to download required programs.
-6. You need a local copy of your fork.
-   - `git clone git@github.com:<your-github-username>/raven.git`
-   - `cd raven`
-7. Add the developer's remote.
-   - `git remote add upstream https://github.com/digital-raven/raven.git`
-8. Name your machine and checkout a branch for it.
-   - `git checkout -b your-machine`
-9. Run `./raven-configure` to configure the soon-to-be installation.
-10. This script will print the exact commands to format and install Raven
+3. Run `install-raven` to install the installation. An internet connection is
+   required for installation.
+4. This script will print the exact commands to format and install Raven
    to your selected drive upon its completion. These commands must be run
    on their own.
+
+## Create a New Installation from an Existing Installation
+
+Your installation comes with a local copy of the [Raven repository](https://codeberg.org/digital-raven/raven).
+The source code is hosted on Codeberg.
 
 ### Troubleshooting
    
@@ -51,20 +46,6 @@ a comment on how to replace the information.
 
 More general error messages will be reported in the output of the various
 `nixos-*` commands.
-
-## Create a New Installation from an Existing Installation
-
-1. Connect the desired storage device to a Raven machine.
-2. `cd` to your local copy of your fork and start your new configuration 
-   from the master branch.
-   - `git checkout master`
-3. Name your machine and checkout a branch for it.
-   - `git checkout -b your-machine`
-4. Run through the `raven-configure` script and its instructions. 
-
-Each installation Raven contains its own copy of the Raven repository if
-created properly. If yours doesn't for some reason then you'll need to
-download a new copy.
 
 ## Initial Use
 

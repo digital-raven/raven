@@ -19,7 +19,7 @@ Read the [user-guide](./docs/user-guide.md).
 ## Orientation
 
 - `docs`: Contains the [user-guide](./docs/user-guide.md), start there.
-- `machine`: Entry point to *this* machine's configuration. Very universal
+- `main-system`: Entry point to *this* machine's configuration. Very universal
            information. Set hostname, user accounts, choose specific drivers...
 - `parts-store`: Re-usable modules.
 - `patterns`: Preset selections of parts applied onto your machine.
