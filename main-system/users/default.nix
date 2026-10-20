@@ -1,13 +1,6 @@
 # Edit this file to add or remove users to/from the system.
 # Configure home-manager under ./home-manager
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   # Disable root user. Nothing hashes to just "!", so this effectively disables
   # password authentication for root.
   # A user with sudo access can still use `sudo su` to get into root.
@@ -19,7 +12,7 @@
     initialPassword = "master";
     isNormalUser = true;
     openssh.authorizedKeys.keys = [
-      # Add your SSH public key(s) here, if you plan on using SSH to connect
+      # Add SSH public key(s) here.
     ];
 
     extraGroups = [

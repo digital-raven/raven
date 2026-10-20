@@ -225,12 +225,12 @@ echo "INFO: Configuring AC $RAVEN_HOSTNAME" 2>&1
 sed -i "s/REPLACEME_hostName/$RAVEN_HOSTNAME/" ./main-system/configuration.nix
 echo "INFO: Pattern: $RAVEN_PATTERN" 2>&1
 sed -i "s/REPLACEME_raven-pattern/$RAVEN_PATTERN/" ./main-system/configuration.nix
-sed -i "s/REPLACEME_raven-pattern/$RAVEN_PATTERN/" ./main-system/home-manager/master/default.nix
-sed -i "s/REPLACEME_raven-pattern/$RAVEN_PATTERN/" ./main-system/home-manager/guest/default.nix
+sed -i "s/REPLACEME_raven-pattern/$RAVEN_PATTERN/" ./main-system/users/home-manager/master/default.nix
+sed -i "s/REPLACEME_raven-pattern/$RAVEN_PATTERN/" ./main-system/users/home-manager/guest/default.nix
 echo "INFO: Setting Git Name as $RAVEN_GIT_USERNAME" 2>&1
-sed -i "s/REPLACEME_gitUserName/$RAVEN_GIT_USERNAME/" ./main-system/home-manager/master/git.nix
+sed -i "s/REPLACEME_gitUserName/$RAVEN_GIT_USERNAME/" ./main-system/users/home-manager/master/git.nix
 echo "INFO: Setting Git email as $RAVEN_GIT_EMAIL" 2>&1
-sed -i "s/REPLACEME_gitUserEmail/$RAVEN_GIT_EMAIL/" ./main-system/home-manager/master/git.nix
+sed -i "s/REPLACEME_gitUserEmail/$RAVEN_GIT_EMAIL/" ./main-system/users/home-manager/master/git.nix
 echo "INFO: Setting timezone as $RAVEN_TIMEZONE" 2>&1
 sed -i "s,REPLACEME_timeZone,$RAVEN_TIMEZONE," ./main-system/configuration.nix
 echo "INFO: Setting locale as $RAVEN_LOCALE" 2>&1

@@ -6,14 +6,7 @@
 #
 # The best gamers can really hope for on this front are DRM free games (GOG)
 # and emulation with archived ROMs.
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   imports = [
     ./emulators.nix
     ./launchers.nix

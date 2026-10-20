@@ -19,6 +19,7 @@
     python3 # Install python packages using a virtual environment.
 
     # Shell comforts and tools.
+    bash-completion # Tab auto-complete
     killall # Kill all processes by name.
     openssl # Cryptography toolkit.
     man-pages # Manuals for popular programs. `man <command>`
