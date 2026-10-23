@@ -15,7 +15,9 @@
     ./hyprland/default.nix
     ./hyprlock/default.nix
     ./kitty/default.nix
+    ./ranger.nix
     ./rofi/default.nix
+    ./stylix.nix
     ./swww/default.nix
     ./waybar/default.nix
     ./wlogout/default.nix

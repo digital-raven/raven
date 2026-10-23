@@ -2,7 +2,7 @@
   services.swww.enable = true;
 
   home.file = {
-    "Wallpapers" = {
+    ".config/Wallpapers" = {
       source = ./Wallpapers;
       recursive = true;
     };

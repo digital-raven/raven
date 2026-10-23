@@ -62,22 +62,15 @@
 	color: @main-bg;
 }
 
-/*--------------------
-    idle inhibitor
---------------------*/
-
-#custom-right_inv.1 {
-	color: @time;
-}
-#idle_inhibitor {
-	background-color: @time;
-}
-
 /*----------
     time
 ----------*/
+#custom-right_inv.1 {
+	color: @time;
+}
 
 #clock.time {
+	padding-left: 18px;
 	padding-right: 6px;
 	background-color: @time;
 }

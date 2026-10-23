@@ -12,12 +12,16 @@
     # Disko handles disk partitioning.
     disko.url = "github:digital-raven/disko/v1.13.0";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+
+    stylix.url = "github:digital-raven/stylix/release-25.05";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
+    stylix,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -49,6 +53,7 @@
           ./main-system/configuration.nix
           home-manager.nixosModules.home-manager
           {
+            home-manager.extraSpecialArgs = {inherit inputs;};
             imports = [./main-system/home-manager.nix];
           }
         ];

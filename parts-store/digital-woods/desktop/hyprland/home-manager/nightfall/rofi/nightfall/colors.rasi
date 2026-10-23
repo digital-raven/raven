@@ -1,0 +1,48 @@
+* {
+    /* Basic Colors */
+
+    white:      #ffffff; 
+    black:      #000000;
+    red:        #ff0000;
+    glass:      #00000000; /* rrggbbaa Invisible */
+
+    /* Nightfall Colors */
+    polaris-night: #1e344a;
+    polaris-river: #58cfe9;
+    polaris-river-glass: #58cfe980;
+    polaris-woods: #027e50;
+
+    lady-slipper-pink: #ad499c;
+    seal-gold: #e7cb05;
+    charlie-orange: #b7410e;
+    blueberry: #4f86f7;
+
+    obsidian-dark: #05010c; /* rrggbb */
+    obsidian-dark-glass: #05010c80; /* rrggbbaa */
+
+    /* Elements */ 
+
+    background:             @obsidian-dark-glass;
+    background-alt:         @obsidian-dark;
+    background-selected:    @polaris-river-glass;
+    background-active:      @polaris-woods;
+    background-urgent:      @white;
+                            
+    foreground:             @white;
+    foreground-alt:         @obsidian-dark;
+    foreground-selected:    @white;
+    foreground-active:      @white;
+    foreground-urgent:      @white;
+                            
+    text-color:             @white;
+    border-color:           @polaris-night;
+    separator-color:        @white;
+    placeholder-color:      @black; /* textbox placeholder */
+    handle-color:           @white; /* scrollbar handle */
+    normal:                 @white;
+    selected:               @white;
+    active:                 @white;
+    urgent:                 @white;
+
+    accent:                 @polaris-river;
+}

@@ -3,7 +3,8 @@
 -----------*/
 
 #custom-trigger:hover,
-#idle_inhibitor:hover,
+#memory:hover,
+#cpu:hover,
 #clock.date:hover,
 #network:hover,
 #bluetooth:hover,
@@ -18,7 +19,6 @@
     disabled
 ---------------*/
 
-#idle_inhibitor.deactivated,
 #mpris.paused,
 #pulseaudio.output.muted,
 #pulseaudio.input.source-muted,

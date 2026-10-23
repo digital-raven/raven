@@ -46,6 +46,12 @@
   programs.firefox = {
     enable = true;
 
+    profiles = {
+      default = {
+        path = config.home.username;
+      };
+    };
+
     policies = {
       AIControls = {
         # Disable in-browser AI.
@@ -165,10 +171,10 @@
       # Proxy # Do it yourself. Mullvad provides SOCKS v5.
       SanitizeOnShutdown = {
         # Keep most things.
-        Cache = false; # Testing showed this was necessary for previous-session.
+        Cache = true;
         Cookies = false;
         FormData = false;
-        History = false;
+        History = true;
         Sessions = false;
         SiteSettings = false;
       };

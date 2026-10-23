@@ -25,6 +25,7 @@
     man-pages # Manuals for popular programs. `man <command>`
     man-pages-posix # Manuals for classic POSIX programs and libraries.
     neofetch # Pretty-print system overview.
+    ranger # Command-line file explorer.
     rig # Print surface-level fake people.
     tmux # Terminal multiplexer
     zsh # Popular alternative to BASH.

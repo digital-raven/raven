@@ -4,6 +4,6 @@
     ./users/home-manager/default.nix
   ];
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
+  home-manager.useGlobalPkgs = false;
+  home-manager.useUserPackages = false;
 }

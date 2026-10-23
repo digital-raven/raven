@@ -16,7 +16,7 @@
       background = [
         {
           monitor = "";
-          path = "~/.config/hypr/hyprlock/assets/gundam.jpg";
+          path = "~/.config/hypr/hyprlock/assets/black.jpg";
         }
       ];
 
