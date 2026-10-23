@@ -1,7 +1,8 @@
-# Firefox and Brave to cover non-chromium and chromium bases.
+# Firefox is the only browser by default.
+#
+# Brave and librewolf can be inserted here manually if you wish to install them.
 {...}: {
   imports = [
-    ./brave.nix
     ./firefox.nix
   ];
 }
