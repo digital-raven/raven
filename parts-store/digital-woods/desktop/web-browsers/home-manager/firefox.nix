@@ -46,6 +46,12 @@
   programs.firefox = {
     enable = true;
 
+    profiles = {
+      default = {
+        path = config.home.username;
+      };
+    };
+
     policies = {
       AIControls = {
         # Disable in-browser AI.
