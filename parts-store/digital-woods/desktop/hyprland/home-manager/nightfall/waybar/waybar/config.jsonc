@@ -33,7 +33,6 @@
 		"custom/distro",
 		"custom/right_div#2",
 		"custom/right_inv#1",
-		"idle_inhibitor",
 		"clock#time",
 		"custom/right_div#3",
 		"clock#date",
@@ -44,7 +43,6 @@
 		"custom/right_div#5"
 	],
 	"modules-right": [
-		"mpris",
 		"custom/left_div#6",
 		"group/pulseaudio",
 		"custom/left_div#7",

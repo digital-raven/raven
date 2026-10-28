@@ -14,11 +14,11 @@ button {
     background-color: #11111b;
     border-style: solid;
     /* border-width: 2px; */
-    border-radius: 50px;
+    border-radius: 10px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 15%;
-    margin: 15px;
+    margin: 2px;
 }
 
 button:active,

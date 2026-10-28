@@ -6,7 +6,7 @@
   terminal = "kitty";
   fileExplorer = "nautilus";
   menu = "rofi";
-  menuFlags = "-show drun -theme $HOME/.config/rofi/deathemonic/style.rasi";
+  menuFlags = "-show drun -theme $HOME/.config/rofi/nightfall/program-launcher.rasi";
   colorPicker = "hyprpicker";
 in {
   # hyprland.conf needs to load the plugins
@@ -82,6 +82,9 @@ in {
         # Window float and toggle split.
         "${mainMod}, F, togglefloating,"
         "${mainMod}, V, togglesplit,"
+
+        # Wallpaper launcher
+        "${mainMod}, W, exec, pkill ${menu} || $HOME/.config/rofi/nightfall/wallpaper-select.bash"
 
         # Tools! ALT+S for screen shot, ALT+C for color picker. Copied to clipboard.
         "CTRL ALT, S, exec, grimblast copy area"
