@@ -1,0 +1,20 @@
+#waybar {
+	background-color: alpha(@polaris_star, 0.00);
+}
+#waybar > box {
+	margin: 4px;
+	background-color: alpha(@main-bg, 0.40);
+}
+
+/*--------------
+    tooltips
+--------------*/
+
+tooltip {
+	border: 2px solid @main-br;
+	border-radius: 10px;
+	background-color: alpha(@main-bg, 0.80);
+}
+tooltip > box {
+	padding: 0 6px;
+}
