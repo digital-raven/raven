@@ -2,10 +2,11 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     easytag # Edit mp3 metadata.
+    eog # Photo-viewer
     gimp # Comprehensive image editor.
-    kdePackages.gwenview # Photo-viewer
-    kdePackages.kolourpaint # Easy-to-use paint program
+    #krita # Drawing software
     obs-studio # Record and stream applications and games.
+    pinta
     qbittorrent # Torrent client
     vlc # Best video player
   ];
