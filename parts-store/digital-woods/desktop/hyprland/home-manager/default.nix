@@ -10,8 +10,10 @@
 # themes using home manager instead of an entire system rebuild.
 #
 {pkgs, ...}: {
-  # Import a theme.
+  # Choose one at a time.
   imports = [
+    #./nightfall/default.nix
     ./polaris/default.nix
+    #./stylix/default.nix
   ];
 }
