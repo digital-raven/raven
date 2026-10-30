@@ -1,0 +1,47 @@
+/* Nightfall Waybar colors */
+
+@define-color green         #a6e3a1;
+
+/* Nightfall Colors */
+@define-color polaris-night #1e344a;
+@define-color polaris-river #58cfe9;
+@define-color polaris-woods #027e50;
+@define-color polaris-star #ffffff;
+
+@define-color lady-slipper-pink #ad499c;
+@define-color seal-gold #e7cb05;
+@define-color charlie-orange #b7410e;
+@define-color blueberry #4f86f7;
+
+@define-color obsidian-purple #05010C;
+
+/* main waybar colors
+ *
+ *   br - border
+ * 	 bg - background
+ * 	 fg - foreground
+*/
+@define-color accent        @polaris-star;
+@define-color main-br       @obsidian-purple;
+@define-color main-bg       @obsidian-purple;
+@define-color main-fg       @polaris-star; /* text color */
+@define-color hover-bg      @polaris-river;
+@define-color hover-fg      @polaris-river;
+@define-color outline       @obsidian-purple;
+
+/* waybar module colors */
+@define-color workspaces    @polaris-woods;
+@define-color temperature   @obsidian-purple;
+@define-color memory        @polaris-woods;
+@define-color cpu           @polaris-night;
+@define-color time          @polaris-night;
+@define-color date          @polaris-woods;
+@define-color tray          @obsidian-purple;
+@define-color volume        @obsidian-purple;
+@define-color backlight     @polaris-woods;
+@define-color battery       @polaris-night;
+
+/* state colors */
+@define-color warning       @charlie-orange;
+@define-color critical      @seal-gold;
+@define-color charging      @green;

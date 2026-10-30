@@ -12,6 +12,6 @@
 {pkgs, ...}: {
   # Import a theme.
   imports = [
-    ./nightfall/default.nix
+    ./polaris/default.nix
   ];
 }
