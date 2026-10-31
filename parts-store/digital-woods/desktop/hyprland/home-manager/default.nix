@@ -1,19 +1,24 @@
-# Raven keeps all hyprland modifications scoped in home-manager.
-# This is done through themes.
+# Theme management is performed following Harness.
 #
-# A theme is responsible for all reliant programs and configuration files.
-#
-# eg. If your theme has a waybar configuration, then it should be
-#     responsible for waybar's installation as well.
-#
-# This makes it easy to keep a theme portable. It also allows switching
-# themes using home manager instead of an entire system rebuild.
+# Modify this file to select a theme.
 #
 {pkgs, ...}: {
-  # Choose one at a time.
   imports = [
-    #./nightfall/default.nix
-    ./polaris/default.nix
-    #./stylix/default.nix
+    # Select themes here.
+    #./themes/nightfall/default.nix
+    ./themes/polaris/default.nix
+    #./themes/stylix/default.nix
+
+    # Harness Globals
+    ./hyprland/default.nix
+    ./hyprlock/default.nix
+    ./kitty/default.nix
+    ./ranger.nix
+    ./rofi/default.nix
+    ./waybar/default.nix
+    ./wlogout/default.nix
   ];
+
+  # Also a Harness Global
+  services.swww.enable = true;
 }

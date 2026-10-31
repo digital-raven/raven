@@ -1,0 +1,28 @@
+@import "./config.rasi"
+
+*{
+    /* Elements */
+    /* background:             @background; */
+    background-alt:         @alternate-active-background;
+    background-selected:    @selected-active-background;
+    background-active:      @active-background;
+    background-urgent:      @urgent-background;
+
+    /*foreground:             @white;*/
+    foreground-alt:         @alternate-normal-foreground;
+    foreground-selected:    @selected-active-foreground;
+    foreground-active:      @alternate-active-foreground;
+    foreground-urgent:      @urgent-foreground;
+
+    text-color:             @base-text;
+    /*border-color:         @border-color;*/
+    separator-color:        @separatorcolor;
+    placeholder-color:      #000000; /* textbox placeholder */
+    handle-color:           #FFFFFF; /* scrollbar handle */
+    normal:                 #FFFFFF;
+    selected:               #FFFFFF;
+    active:                 #FFFFFF;
+    urgent:                 #FFFFFF;
+
+    accent:                 @blue;
+}

@@ -1,0 +1,74 @@
+
+/* Copied by hand from stylix.nix.
+ *
+ * These are the values stylix will write automatically to
+ * ~/.config/waybar/style.css
+ *
+ * This makes style.css annoying to dance around when invoking `waybar`.
+ */
+@define-color base00 #3c3836;
+@define-color base01 #cc241d;
+@define-color base02 #98971a;
+@define-color base03 #fb4934;
+@define-color base04 #458588;
+@define-color base05 #a89984;
+@define-color base06 #689d6a;
+@define-color base07 #fb4934;
+@define-color base08 #cc241d;
+@define-color base09 #fb4934;
+@define-color base0A #d79921;
+@define-color base0B #98971a;
+@define-color base0C #689d6a;
+@define-color base0D #458588;
+@define-color base0E #b16286;
+@define-color base0F #fbf1c7;
+
+/* main colors */
+
+@define-color black   @base00;
+@define-color red     @base01;
+@define-color green   @base02;
+@define-color yellow  @base03;
+@define-color blue    @base04;
+@define-color magenta @base05;
+@define-color cyan    @base06;
+@define-color white   @base07;
+
+@define-color bright-black   @base08;
+@define-color bright-red     @base09;
+@define-color bright-green   @base0A;
+@define-color bright-yellow  @base0B;
+@define-color bright-blue    @base0C;
+@define-color bright-magenta @base0D;
+@define-color bright-cyan    @base0E;
+@define-color bright-white   @base0F;
+
+/* br - border
+	 bg - background
+	 fg - foreground */
+@define-color accent        @bright-white;
+@define-color main-br       @black;
+@define-color main-bg       @black;
+@define-color main-fg       @bright-white;
+@define-color hover-bg      @blue;
+@define-color hover-fg      alpha(@main-fg, 0.75);
+@define-color outline       shade(@main-bg, 0.5);
+
+/* module colors */
+
+@define-color workspaces    @green;
+@define-color temperature   @black;
+@define-color memory        @green;
+@define-color cpu           @bright-black;
+@define-color time          @bright-black;
+@define-color date          @green;
+@define-color tray          @black;
+@define-color volume        @black;
+@define-color backlight     @green;
+@define-color battery       @bright-black;
+
+/* state colors */
+
+@define-color warning       @yellow;
+@define-color critical      @red;
+@define-color charging      @green;
