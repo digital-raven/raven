@@ -3,7 +3,7 @@
   # You can import other home-manager modules here
   imports = [
     # Select the pattern you plan on using
-    ../../../../patterns/REPLACEME_raven-pattern/home-manager/default.nix
+    ../../../../patterns/REPLACEME_raven-pattern/home-manager
 
     # Personal
     ./git.nix

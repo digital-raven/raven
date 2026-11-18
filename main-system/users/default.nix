@@ -1,14 +1,16 @@
 # Edit this file to add or remove users to/from the system.
+#
+# Use `passwd` on first login!
+#
 # Configure home-manager under ./home-manager
+#
 {...}: {
-  # Disable root user. Nothing hashes to just "!", so this effectively disables
-  # password authentication for root.
+  # Disable root. Nothing hashes to just "!".
   # A user with sudo access can still use `sudo su` to get into root.
   users.users.root.hashedPassword = "!";
 
-  # Copy this block to create additional root users.
+  # Copy to create privileged users.
   users.users.master = {
-    # Change this password (using passwd) after rebooting!
     initialPassword = "master";
     isNormalUser = true;
     openssh.authorizedKeys.keys = [
@@ -23,7 +25,7 @@
     ];
   };
 
-  # Uncomment the following to give the system a "guest" user.
+  # Uncomment or copy to create a "guest" user.
   #users.users.guest = {
   #  # Change this password (using passwd) after rebooting!
   #  initialPassword = "guest";

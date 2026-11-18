@@ -13,15 +13,16 @@
     disko.url = "github:digital-raven/disko/v1.13.0";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    stylix.url = "github:digital-raven/stylix/release-25.05";
-    stylix.inputs.nixpkgs.follows = "nixpkgs";
+    # Desktop Environment.
+    harnessed.url = "github:digital-raven/harnessed/nixos-25.05";
+    harnessed.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
-    stylix,
+    harnessed,
     ...
   } @ inputs: let
     inherit (self) outputs;

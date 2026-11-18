@@ -1,4 +1,6 @@
-# Minimum utilities to install a proper Raven system.
+# Install a proper Raven system.
+#
+# The script has the git revision baked in.
 {pkgs, ...}: let
   # ISO pulls exact branch and commit of the repo which built it.
   raven_branch = builtins.getEnv "RAVEN_BRANCH";
@@ -6,7 +8,7 @@
 in {
   imports = [
     # Raven-Core
-    ../../parts-store/digital-woods/cores/raven-core/default.nix
+    ../../parts-store/core
   ];
 
   # install-raven script.

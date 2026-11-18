@@ -108,6 +108,7 @@
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
+          "harnessed",
           "stylix",
           "nixpkgs"
         ]
@@ -159,7 +160,51 @@
         "type": "github"
       }
     },
+    "harnessed": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "stylix": "stylix"
+      },
+      "locked": {
+        "lastModified": 1795256099,
+        "narHash": "sha256-AcNr/uy4cYMq+7MMMAmFlx9m2KtgG5iEEGHQ74Xwn4s=",
+        "owner": "digital-raven",
+        "repo": "harnessed",
+        "rev": "c6e270c646fae83023cc74279b5f86cc5a0c9686",
+        "type": "github"
+      },
+      "original": {
+        "owner": "digital-raven",
+        "ref": "nixos-25.05",
+        "repo": "harnessed",
+        "type": "github"
+      }
+    },
     "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "harnessed",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781989573,
+        "narHash": "sha256-npfH7Zv7t1akX/ArqCNro4zU4ViPlghLaPnbEfHbCxk=",
+        "owner": "digital-raven",
+        "repo": "home-manager",
+        "rev": "78e7d8b13ecd7f5256a5c11ce216876164099d9f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "digital-raven",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "home-manager_2": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -199,10 +244,12 @@
     "nur": {
       "inputs": {
         "flake-parts": [
+          "harnessed",
           "stylix",
           "flake-parts"
         ],
         "nixpkgs": [
+          "harnessed",
           "stylix",
           "nixpkgs"
         ],
@@ -225,9 +272,9 @@
     "root": {
       "inputs": {
         "disko": "disko",
-        "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs",
-        "stylix": "stylix"
+        "harnessed": "harnessed",
+        "home-manager": "home-manager_2",
+        "nixpkgs": "nixpkgs"
       }
     },
     "stylix": {
@@ -240,6 +287,7 @@
         "flake-parts": "flake-parts",
         "gnome-shell": "gnome-shell",
         "nixpkgs": [
+          "harnessed",
           "nixpkgs"
         ],
         "nur": "nur",
@@ -364,6 +412,7 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
+          "harnessed",
           "stylix",
           "nur",
           "nixpkgs"

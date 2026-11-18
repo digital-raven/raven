@@ -1,4 +1,4 @@
-# Loader ISO configuration entrypoint.
+# Loader main-system.
 {
   pkgs,
   lib,
@@ -9,7 +9,7 @@
     ../default.nix
 
     # Users
-    ./users/default.nix
+    ./users
   ];
 
   nixpkgs = {

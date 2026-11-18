@@ -2,7 +2,7 @@
 {...}: {
   imports = [
     # Loader pattern home-manager
-    ../../../../home-manager/default.nix
+    ../../../../home-manager
 
     # Personal
     ./git.nix

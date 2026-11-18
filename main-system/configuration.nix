@@ -20,7 +20,7 @@
     # hardware-configuration.nix is brought to the system via flake.nix
 
     # Apply pattern.
-    ../patterns/REPLACEME_raven-pattern/default.nix
+    ../patterns/REPLACEME_raven-pattern
 
     # System-wide packages
     ./system-packages.nix
@@ -32,7 +32,7 @@
     #./disks/REPLACEME_disk_profile
 
     # Users
-    ./users/default.nix
+    ./users
   ];
 
   # Bootloader

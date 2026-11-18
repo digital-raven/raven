@@ -2,7 +2,7 @@
 {pkgs, ...}: {
   # You can import other home-manager modules here
   imports = [
-    ../../../../patterns/REPLACEME_raven-pattern/home-manager/default.nix
+    ../../../../patterns/REPLACEME_raven-pattern/home-manager
   ];
 
   # EDIT_ username and homeDirectory when copying this file to create a new user.
