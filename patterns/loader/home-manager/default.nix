@@ -1,5 +1,5 @@
 {...}: {
   imports = [
-    ../../../parts-store/core
+    ../../../parts-store/core/home-manager
   ];
 }
