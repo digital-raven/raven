@@ -7,7 +7,7 @@
 
     # Agnostic application preferences.
     ../../../parts-store/terminal/home-manager
-    #../../../parts-store/desktop/home-manager
+    ../../../parts-store/desktop/home-manager
 
     # Firefox
     ../../../parts-store/firefox/home-manager
