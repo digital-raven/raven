@@ -169,11 +169,11 @@
         "stylix": "stylix"
       },
       "locked": {
-        "lastModified": 1795448467,
-        "narHash": "sha256-8Cp9LznGLcFetYm+YLa910/qgW2OgBgPIy+gd4vZtAg=",
+        "lastModified": 1795450224,
+        "narHash": "sha256-jpgNL+Hg2eybxNVCkhq/A/1jwF0zqTqcNWie4de9jLE=",
         "owner": "digital-raven",
         "repo": "harnessed",
-        "rev": "4a7e55c989b1eb3e0e97bdfbd57dcb8764a627ca",
+        "rev": "10a69595ad19ac2698bc4a073bfccc4bbb73bd30",
         "type": "github"
       },
       "original": {
