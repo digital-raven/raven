@@ -9,4 +9,6 @@
   imports = [
     inputs.harnessed.nixosModules.hyprland
   ];
+
+  harnessed.hyprland.enable = true;
 }

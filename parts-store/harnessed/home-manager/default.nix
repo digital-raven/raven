@@ -4,9 +4,11 @@
 #
 {inputs, ...}: {
   imports = [
-    # Raven themes: Enable one at a time
-    #inputs.harnessed.themes.raven.nightfall
-    inputs.harnessed.themes.raven.polaris
-    #inputs.harnessed.themes.raven.stylix
+    inputs.harnessed.homeModules.themes
   ];
+
+  # Raven themes. Choose one.
+  #themes.raven.nightfall.enable = true;
+  themes.raven.polaris.enable = true;
+  #themes.raven.stylix.enable = true;
 }
